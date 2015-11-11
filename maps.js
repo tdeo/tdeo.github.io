@@ -68,9 +68,26 @@ function getZone(north, south, west, east, zoom) {
   canvas.height = image_size_cropped * row;
 };
 
-document.getElementById("download").onclick = function() {
-  var img = canvas.toDataURL("image/png;base64;");
-  window.open(img);
+function lookCity() {
+  document.getElementById('suggestions').innerHTML = '';
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open('GET', encodeURI('https://maps.googleapis.com/maps/api/geocode/json?address=' + document.getElementById('search_text').value + '&key=' + api_key), false);
+  xmlHttp.send(null);
+  var results = JSON.parse(xmlHttp.responseText)['results'];
+  if (results.length == 0) {
+    document.getElementById('suggestions').innerHTML = 'No results';
+  };
+  for(var i = 1; i < results.length; i++) {
+    document.getElementById('suggestions').innerHTML += results[i]['formatted_address'] + '<br />';
+  }
+  document.getElementById('north').value = results[0]['geometry']['bounds']['northeast']['lat'];
+  document.getElementById('south').value = results[0]['geometry']['bounds']['southwest']['lat'];
+  document.getElementById('east').value = results[0]['geometry']['bounds']['northeast']['lng'];
+  document.getElementById('west').value = results[0]['geometry']['bounds']['southwest']['lng'];
+};
+
+document.getElementById("search").onclick = function() {
+  lookCity();
 };
 
 document.getElementById("generate").onclick = function() {
