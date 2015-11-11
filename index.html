@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <table>
+    <tr>
+      <td>North latitude:</td>
+      <td><input type="text" id="north" value="52.382052"></td>
+    </td>
+    <tr>
+      <td>South latitude:</td>
+      <td><input type="text" id="south" value="52.360052"></td>
+    </td>
+    <tr>
+      <td>West longitude:</td>
+      <td><input type="text" id="west" value="4.877190"></td>
+    </td>
+    <tr>
+      <td>East longitude:</td>
+      <td><input type="text" id="east" value="4.916190"></td>
+    </td>
+    <tr>
+      <td>Zoom level:</td>
+      <td><input type="text" id="zoom" value="15"></td>
+    </td>
+    <tr>
+      <td></td>
+      <td><button type="button" id="generate">Generate</button></td>
+    </tr>
+  </table>
+  <br />
+
+  <canvas id="canvas" width="600" height="600"></canvas>
+
+  <script src="maps.js"></script>
+</body>
+</html>
