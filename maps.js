@@ -39,6 +39,7 @@ function computeCorners(latitude, longitude, zoom, width, height) {
 
 function getImage(latitude, longitude, zoom, row, column) {
   var image = new Image();
+  image.setAttribute('crossOrigin', 'anonymous');
   var url = "https://maps.googleapis.com/maps/api/staticmap?zoom=" + zoom + "&size=" + image_size + "x" + image_size + "&maptype=satellite&center=" + latitude + "," + longitude + "&key=" + api_key;
   image.onload = function() {
     context.drawImage(image, 0, 0, image_size_cropped, image_size_cropped, 0 + column * image_size_cropped, 0 + row * image_size_cropped, image_size_cropped, image_size_cropped);
@@ -65,6 +66,11 @@ function getZone(north, south, west, east, zoom) {
   }
   canvas.width = image_size_cropped * column;
   canvas.height = image_size_cropped * row;
+};
+
+document.getElementById("download").onclick = function() {
+  var img = canvas.toDataURL("image/png;base64;");
+  window.open(img);
 };
 
 document.getElementById("generate").onclick = function() {
