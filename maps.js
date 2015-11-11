@@ -3,6 +3,8 @@ var image_size = 640;
 var image_size_cropped = 600;
 var zoom = 12;
 
+var suggestions = [];
+
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 
@@ -71,19 +73,32 @@ function getZone(north, south, west, east, zoom) {
 function lookCity() {
   document.getElementById('suggestions').innerHTML = '';
   var xmlHttp = new XMLHttpRequest();
-  xmlHttp.open('GET', encodeURI('https://maps.googleapis.com/maps/api/geocode/json?address=' + document.getElementById('search_text').value + '&key=' + api_key), false);
-  xmlHttp.send(null);
-  var results = JSON.parse(xmlHttp.responseText)['results'];
-  if (results.length == 0) {
-    document.getElementById('suggestions').innerHTML = 'No results';
+  xmlHttp.onreadystatechange = function() {
+    if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+      suggestions = JSON.parse(xmlHttp.responseText)['results'];
+      if (suggestions.length == 0) {
+        document.getElementById('suggestions').innerHTML = 'No results';
+      };
+      for(var i = 0; i < suggestions.length; i++) {
+        document.getElementById('suggestions').innerHTML += '<a href="#" id="result_' + i + '">' + suggestions[i]['formatted_address'] + '</a><br />';
+      }
+      for(var i = 0; i < suggestions.length; i++) {
+        document.getElementById('result_' + i).addEventListener('click', function(e) {
+          var j = e.srcElement.id.replace('result_', '')
+          document.getElementById('north').value = suggestions[j]['geometry']['viewport']['northeast']['lat'];
+          document.getElementById('south').value = suggestions[j]['geometry']['viewport']['southwest']['lat'];
+          document.getElementById('east').value = suggestions[j]['geometry']['viewport']['northeast']['lng'];
+          document.getElementById('west').value = suggestions[j]['geometry']['viewport']['southwest']['lng'];
+        });
+      }
+      document.getElementById('north').value = suggestions[0]['geometry']['viewport']['northeast']['lat'];
+      document.getElementById('south').value = suggestions[0]['geometry']['viewport']['southwest']['lat'];
+      document.getElementById('east').value = suggestions[0]['geometry']['viewport']['northeast']['lng'];
+      document.getElementById('west').value = suggestions[0]['geometry']['viewport']['southwest']['lng'];
+    }
   };
-  for(var i = 1; i < results.length; i++) {
-    document.getElementById('suggestions').innerHTML += results[i]['formatted_address'] + '<br />';
-  }
-  document.getElementById('north').value = results[0]['geometry']['bounds']['northeast']['lat'];
-  document.getElementById('south').value = results[0]['geometry']['bounds']['southwest']['lat'];
-  document.getElementById('east').value = results[0]['geometry']['bounds']['northeast']['lng'];
-  document.getElementById('west').value = results[0]['geometry']['bounds']['southwest']['lng'];
+  xmlHttp.open('GET', encodeURI('https://maps.googleapis.com/maps/api/geocode/json?address=' + document.getElementById('search_text').value + '&key=' + api_key));
+  xmlHttp.send(null);
 };
 
 document.getElementById("search").onclick = function() {

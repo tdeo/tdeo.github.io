@@ -3,7 +3,7 @@
 <head>
 </head>
 <body>
-  <table>
+  <table style='float: left; padding: 10px'>
     <tr>
       <td>North latitude:</td>
       <td><input type="text" id="north" value="52.382052"></td>
@@ -29,18 +29,14 @@
       <td><button type="button" id="generate">Generate</button></td>
     </tr>
   </table>
-  <table>
-    <tr>
+  <table style='float: left; padding: 10px'>
+    <tr style="vertical-align: top">
       <td>Place:</td>
-      <td><input type="text" id="search_text" value="Amsterdam"></td>
-    </tr>
-    <tr>
-      <td></td>
+      <td style="vertical-align: top">
+        <input type="text" id="search_text" value="Amsterdam"><br />
+        <button type="button" id="search">Search</button>
+      </td>
       <td id="suggestions"></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><button type="button" id="search">Search</button></td>
     </tr>
   </table>
   <br />
