@@ -1,6 +1,6 @@
 var api_key = 'AIzaSyAzvgVkGFZNr19zI1nsYo0teQqcgBAIfoU';
 var image_size = 640;
-var image_size_cropped = 600;
+var image_size_cropped = 620;
 var zoom = 12;
 
 var suggestions = [];
