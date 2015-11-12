@@ -3,6 +3,7 @@ var image_size = 640;
 var image_size_cropped = 620;
 var zoom = 12;
 var max_zoom = 21;
+var g_scale = 2;
 
 var suggestions = [];
 
@@ -13,7 +14,7 @@ var tile_size = 256.0;
 
 function toPixels(latitude, longitude) {
   var siny = Math.sin(latitude * Math.PI / 180);
-  siny = Math.min(Math.max(siny, -0.99), 0.99);
+  siny = Math.min(Math.max(siny, -0.9999), 0.9999);
   return [
     tile_size * (0.5 + longitude / 360),
     tile_size * (0.5 - Math.log((1 + siny) / (1 - siny)) / (4 * Math.PI))
@@ -43,9 +44,9 @@ function computeCorners(latitude, longitude, zoom, width, height) {
 function getImage(latitude, longitude, zoom, row, column) {
   var image = new Image();
   image.setAttribute('crossOrigin', 'anonymous');
-  var url = "https://maps.googleapis.com/maps/api/staticmap?zoom=" + zoom + "&size=" + image_size + "x" + image_size + "&maptype=satellite&center=" + latitude + "," + longitude + "&key=" + api_key;
+  var url = "https://maps.googleapis.com/maps/api/staticmap?zoom=" + zoom + "&scale=" + g_scale + "&size=" + image_size + "x" + image_size + "&maptype=satellite&center=" + latitude + "," + longitude + "&key=" + api_key;
   image.onload = function() {
-    context.drawImage(image, 0, 0, image_size_cropped, image_size_cropped, 0 + column * image_size_cropped, 0 + row * image_size_cropped, image_size_cropped, image_size_cropped);
+    context.drawImage(image, 0, 0, g_scale * image_size_cropped, g_scale * image_size_cropped, g_scale * column * image_size_cropped, g_scale * row * image_size_cropped, g_scale * image_size_cropped, g_scale * image_size_cropped);
   };
   image.src = url;
 };
@@ -67,8 +68,8 @@ function getZone(north, south, west, east, zoom) {
     latitude -= 2 * (latitude - corners['S']);
     row += 1;
   }
-  canvas.width = image_size_cropped * column;
-  canvas.height = image_size_cropped * row;
+  canvas.width = g_scale * image_size_cropped * column;
+  canvas.height = g_scale * image_size_cropped * row;
 };
 
 function setCoordinates(north, south, west, east) {
@@ -87,8 +88,9 @@ function approximateZoom() {
   var northeast_px = toPixels(north, east);
   var southwest_px = toPixels(south, west);
   var total_pixels = (northeast_px[0] - southwest_px[0]) * (southwest_px[1] - northeast_px[1]);
-  var approximate_zoom = Math.round(Math.log((200 * image_size_cropped * image_size_cropped) / total_pixels) / Math.LOG2E);
+  var approximate_zoom = Math.round(Math.log((100 * image_size_cropped * image_size_cropped) / total_pixels) / Math.LOG2E);
   max_zoom = approximate_zoom + 1;
+  document.getElementById('zoom').max = max_zoom;
   return approximate_zoom;
 };
 
