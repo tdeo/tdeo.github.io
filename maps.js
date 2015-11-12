@@ -2,6 +2,7 @@ var api_key = 'AIzaSyAzvgVkGFZNr19zI1nsYo0teQqcgBAIfoU';
 var image_size = 640;
 var image_size_cropped = 620;
 var zoom = 12;
+var max_zoom = 21;
 
 var suggestions = [];
 
@@ -70,6 +71,27 @@ function getZone(north, south, west, east, zoom) {
   canvas.height = image_size_cropped * row;
 };
 
+function setCoordinates(north, south, west, east) {
+  document.getElementById('north').value = north;
+  document.getElementById('south').value = south;
+  document.getElementById('west').value = west;
+  document.getElementById('east').value = east;
+  document.getElementById('zoom').value = approximateZoom();
+};
+
+function approximateZoom() {
+  var north = parseFloat(document.getElementById('north').value);
+  var south = parseFloat(document.getElementById('south').value);
+  var west = parseFloat(document.getElementById('west').value);
+  var east = parseFloat(document.getElementById('east').value);
+  var northeast_px = toPixels(north, east);
+  var southwest_px = toPixels(south, west);
+  var total_pixels = (northeast_px[0] - southwest_px[0]) * (southwest_px[1] - northeast_px[1]);
+  var approximate_zoom = Math.round(Math.log((200 * image_size_cropped * image_size_cropped) / total_pixels) / Math.LOG2E);
+  max_zoom = approximate_zoom + 1;
+  return approximate_zoom;
+};
+
 function lookCity() {
   document.getElementById('suggestions').innerHTML = '';
   var xmlHttp = new XMLHttpRequest();
@@ -84,17 +106,10 @@ function lookCity() {
       }
       for(var i = 0; i < suggestions.length; i++) {
         document.getElementById('result_' + i).addEventListener('click', function(e) {
-          var j = e.srcElement.id.replace('result_', '')
-          document.getElementById('north').value = suggestions[j]['geometry']['viewport']['northeast']['lat'];
-          document.getElementById('south').value = suggestions[j]['geometry']['viewport']['southwest']['lat'];
-          document.getElementById('east').value = suggestions[j]['geometry']['viewport']['northeast']['lng'];
-          document.getElementById('west').value = suggestions[j]['geometry']['viewport']['southwest']['lng'];
+          var viewport = suggestions[e.srcElement.id.replace('result_', '')]['geometry']['viewport'];
+          setCoordinates(viewport['northeast']['lat'], viewport['southwest']['lat'], viewport['southwest']['lng'], viewport['northeast']['lng']);
         });
       }
-      document.getElementById('north').value = suggestions[0]['geometry']['viewport']['northeast']['lat'];
-      document.getElementById('south').value = suggestions[0]['geometry']['viewport']['southwest']['lat'];
-      document.getElementById('east').value = suggestions[0]['geometry']['viewport']['northeast']['lng'];
-      document.getElementById('west').value = suggestions[0]['geometry']['viewport']['southwest']['lng'];
     }
   };
   xmlHttp.open('GET', encodeURI('https://maps.googleapis.com/maps/api/geocode/json?address=' + document.getElementById('search_text').value + '&key=' + api_key));
@@ -106,10 +121,12 @@ document.getElementById("search").onclick = function() {
 };
 
 document.getElementById("generate").onclick = function() {
+  approximateZoom();
   var north = parseFloat(document.getElementById('north').value);
   var south = parseFloat(document.getElementById('south').value);
   var west = parseFloat(document.getElementById('west').value);
   var east = parseFloat(document.getElementById('east').value);
-  var zoom = parseInt(document.getElementById('zoom').value);
+  var zoom = Math.min(max_zoom, parseInt(document.getElementById('zoom').value));
+  document.getElementById('zoom').value = zoom;
   getZone(north, south, west, east, zoom);
 };
