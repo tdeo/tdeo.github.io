@@ -116,11 +116,17 @@ function lookCity() {
   xmlHttp.send(null);
 };
 
-document.getElementById("search").onclick = function() {
+document.getElementById('download').onclick = function() {
+  canvas.toBlob(function(blob) {
+    saveAs(blob, document.getElementById('search_text').value + '.png');
+  });
+};
+
+document.getElementById('search').onclick = function() {
   lookCity();
 };
 
-document.getElementById("generate").onclick = function() {
+document.getElementById('generate').onclick = function() {
   approximateZoom();
   var north = parseFloat(document.getElementById('north').value);
   var south = parseFloat(document.getElementById('south').value);
