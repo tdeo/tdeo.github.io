@@ -2,7 +2,7 @@ var api_key = 'AIzaSyAzvgVkGFZNr19zI1nsYo0teQqcgBAIfoU';
 var image_size = 640;
 var image_size_cropped = 620;
 var zoom = 12;
-var max_zoom = 21;
+var max_zoom = 20;
 var g_scale = 2;
 
 var suggestions = [];
@@ -89,7 +89,7 @@ function approximateZoom() {
   var southwest_px = toPixels(south, west);
   var total_pixels = (northeast_px[0] - southwest_px[0]) * (southwest_px[1] - northeast_px[1]);
   var approximate_zoom = Math.round(Math.log((100 * image_size_cropped * image_size_cropped) / total_pixels) / Math.LOG2E);
-  max_zoom = approximate_zoom + 1;
+  max_zoom = Math.min(approximate_zoom + 1, 20);
   document.getElementById('zoom').max = max_zoom;
   return approximate_zoom;
 };
@@ -108,7 +108,10 @@ function lookCity() {
       }
       for(var i = 0; i < suggestions.length; i++) {
         document.getElementById('result_' + i).addEventListener('click', function(e) {
-          var viewport = suggestions[e.srcElement.id.replace('result_', '')]['geometry']['viewport'];
+          var elem = null;
+          if (e.srcElement) elem = e.srcElement;
+          else if (e.target) elem = e.target;
+          var viewport = suggestions[elem.id.replace('result_', '')]['geometry']['viewport'];
           setCoordinates(viewport['northeast']['lat'], viewport['southwest']['lat'], viewport['southwest']['lng'], viewport['northeast']['lng']);
         });
       }
