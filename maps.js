@@ -4,6 +4,7 @@ var image_size_cropped = 620;
 var zoom = 12;
 var max_zoom = 20;
 var g_scale = 2;
+var R_EARTH = 6378.1370; // In km
 
 var suggestions = [];
 
@@ -47,6 +48,7 @@ function getImage(latitude, longitude, zoom, row, column) {
   var url = "https://maps.googleapis.com/maps/api/staticmap?zoom=" + zoom + "&scale=" + g_scale + "&size=" + image_size + "x" + image_size + "&maptype=satellite&center=" + latitude + "," + longitude + "&key=" + api_key;
   image.onload = function() {
     context.drawImage(image, 0, 0, g_scale * image_size_cropped, g_scale * image_size_cropped, g_scale * column * image_size_cropped, g_scale * row * image_size_cropped, g_scale * image_size_cropped, g_scale * image_size_cropped);
+    addScale();
   };
   image.src = url;
 };
@@ -71,6 +73,33 @@ function getZone(north, south, west, east, zoom) {
   canvas.width = g_scale * image_size_cropped * column;
   canvas.height = g_scale * image_size_cropped * row;
 };
+
+function addScale() {
+  var south = parseFloat(document.getElementById('south').value);
+  var west = parseFloat(document.getElementById('west').value);
+  var zoom = Math.min(max_zoom, parseInt(document.getElementById('zoom').value));
+  var corners = computeCorners(south, west, zoom, image_size_cropped, image_size_cropped);
+  var latitude_delta = corners['N'] - corners['S'];
+  var distance = 2 * Math.PI * latitude_delta * R_EARTH / 360;
+  // Semi-transparent rectangle
+  context.globalAlpha = 0.7;
+  context.fillStyle = "#BBBBBB";
+  context.fillRect(0, canvas.height - 50, image_size_cropped, 50);
+  // Path for the U form
+  context.globalAlpha = 1;
+  context.strokeStyle = "#000000";
+  context.lineWidth = 5;
+  context.beginPath();
+  context.moveTo(10, canvas.height - 30);
+  context.lineTo(10, canvas.height - 10);
+  context.lineTo(image_size_cropped - 10, canvas.height - 10);
+  context.lineTo(image_size_cropped - 10, canvas.height - 30);
+  context.stroke();
+  // Write the text;
+  context.font = "30px Arial";
+  context.fillStyle = "#000000";
+  context.fillText(Math.round(100 * distance) / 100 + 'km', 20, canvas.height - 20)
+}
 
 function setCoordinates(north, south, west, east) {
   document.getElementById('north').value = north;
