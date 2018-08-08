@@ -29,5 +29,9 @@ module.exports = {
       }
     ]
   },
+  performance: {
+    maxEntrypointSize: Math.pow(2, 20),
+    maxAssetSize: Math.pow(2, 20)
+  },
   plugins: [HtmlWebpackPluginConfig]
 }
