@@ -1,21 +1,18 @@
 import React from 'react';
+import { Grid, Row, Col } from 'react-bootstrap';
+import { Route, Link } from 'react-router-dom';
+
+import Index from './Index.jsx';
+import Maps from './maps/Maps.jsx';
 import Navigation from './Navigation.jsx';
-import {Grid, Row, Col} from 'react-bootstrap';
 
 export default class App extends React.Component {
   render() {
     return (
       <div>
         <Navigation />
-        <Grid>
-          <Row>
-            <Col className="text-center">
-              <h1>TDeo's web experiments</h1>
-              This is a collection of project / ideas / services that I put together on various occasions.
-              And now it's also meant to learn some different client-side technologies.
-            </Col>
-          </Row>
-        </Grid>
+        <Route exact path="/" component={Index}/>
+        <Route path="/maps" component={Maps}/>
       </div>
     );
   }

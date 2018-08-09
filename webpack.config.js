@@ -33,5 +33,10 @@ module.exports = {
     maxEntrypointSize: Math.pow(2, 20),
     maxAssetSize: Math.pow(2, 20)
   },
-  plugins: [HtmlWebpackPluginConfig]
+  plugins: [
+    HtmlWebpackPluginConfig
+  ],
+  devServer: {
+    historyApiFallback: true
+  }
 }
