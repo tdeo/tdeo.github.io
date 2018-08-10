@@ -1,6 +1,8 @@
 import React from 'react';
 import {Grid, Row, Col} from 'react-bootstrap';
 
+import CoordinatesForm from './CoordinatesForm.jsx';
+
 export default class Index extends React.Component {
   render() {
     return (
@@ -13,7 +15,11 @@ export default class Index extends React.Component {
               of a portion of the Earth.
             </Col>
           </Row>
+          <br />
           <Row>
+            <Col>
+              <CoordinatesForm />
+            </Col>
           </Row>
         </Grid>
       </div>
