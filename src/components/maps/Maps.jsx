@@ -5,7 +5,7 @@ import Canvas from './Canvas.jsx';
 import CoordinatesForm from './CoordinatesForm.jsx';
 import Utils from './Utils.jsx';
 
-export default class Index extends React.Component {
+export default class Maps extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -15,6 +15,7 @@ export default class Index extends React.Component {
   }
 
   onSubmit(props) {
+    // this.setState({ width: 0, height: 0, images: [] });
     this.setState(Utils.computeImages(props));
   }
 

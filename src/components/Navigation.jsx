@@ -20,6 +20,11 @@ export default class Navigation extends React.Component {
                 Maps HD
               </NavItem>
             </LinkContainer>
+            <LinkContainer to="/dice">
+              <NavItem>
+                Dice
+              </NavItem>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

@@ -44,7 +44,7 @@ export default class Utils {
 
   static imageProps(latitude, longitude, zoom, row, col) {
     return {
-      key: `${row},${col}`,
+      key: `${latitude},${longitude},${zoom}`,
       src: `https://maps.googleapis.com/maps/api/staticmap?zoom=${zoom}&scale=${g_scale}&size=${image_size}x${image_size}&maptype=satellite&center=${latitude},${longitude}&key=${api_key}`,
       x: g_scale * image_size_cropped * col,
       y: g_scale * image_size_cropped * row,

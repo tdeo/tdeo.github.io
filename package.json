@@ -12,7 +12,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "yarn build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build -b master",
     "lint": "eslint . --ext .json --ext .js --ext .jsx"
   },
   "dependencies": {
