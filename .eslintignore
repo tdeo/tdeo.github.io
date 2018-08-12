@@ -2,4 +2,4 @@ maps.js
 FileSave.min.js
 canvas-toBlob.js
 Blob.js
-dist/*
+build/*
