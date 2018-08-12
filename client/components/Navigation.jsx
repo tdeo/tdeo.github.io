@@ -11,14 +11,17 @@ export default class Navigation extends React.Component {
           <Navbar.Brand>
             <Link to="/">TDeo</Link>
           </Navbar.Brand>
+          <Navbar.Toggle />
         </Navbar.Header>
-        <Nav>
-          <LinkContainer to="/maps">
-            <NavItem>
-              Maps HD
-            </NavItem>
-          </LinkContainer>
-        </Nav>
+        <Navbar.Collapse>
+          <Nav>
+            <LinkContainer to="/maps">
+              <NavItem>
+                Maps HD
+              </NavItem>
+            </LinkContainer>
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
     );
   }

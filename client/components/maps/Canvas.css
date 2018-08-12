@@ -1,0 +1,5 @@
+canvas, .konvajs-content {
+  width: initial !important;
+  height: initial !important;
+  max-width: 100%;
+}

@@ -1,18 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Col, Form, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 const floatRe = RegExp('^\\s*\\d+(.\\d*)?\\s*$');
 
 export default class CoordinatesForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  static defaultProps = {
       south: 52.360052,
       north: 52.382052,
       west: 4.877190,
       east: 4.916190,
-      zoom: 16
-    };
+      zoom: 15,
+  };
+
+  static propTypes = {
+    south: PropTypes.number,
+    north: PropTypes.number,
+    west: PropTypes.number,
+    east: PropTypes.number,
+    zoom: PropTypes.number,
+    onSubmit: PropTypes.func,
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = props;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -33,7 +45,7 @@ export default class CoordinatesForm extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
+    this.props.onSubmit(this.state);
     event.preventDefault();
   }
 

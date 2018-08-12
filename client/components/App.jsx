@@ -1,6 +1,5 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import Index from './Index.jsx';
 import Maps from './maps/Maps.jsx';

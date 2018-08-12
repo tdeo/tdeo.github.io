@@ -1,9 +1,23 @@
 import React from 'react';
 import {Grid, Row, Col} from 'react-bootstrap';
 
+import Canvas from './Canvas.jsx';
 import CoordinatesForm from './CoordinatesForm.jsx';
+import Utils from './Utils.jsx';
 
 export default class Index extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      images: []
+    };
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onSubmit(props) {
+    this.setState(Utils.computeImages(props));
+  }
+
   render() {
     return (
       <div>
@@ -18,8 +32,11 @@ export default class Index extends React.Component {
           <br />
           <Row>
             <Col>
-              <CoordinatesForm />
+              <CoordinatesForm onSubmit={this.onSubmit}/>
             </Col>
+          </Row>
+          <Row>
+            <Canvas {...this.state} />
           </Row>
         </Grid>
       </div>

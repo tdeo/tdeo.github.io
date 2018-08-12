@@ -8,9 +8,9 @@ export default class Index extends React.Component {
         <Grid>
           <Row>
             <Col>
-              <h1>TDeo's web experiments</h1>
+              <h1>TDeo&apos;s web experiments</h1>
               This is a collection of project / ideas / services that I put together on various occasions.
-              And now it's also meant to learn some different client-side technologies.
+              And now it&apos;s also meant to learn some different client-side technologies.
             </Col>
           </Row>
         </Grid>

@@ -5,6 +5,7 @@
     "node": true,
     "es6": true
   },
+  "plugins": ["json"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended"

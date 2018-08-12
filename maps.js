@@ -47,7 +47,11 @@ function getImage(latitude, longitude, zoom, row, column) {
   image.setAttribute('crossOrigin', 'anonymous');
   var url = "https://maps.googleapis.com/maps/api/staticmap?zoom=" + zoom + "&scale=" + g_scale + "&size=" + image_size + "x" + image_size + "&maptype=satellite&center=" + latitude + "," + longitude + "&key=" + api_key;
   image.onload = function() {
-    context.drawImage(image, 0, 0, g_scale * image_size_cropped, g_scale * image_size_cropped, g_scale * column * image_size_cropped, g_scale * row * image_size_cropped, g_scale * image_size_cropped, g_scale * image_size_cropped);
+    context.drawImage(image,
+      0, 0,
+      g_scale * image_size_cropped, g_scale * image_size_cropped,
+      g_scale * column * image_size_cropped, g_scale * row * image_size_cropped,
+      g_scale * image_size_cropped, g_scale * image_size_cropped);
     addScale();
   };
   image.src = url;
