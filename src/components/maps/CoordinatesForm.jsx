@@ -31,7 +31,7 @@ export default class CoordinatesForm extends React.Component {
 
   getValidationState(ids) {
     var _this = this;
-    if (ids.every(function(id) { return _this.state[id] == ""; })) {
+    if (ids.every(function(id) { return _this.state[id] === ""; })) {
       return null
     }
     if (ids.find(function(id) { return !floatRe.test(_this.state[id]); })) {
