@@ -40,14 +40,14 @@ export default class Dice extends React.Component {
     return (
       <Grid>
         <Row>
-          <Col>
+          <Col sm={12}>
             <h1>Dice</h1>
             Dice simulator, will contains statistics to check for bias.
           </Col>
         </Row>
         <br />
         <Row>
-          <Col>
+          <Col sm={12}>
             <DiceForm {...this.state} deleteDice={this.deleteDice} onSubmit={this.onSubmit}/>
           </Col>
         </Row>

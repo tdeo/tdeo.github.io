@@ -24,7 +24,7 @@ export default class Maps extends React.Component {
       <div>
         <Grid>
           <Row>
-            <Col>
+            <Col sm={12}>
               <h1>Google Maps HD</h1>
               This combines together a number of Google Maps images to generate a (very) high resolution image
               of a portion of the Earth.
@@ -32,12 +32,14 @@ export default class Maps extends React.Component {
           </Row>
           <br />
           <Row>
-            <Col>
+            <Col sm={12}>
               <CoordinatesForm onSubmit={this.onSubmit}/>
             </Col>
           </Row>
           <Row>
-            <Canvas {...this.state} />
+            <Col sm={12}>
+              <Canvas {...this.state} />
+            </Col>
           </Row>
         </Grid>
       </div>
