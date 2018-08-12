@@ -3,26 +3,16 @@ import PropTypes from 'prop-types';
 import { Grid, Row, Col, Button, ButtonToolbar, Form, FormControl } from 'react-bootstrap';
 
 export default class DiceForm extends React.Component {
-  static defaultProps = {
-      dices: [],
-      sides: 6,
-  };
-
   static propTypes = {
-    sides: PropTypes.number,
-    dices: PropTypes.arrayOf(PropTypes.shape({
-      sides: PropTypes.number,
-    })),
-  };
+    deleteDice: PropTypes.func,
+    onSubmit: PropTypes.func,
+  }
 
   constructor(props) {
     super(props);
-    this.state = {
-      sides: (this.props.dices.length === 0) ? 6 : this.props.dices.slice(-1)[0].sides,
-      dices: this.props.dices
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = props;
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.deleteDice = this.deleteDice.bind(this);
   }
 
@@ -31,13 +21,12 @@ export default class DiceForm extends React.Component {
   }
 
   handleSubmit(event) {
-    this.setState({ dices: this.props.dices.push({ sides: this.state.sides }) });
+    this.props.onSubmit(this.state);
     event.preventDefault();
   }
 
   deleteDice(event) {
-    var dices = this.props.dices.splice(event.target.value, 1);
-    this.setState({ dices: dices });
+    this.props.deleteDice(event.target.value);
   }
 
   render() {
@@ -47,7 +36,7 @@ export default class DiceForm extends React.Component {
           <Col>
             Current dices:{' '}
             <ButtonToolbar>
-              {this.props.dices.map((dice, i) => {
+              {this.state.dices.map((dice, i) => {
                 return (
                   <Button className="active" bsStyle="info" key={`${i},${dice.sides}`} onClick={this.deleteDice} value={i}>
                     {dice.sides}
