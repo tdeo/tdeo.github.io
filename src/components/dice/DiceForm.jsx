@@ -38,7 +38,12 @@ export default class DiceForm extends React.Component {
             <ButtonToolbar>
               {this.state.dices.map((dice, i) => {
                 return (
-                  <Button className="active" bsStyle="info" key={`${i},${dice.sides}`} onClick={this.deleteDice} value={i}>
+                  <Button key={`${i},${dice.sides}`} onClick={this.deleteDice} value={i}
+                    style={{
+                      boxShadow: "inset 0px 3px 3px rgba(0,0,0,0.25), inset 0px -3px 3px rgba(0,0,0,0.25), inset -3px 0px 3px rgba(0,0,0,0.25), inset 3px 0px 3px rgba(0,0,0,0.25)",
+                      backgroundColor: "rgba(200,200,200,1)",
+                      fontWeight: "bold",
+                    }}>
                     {dice.sides}
                   </Button>
                 );
