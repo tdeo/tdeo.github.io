@@ -7,7 +7,7 @@ export default class Index extends React.Component {
       <div>
         <Grid>
           <Row>
-            <Col>
+            <Col sm={12}>
               <h1>TDeo&apos;s web experiments</h1>
               This is a collection of project / ideas / services that I put together on various occasions.
               And now it&apos;s also meant to learn some different client-side technologies.
