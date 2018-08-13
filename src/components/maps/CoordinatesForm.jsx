@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Col, Form, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Col, Form, Button, FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
+
+import Utils from './Utils.jsx';
 
 const floatRe = RegExp('^\\s*\\d+(.\\d*)?\\s*$');
 
@@ -11,6 +13,7 @@ export default class CoordinatesForm extends React.Component {
       west: 4.877190,
       east: 4.916190,
       zoom: 15,
+      valid: true,
   };
 
   static propTypes = {
@@ -20,6 +23,7 @@ export default class CoordinatesForm extends React.Component {
     east: PropTypes.number,
     zoom: PropTypes.number,
     onSubmit: PropTypes.func,
+    valid: PropTypes.bool,
   };
 
   constructor(props) {
@@ -40,8 +44,24 @@ export default class CoordinatesForm extends React.Component {
     return "success"
   }
 
+  checkValid() {
+    // There are browser limitations on Canvas sizes, we're going to check that
+    // so that the thing doesn't crash.
+    // See https://stackoverflow.com/questions/6081483/maximum-size-of-a-canvas-element
+    // This is going to enable / disable the submit button.
+    var images = Utils.computeImages(this.state);
+    if ((images.width > 16383) || (images.height > 16383) || (images.width * images.height > 8192 * 8192)) {
+      this.setState({ valid: false });
+    } else {
+      this.setState({ valid: true });
+    }
+  }
+
   handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
+    this.setState(
+      { [event.target.id]: event.target.value },
+      () => this.checkValid()
+    );
   }
 
   handleSubmit(event) {
@@ -102,7 +122,7 @@ export default class CoordinatesForm extends React.Component {
 
         <FormGroup>
           <Col componentClass={ControlLabel} sm={3}>
-            <ControlLabel>Zoom</ControlLabel>
+            <ControlLabel>Detail level</ControlLabel>
           </Col>
           <Col sm={3}>
             <FormControl
@@ -111,14 +131,25 @@ export default class CoordinatesForm extends React.Component {
               min="1"
               max="21"
               value={this.state.zoom}
-              placeholder="Zoom level"
+              placeholder="Detail level"
               onChange={this.handleChange}
             />
           </Col>
           <Col sm={3}>
-            <Button bsStyle="primary" type="submit" style={{width: "100%"}}>Submit</Button>
+            <Button bsStyle="primary" type="submit" style={{width: "100%"}}
+              disabled={!this.state.valid}>
+              Submit
+            </Button>
           </Col>
         </FormGroup>
+
+        {this.state.valid || <FormGroup id="canvas-size-alert">
+          <Col sm={7} smOffset={2}>
+            <HelpBlock className="alert alert-danger">
+              The image you're trying to generate is too big and is going to crash the browser, Please lower detail level value.
+            </HelpBlock>
+          </Col>
+        </FormGroup>}
       </Form>
     );
   }

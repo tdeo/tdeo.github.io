@@ -15,7 +15,6 @@ export default class Maps extends React.Component {
   }
 
   onSubmit(props) {
-    // this.setState({ width: 0, height: 0, images: [] });
     this.setState(Utils.computeImages(props));
   }
 
