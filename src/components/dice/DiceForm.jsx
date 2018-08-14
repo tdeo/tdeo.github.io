@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, ButtonToolbar, Form, FormControl } from 'react-bootstrap';
 
-import './Dice.css';
+import Dice from './Dice.jsx';
 
 export default class DiceForm extends React.Component {
   static propTypes = {
     deleteDice: PropTypes.func,
-    onSubmit: PropTypes.func,
+    addDice: PropTypes.func,
   }
 
   constructor(props) {
@@ -23,7 +23,7 @@ export default class DiceForm extends React.Component {
   }
 
   handleSubmit(event) {
-    this.props.onSubmit(this.state);
+    this.props.addDice(this.state);
     event.preventDefault();
   }
 
@@ -39,10 +39,8 @@ export default class DiceForm extends React.Component {
           <ButtonToolbar>
             {this.state.dices.map((dice, i) => {
               return (
-                <Button key={`${i},${dice.sides}`} onClick={this.deleteDice} value={i}
-                  className="dice">
-                  {dice.sides}
-                </Button>
+                <Dice key={i} onClick={this.deleteDice} value={i}
+                  val={dice.sides} />
               );
             })}
           </ButtonToolbar>
