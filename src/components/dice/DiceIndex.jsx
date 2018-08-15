@@ -5,6 +5,7 @@ import {Grid, Row, Col, Table} from 'react-bootstrap';
 import DiceForm from './DiceForm.jsx';
 import Roll from './Roll.jsx';
 import RollHistory from './RollHistory.jsx';
+import RollStats from './RollStats.jsx';
 
 export default class DiceIndex extends React.Component {
   static defaultProps = {
@@ -73,11 +74,14 @@ export default class DiceIndex extends React.Component {
         </Row>
         <br />
         <Row>
-          <Col sm={12}>
+          <Col sm={6} md={4}>
             <Table condensed className="text-center" style={{ width: "initial" }}>
               <Roll dices={this.state.dices} roll={this.roll} />
               <RollHistory dices={this.state.dices} />
             </Table>
+          </Col>
+          <Col sm={6} md={8}>
+            <RollStats dices={this.state.dices} />
           </Col>
         </Row>
       </Grid>

@@ -32,7 +32,7 @@ export default class Roll extends React.Component {
     this.props.roll();
     setTimeout(() => {
       this.setState({ blocked: false })
-    }, 600);
+    }, 300);
   }
 
   render() {
