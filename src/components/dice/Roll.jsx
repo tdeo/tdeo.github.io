@@ -6,6 +6,7 @@ import Dice from './Dice.jsx';
 
 export default class Roll extends React.Component {
   static propTypes = {
+    roll: PropTypes.func,
     dices: PropTypes.arrayOf(PropTypes.shape({
       sides: PropTypes.number,
       lastRoll: PropTypes.number,
@@ -28,13 +29,10 @@ export default class Roll extends React.Component {
 
   roll() {
     this.setState({ blocked: true });
-    this.props.dices.forEach((dice) => {
-      dice.rolls.unshift(1 + Math.floor(Math.random() * dice.sides));
-    });
-    this.setState(this.props.dices);
+    this.props.roll();
     setTimeout(() => {
       this.setState({ blocked: false })
-    }, 1000);
+    }, 600);
   }
 
   render() {

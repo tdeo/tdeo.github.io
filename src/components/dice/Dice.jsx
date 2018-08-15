@@ -7,6 +7,7 @@ import './Dice.css'
 export default class Dice extends React.Component {
   static propTypes = {
     val: PropTypes.node,
+    value: PropTypes.node,
     onClick: PropTypes.func,
   }
 

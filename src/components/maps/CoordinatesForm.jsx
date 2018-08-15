@@ -146,7 +146,7 @@ export default class CoordinatesForm extends React.Component {
         {this.state.valid || <FormGroup id="canvas-size-alert">
           <Col sm={7} smOffset={2}>
             <HelpBlock className="alert alert-danger">
-              The image you're trying to generate is too big and is going to crash the browser, Please lower detail level value.
+              The image you&quot;re trying to generate is too big and is going to crash the browser, please lower detail level value.
             </HelpBlock>
           </Col>
         </FormGroup>}

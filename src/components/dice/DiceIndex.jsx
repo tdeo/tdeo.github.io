@@ -28,12 +28,20 @@ export default class DiceIndex extends React.Component {
     this.state = props;
     this.addDice = this.addDice.bind(this);
     this.deleteDice = this.deleteDice.bind(this);
+    this.roll = this.roll.bind(this);
   }
 
   resetRolls() {
     this.props.dices.forEach((dice) => {
       dice.rolls = [];
     })
+  }
+
+  roll() {
+    this.props.dices.forEach((dice) => {
+      dice.rolls.unshift(1 + Math.floor(Math.random() * dice.sides));
+    });
+    this.setState(this.props.dices);
   }
 
   addDice(props) {
@@ -66,8 +74,8 @@ export default class DiceIndex extends React.Component {
         <br />
         <Row>
           <Col sm={12}>
-            <Table condensed bordered className="text-center" style={{ width: "initial" }}>
-              <Roll dices={this.state.dices} onSubmit={this.roll} />
+            <Table condensed className="text-center" style={{ width: "initial" }}>
+              <Roll dices={this.state.dices} roll={this.roll} />
               <RollHistory dices={this.state.dices} />
             </Table>
           </Col>
