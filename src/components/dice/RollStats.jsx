@@ -51,6 +51,9 @@ export default class RollStats extends React.Component {
   real() {
     var result = {};
     var total = 0;
+    if (this.state.dices.length === 0) {
+      return result;
+    }
     this.state.dices[0].rolls.forEach((_, i) => {
       total++;
       var value = 0;
