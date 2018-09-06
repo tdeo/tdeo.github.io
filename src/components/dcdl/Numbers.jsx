@@ -1,16 +1,32 @@
 import React from 'react';
 import {Grid, Row, Col} from 'react-bootstrap';
 
-import ChiffresForm from './ChiffresForm.jsx';
+import NumbersForm from './NumbersForm.jsx';
+import NumbersHistory from './NumbersHistory.jsx';
 
-export default class Chiffres extends React.Component {
+export default class Numbers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       numbers: this.randomNumbers(),
       target: this.randomTarget(),
       ops: this.defaultOps(),
+      history: [],
+    };
+  }
+
+  cancelLast() {
+    if (this.state.history.length === 0) {
+      return;
     }
+    var history = this.state.history;
+    var last = history.shift();
+    var numbers = this.state.numbers;
+    var i = numbers.findIndex((n) => { return (n.value === last.res); });
+    numbers.splice(i, 1);
+    numbers.push({ value: last.a, active: false });
+    numbers.push({ value: last.b, active: false });
+    this.setState({ numbers: numbers, history: history });
   }
 
   toggleOp(event) {
@@ -52,7 +68,7 @@ export default class Chiffres extends React.Component {
       newVal = a + b;
     } else if (op === '-') {
       newVal = b - a;
-    } else if (op === '*') {
+    } else if (op === '×') {
       newVal = a * b;
     } else if (op === '/') {
       if (b % a  === 0) {
@@ -71,14 +87,25 @@ export default class Chiffres extends React.Component {
       }
     });
     newNumbers.push({ value: newVal, active: false });
-    this.setState({ numbers: newNumbers, ops: this.defaultOps() });
+    var history = this.state.history;
+    history.unshift({
+      a: a,
+      b: b,
+      op: op,
+      res: newVal,
+    })
+    this.setState({
+      numbers: newNumbers,
+      ops: this.defaultOps(),
+      history: history,
+    });
   }
 
   defaultOps() {
     return [
       { op: '+', active: false },
       { op: '-', active: false },
-      { op: '*', active: false },
+      { op: '×', active: false },
       { op: '/', active: false },
     ];
   }
@@ -112,13 +139,16 @@ export default class Chiffres extends React.Component {
         <Grid>
           <Row>
             <Col sm={12}>
-              <h1>Des chiffres</h1>
+              <h2>Des chiffres</h2>
             </Col>
             <Col sm={12}>
-              <ChiffresForm {...this.state} submitOperation={this.submitOperation.bind(this)} toggleOp={this.toggleOp.bind(this)} toggleNumber={this.toggleNumber.bind(this)} />
+              <h4>Target number: {this.state.target}</h4>
             </Col>
             <Col sm={12}>
-              <h4>Objectif: {this.state.target}</h4>
+              <NumbersForm {...this.state} submitOperation={this.submitOperation.bind(this)} toggleOp={this.toggleOp.bind(this)} toggleNumber={this.toggleNumber.bind(this)} />
+            </Col>
+            <Col sm={12}>
+              <NumbersHistory history={this.state.history} cancelLast={this.cancelLast.bind(this)} />
             </Col>
           </Row>
         </Grid>

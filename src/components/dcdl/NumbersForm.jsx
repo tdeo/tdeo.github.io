@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, ButtonToolbar } from 'react-bootstrap';
 
-export default class ChiffresForm extends React.Component {
+export default class NumbersForm extends React.Component {
   static propTypes = {
-    numbers: PropTypes.arrayOf({
+    numbers: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.number,
       active: PropTypes.boolean
-    }),
-    ops: PropTypes.arrayOf({
-      op: PropTypes.number,
+    })),
+    ops: PropTypes.arrayOf(PropTypes.shape({
+      op: PropTypes.string,
       active: PropTypes.boolean
-    }),
-    toggleNumber: PropTypes.function,
-    toggleOp: PropTypes.function,
+    })),
+    toggleNumber: PropTypes.func,
+    toggleOp: PropTypes.func,
   };
 
   constructor(props) {
@@ -27,14 +27,14 @@ export default class ChiffresForm extends React.Component {
         <ButtonToolbar>
           {this.props.numbers.map((number, i) => {
             return (
-              <Button key={i} onClick={this.props.toggleNumber} value={i} active={number.active}>
+              <Button key={i} onClick={this.props.toggleNumber} value={i} bsStyle={number.active ? 'warning' : 'default'}>
                 {number.value}
               </Button>
             );
           })}
           {this.props.ops.map((op, i) => {
             return (
-              <Button key={i} onClick={this.props.toggleOp} bsStyle="info" value={i} active={op.active}>
+              <Button key={i} onClick={this.props.toggleOp} bsStyle={op.active ? 'warning' : 'info' } value={i}>
                 {op.op}
               </Button>
             );
