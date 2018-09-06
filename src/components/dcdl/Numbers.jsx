@@ -1,15 +1,17 @@
 import React from 'react';
-import {Grid, Row, Col} from 'react-bootstrap';
+import {Grid, Row, Col, Button} from 'react-bootstrap';
 
 import NumbersForm from './NumbersForm.jsx';
 import NumbersHistory from './NumbersHistory.jsx';
+import { Shortcuts } from 'react-shortcuts';
 
 export default class Numbers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      numbers: this.randomNumbers(),
+      numbers: this.sortNumbers(this.randomNumbers()),
       target: this.randomTarget(),
+      success: false,
       ops: this.defaultOps(),
       history: [],
     };
@@ -26,7 +28,7 @@ export default class Numbers extends React.Component {
     numbers.splice(i, 1);
     numbers.push({ value: last.a, active: false });
     numbers.push({ value: last.b, active: false });
-    this.setState({ numbers: numbers, history: history });
+    this.setState({ numbers: this.sortNumbers(numbers), history: history });
   }
 
   toggleOp(event) {
@@ -35,7 +37,7 @@ export default class Numbers extends React.Component {
     this.state.ops.forEach((op, i) => {
       ops.push({
         op: op.op,
-        active: i === idx ? !op.active : op.active,
+        active: i === idx ? !op.active : false,
       })
     });
     this.setState({ ops: ops }, this.submitOperation);
@@ -95,8 +97,9 @@ export default class Numbers extends React.Component {
       res: newVal,
     })
     this.setState({
-      numbers: newNumbers,
+      numbers: this.sortNumbers(newNumbers),
       ops: this.defaultOps(),
+      success: (newVal === this.state.target),
       history: history,
     });
   }
@@ -108,6 +111,10 @@ export default class Numbers extends React.Component {
       { op: '×', active: false },
       { op: '/', active: false },
     ];
+  }
+
+  sortNumbers(nums) {
+    return nums.sort((a, b) => { return a.value - b.value; })
   }
 
   randomTarget() {
@@ -133,9 +140,19 @@ export default class Numbers extends React.Component {
     return numbers;
   }
 
+  _handleShortcuts(action) {
+    if (action.match(/^number\d$/)) {
+      this.toggleNumber({ target: { value: action.replace('number', '') }});
+    } else if (action.match(/^op\d$/)) {
+      this.toggleOp({ target: { value: action.replace('op', '') }});
+    } else if (action === 'cancel') {
+      this.cancelLast();
+    }
+  }
+
   render() {
     return (
-      <div>
+      <Shortcuts name="NumbersForm" handler={this._handleShortcuts.bind(this)} targetNodeSelector="body">
         <Grid>
           <Row>
             <Col sm={12}>
@@ -145,14 +162,18 @@ export default class Numbers extends React.Component {
               <h4>Target number: {this.state.target}</h4>
             </Col>
             <Col sm={12}>
-              <NumbersForm {...this.state} submitOperation={this.submitOperation.bind(this)} toggleOp={this.toggleOp.bind(this)} toggleNumber={this.toggleNumber.bind(this)} />
+              { this.state.success ?
+                <h2>Congratulations! <a href=""><Button bsStyle="info">Play again</Button></a></h2>
+                :
+                <NumbersForm {...this.state} submitOperation={this.submitOperation.bind(this)} toggleOp={this.toggleOp.bind(this)} toggleNumber={this.toggleNumber.bind(this)} />
+              }
             </Col>
             <Col sm={12}>
-              <NumbersHistory history={this.state.history} cancelLast={this.cancelLast.bind(this)} />
+              <NumbersHistory history={this.state.history} success={this.state.success} cancelLast={this.cancelLast.bind(this)} />
             </Col>
           </Row>
         </Grid>
-      </div>
+      </Shortcuts>
     );
   }
 }

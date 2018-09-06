@@ -11,6 +11,7 @@ export default class NumbersHistory extends React.Component {
       res: PropTypes.number,
     })),
     cancelLast: PropTypes.func,
+    success: PropTypes.bool,
   };
 
   render() {
@@ -20,7 +21,7 @@ export default class NumbersHistory extends React.Component {
           return (
             <pre key={i}>
               {operation.b} {operation.op} {operation.a} = {operation.res}{'  '}
-              { (i === 0) &&
+              { (i === 0 && !this.props.success) &&
                 <Button bsStyle="danger" onClick={this.props.cancelLast}>
                   Cancel
                 </Button>
