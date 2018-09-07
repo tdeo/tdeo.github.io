@@ -8,7 +8,7 @@ export default class MapTile extends React.Component {
   }
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       image: null
     };
@@ -24,7 +24,7 @@ export default class MapTile extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <Image
         image={this.state.image}
         {...this.props}

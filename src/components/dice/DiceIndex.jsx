@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Grid, Row, Col, Table} from 'react-bootstrap';
+import { Col, Grid, Row, Table } from 'react-bootstrap';
 
 import DiceForm from './DiceForm.jsx';
 import Roll from './Roll.jsx';
@@ -9,11 +9,11 @@ import RollStats from './RollStats.jsx';
 
 export default class DiceIndex extends React.Component {
   static defaultProps = {
-      dices: [{
-        sides: 6,
-        rolls: [],
-      }],
+    dices: [{
       sides: 6,
+      rolls: [],
+    }],
+    sides: 6,
   };
 
   static propTypes = {
@@ -35,7 +35,7 @@ export default class DiceIndex extends React.Component {
   resetRolls() {
     this.props.dices.forEach((dice) => {
       dice.rolls = [];
-    })
+    });
   }
 
   roll() {
@@ -75,7 +75,7 @@ export default class DiceIndex extends React.Component {
         <br />
         <Row>
           <Col sm={6} md={4}>
-            <Table condensed className="text-center" style={{ width: "initial" }}>
+            <Table condensed className="text-center" style={{ width: 'initial' }}>
               <Roll dices={this.state.dices} roll={this.roll} />
               <RollHistory dices={this.state.dices} />
             </Table>

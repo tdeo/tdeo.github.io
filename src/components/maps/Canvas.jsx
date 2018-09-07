@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Stage, Layer } from 'react-konva';
+import { Layer, Stage } from 'react-konva';
 
 import './Canvas.css';
 import MapTile from './MapTile.jsx';

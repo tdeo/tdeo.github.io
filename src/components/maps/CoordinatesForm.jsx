@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Col, Form, Button, FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
+import { Button, Col, ControlLabel, Form, FormControl, FormGroup, HelpBlock } from 'react-bootstrap';
 
 import Utils from './Utils.jsx';
 
@@ -8,12 +8,12 @@ const floatRe = RegExp('^\\s*\\d+(.\\d*)?\\s*$');
 
 export default class CoordinatesForm extends React.Component {
   static defaultProps = {
-      south: 52.360052,
-      north: 52.382052,
-      west: 4.877190,
-      east: 4.916190,
-      zoom: 15,
-      valid: true,
+    south: 52.360052,
+    north: 52.382052,
+    west: 4.877190,
+    east: 4.916190,
+    zoom: 15,
+    valid: true,
   };
 
   static propTypes = {
@@ -35,13 +35,17 @@ export default class CoordinatesForm extends React.Component {
 
   getValidationState(ids) {
     var _this = this;
-    if (ids.every(function(id) { return _this.state[id] === ""; })) {
-      return null
+    if (ids.every(function(id) {
+      return _this.state[id] === '';
+    })) {
+      return null;
     }
-    if (ids.find(function(id) { return !floatRe.test(_this.state[id]); })) {
-      return "error";
+    if (ids.find(function(id) {
+      return !floatRe.test(_this.state[id]);
+    })) {
+      return 'error';
     }
-    return "success"
+    return 'success';
   }
 
   checkValid() {
@@ -70,9 +74,9 @@ export default class CoordinatesForm extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <Form horizontal onSubmit={this.handleSubmit}>
-        <FormGroup validationState={this.getValidationState(["south", "north"])}>
+        <FormGroup validationState={this.getValidationState(['south', 'north'])}>
           <Col componentClass={ControlLabel} sm={3}>
             <ControlLabel>Latitude</ControlLabel>
           </Col>
@@ -96,7 +100,7 @@ export default class CoordinatesForm extends React.Component {
           </Col>
         </FormGroup>
 
-        <FormGroup validationState={this.getValidationState(["west", "east"])}>
+        <FormGroup validationState={this.getValidationState(['west', 'east'])}>
           <Col componentClass={ControlLabel} sm={3}>
             <ControlLabel>Longitude</ControlLabel>
           </Col>
@@ -136,7 +140,7 @@ export default class CoordinatesForm extends React.Component {
             />
           </Col>
           <Col sm={3}>
-            <Button bsStyle="primary" type="submit" style={{width: "100%"}}
+            <Button bsStyle="primary" type="submit" style={{ width: '100%' }}
               disabled={!this.state.valid}>
               Submit
             </Button>

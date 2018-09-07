@@ -22,7 +22,7 @@ export default class NumbersForm extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <div>
         <ButtonToolbar>
           {this.props.numbers.map((number, i) => {

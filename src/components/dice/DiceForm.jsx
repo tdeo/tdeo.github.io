@@ -32,7 +32,7 @@ export default class DiceForm extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <div>
         <div>
           Current dices (click to remove):
@@ -50,7 +50,7 @@ export default class DiceForm extends React.Component {
           <Form inline onSubmit={this.handleSubmit}>
             Add one dice with{' '}
             <FormControl
-              style={{ maxWidth: "60px", display: "inline-block" }}
+              style={{ maxWidth: '60px', display: 'inline-block' }}
               id="sides"
               type="number"
               min="1"

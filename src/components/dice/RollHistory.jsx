@@ -20,7 +20,9 @@ export default class RollHistory extends React.Component {
     return (
       <tbody className="hidden-xs">
         {(this.state.dices.length > 0) && this.state.dices[0].rolls.map((_, i) => {
-          if (i === 0 || i > 10) { return null; }
+          if (i === 0 || i > 10) {
+            return null;
+          }
           return (
             <tr key={i}>
               {this.state.dices.map((dice, j) => {

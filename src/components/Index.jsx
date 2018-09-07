@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, Row, Col} from 'react-bootstrap';
+import { Col, Grid, Row } from 'react-bootstrap';
 
 export default class Index extends React.Component {
   render() {

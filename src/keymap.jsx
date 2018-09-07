@@ -12,4 +12,4 @@ export default {
     op2: '*',
     op3: '/',
   },
-}
+};

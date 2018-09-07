@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, Row, Col} from 'react-bootstrap';
+import { Col, Grid, Row } from 'react-bootstrap';
 
 import Canvas from './Canvas.jsx';
 import CoordinatesForm from './CoordinatesForm.jsx';
@@ -7,7 +7,7 @@ import Utils from './Utils.jsx';
 
 export default class Maps extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       images: []
     };

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ResponsiveContainer, ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+import { Bar, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 export default class RollStats extends React.Component {
   static propTypes = {
@@ -19,7 +19,7 @@ export default class RollStats extends React.Component {
     var real = this.real();
     var expected = this.expected(this.state.dices);
     var data = [];
-    for(var val in expected) {
+    for (var val in expected) {
       data.push({
         value: val,
         real: real[val] || 0,
@@ -71,12 +71,12 @@ export default class RollStats extends React.Component {
 
   render() {
     const graphData = this.graphData();
-    return(
+    return (
       <ResponsiveContainer width="100%" height={300}>
         <ComposedChart data={graphData} width={500} height={300}>
           <CartesianGrid />
-          <XAxis dataKey="value" label={{ value: "Dice sum", position: 'insideBottomRight', dy: 10 }}/>
-          <YAxis label={{ value: "Frequency", angle: -90, position: 'insideLeft', dx: 0, dy: 30 }}/>
+          <XAxis dataKey="value" label={{ value: 'Dice sum', position: 'insideBottomRight', dy: 10 }}/>
+          <YAxis label={{ value: 'Frequency', angle: -90, position: 'insideLeft', dx: 0, dy: 30 }}/>
           <Tooltip formatter={(value) => {
             var rounded_rate = Math.round(1000 * value) / 1000;
             return `${rounded_rate} (${Math.round(this.state.dices[0].rolls.length * rounded_rate)} rolls)`;

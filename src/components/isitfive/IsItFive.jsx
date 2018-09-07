@@ -1,16 +1,18 @@
 import React from 'react';
-import {Grid, Row, Col} from 'react-bootstrap';
+import { Col, Grid, Row } from 'react-bootstrap';
 
 export default class IsItFive extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       date: new Date(),
     };
   }
 
   componentDidMount() {
-    this.timerID = setInterval(() => { this.tick(); }, 1000);
+    this.timerID = setInterval(() => {
+      this.tick();
+    }, 1000);
   }
 
   componentWillUnmount() {
@@ -34,7 +36,7 @@ export default class IsItFive extends React.Component {
           <Row>
             <Col sm={12}>
               <h2>
-                { (this.state.date.getHours() >= 17) ? "Yes, finally!" : "No, not yet" }
+                { (this.state.date.getHours() >= 17) ? 'Yes, finally!' : 'No, not yet' }
               </h2>
             </Col>
           </Row>

@@ -30,7 +30,7 @@ export default class Utils {
   }
 
   static computeCorners(latitude, longitude, zoom) {
-    var scale = Math.pow(2, zoom)
+    var scale = Math.pow(2, zoom);
     var center = this.toPixels(latitude, longitude);
     var ne = this.toCoordinates([center[0] + image_size_cropped / (2.0 * scale), center[1] - image_size_cropped / (2.0 * scale)]);
     var sw = this.toCoordinates([center[0] - image_size_cropped / (2.0 * scale), center[1] + image_size_cropped / (2.0 * scale)]);
@@ -56,7 +56,7 @@ export default class Utils {
         width: g_scale * image_size_cropped,
         height: g_scale * image_size_cropped,
       }
-    }
+    };
   }
 
   static computeImages(props) {
@@ -81,6 +81,6 @@ export default class Utils {
       images: images,
       width: g_scale * image_size_cropped * col,
       height: g_scale * image_size_cropped * row,
-    }
+    };
   }
 }

@@ -1,9 +1,10 @@
 import React from 'react';
-import {Grid, Row, Col, Button} from 'react-bootstrap';
+import { Button, Col, Grid, Row } from 'react-bootstrap';
+import { Shortcuts } from 'react-shortcuts';
 
 import NumbersForm from './NumbersForm.jsx';
 import NumbersHistory from './NumbersHistory.jsx';
-import { Shortcuts } from 'react-shortcuts';
+import Time from './Time.jsx';
 
 export default class Numbers extends React.Component {
   constructor(props) {
@@ -14,7 +15,23 @@ export default class Numbers extends React.Component {
       success: false,
       ops: this.defaultOps(),
       history: [],
+      start: new Date(),
+      timeLeft: 40,
+      totalTime: 40,
     };
+  }
+
+  componentDidMount() {
+    this.timerId = setInterval(this.timeLeft.bind(this), 50);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerId);
+  }
+
+  timeLeft() {
+    var left = this.state.totalTime - (new Date() - this.state.start) / 1000;
+    this.setState({ timeLeft: left });
   }
 
   cancelLast() {
@@ -24,7 +41,9 @@ export default class Numbers extends React.Component {
     var history = this.state.history;
     var last = history.shift();
     var numbers = this.state.numbers;
-    var i = numbers.findIndex((n) => { return (n.value === last.res); });
+    var i = numbers.findIndex((n) => {
+      return (n.value === last.res);
+    });
     numbers.splice(i, 1);
     numbers.push({ value: last.a, active: false });
     numbers.push({ value: last.b, active: false });
@@ -33,24 +52,24 @@ export default class Numbers extends React.Component {
 
   toggleOp(event) {
     var idx = parseInt(event.target.value, 10);
-    var ops = []
+    var ops = [];
     this.state.ops.forEach((op, i) => {
       ops.push({
         op: op.op,
         active: i === idx ? !op.active : false,
-      })
+      });
     });
     this.setState({ ops: ops }, this.submitOperation);
   }
 
   toggleNumber(event) {
     var idx = parseInt(event.target.value, 10);
-    var numbers = []
+    var numbers = [];
     this.state.numbers.forEach((number, i) => {
       numbers.push({
         value: number.value,
         active: i === idx ? !number.active : number.active,
-      })
+      });
     });
     this.setState({ numbers: numbers }, this.submitOperation);
   }
@@ -95,7 +114,10 @@ export default class Numbers extends React.Component {
       b: b,
       op: op,
       res: newVal,
-    })
+    });
+    if (newVal === this.state.target) {
+      clearInterval(this.timerId);
+    }
     this.setState({
       numbers: this.sortNumbers(newNumbers),
       ops: this.defaultOps(),
@@ -114,7 +136,9 @@ export default class Numbers extends React.Component {
   }
 
   sortNumbers(nums) {
-    return nums.sort((a, b) => { return a.value - b.value; })
+    return nums.sort((a, b) => {
+      return a.value - b.value;
+    });
   }
 
   randomTarget() {
@@ -129,7 +153,7 @@ export default class Numbers extends React.Component {
       if (!indexes.includes(r)) {
         indexes.push(r);
       }
-    } while (indexes.length < 6)
+    } while (indexes.length < 6);
     var numbers = [];
     indexes.forEach(function(idx) {
       numbers.push({
@@ -142,9 +166,9 @@ export default class Numbers extends React.Component {
 
   _handleShortcuts(action) {
     if (action.match(/^number\d$/)) {
-      this.toggleNumber({ target: { value: action.replace('number', '') }});
+      this.toggleNumber({ target: { value: action.replace('number', '') } });
     } else if (action.match(/^op\d$/)) {
-      this.toggleOp({ target: { value: action.replace('op', '') }});
+      this.toggleOp({ target: { value: action.replace('op', '') } });
     } else if (action === 'cancel') {
       this.cancelLast();
     }
@@ -155,20 +179,21 @@ export default class Numbers extends React.Component {
       <Shortcuts name="NumbersForm" handler={this._handleShortcuts.bind(this)} targetNodeSelector="body">
         <Grid>
           <Row>
-            <Col sm={12}>
-              <h2>Des chiffres</h2>
+            <Col xs={6} sm={4} md={3}>
+              <h2>Numbers</h2>
+              <h4>Target: {this.state.target}</h4>
             </Col>
-            <Col sm={12}>
-              <h4>Target number: {this.state.target}</h4>
+            <Col xs={6} sm={8} md={9}>
+              <Time initial={this.state.totalTime} value={this.state.timeLeft} />
             </Col>
-            <Col sm={12}>
+            <Col xs={12}>
               { this.state.success ?
                 <h2>Congratulations! <a href=""><Button bsStyle="info">Play again</Button></a></h2>
                 :
                 <NumbersForm {...this.state} submitOperation={this.submitOperation.bind(this)} toggleOp={this.toggleOp.bind(this)} toggleNumber={this.toggleNumber.bind(this)} />
               }
             </Col>
-            <Col sm={12}>
+            <Col xs={12}>
               <NumbersHistory history={this.state.history} success={this.state.success} cancelLast={this.cancelLast.bind(this)} />
             </Col>
           </Row>

@@ -31,7 +31,7 @@ export default class Roll extends React.Component {
     this.setState({ blocked: true });
     this.props.roll();
     setTimeout(() => {
-      this.setState({ blocked: false })
+      this.setState({ blocked: false });
     }, 300);
   }
 
@@ -42,7 +42,7 @@ export default class Roll extends React.Component {
           {this.state.dices.map((dice, i) => {
             return (
               <td key={`${dice.sides},${i}`}>
-                <Dice val={dice.rolls.length > 0 ? dice.rolls[0] : "?"} />
+                <Dice val={dice.rolls.length > 0 ? dice.rolls[0] : '?'} />
               </td>
             );
           })}
