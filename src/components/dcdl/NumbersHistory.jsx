@@ -20,7 +20,7 @@ export default class NumbersHistory extends React.Component {
         {this.props.history.map((operation, i) => {
           return (
             <pre key={i}>
-              {operation.b} {operation.op} {operation.a} = {operation.res}{'  '}
+              {operation.a} {operation.op} {operation.b} = {operation.res}{'  '}
               { (i === 0 && !this.props.success) &&
                 <Button bsStyle="danger" onClick={this.props.cancelLast}>
                   Cancel

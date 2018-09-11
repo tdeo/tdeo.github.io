@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Grid, Row } from 'react-bootstrap';
+import { Button, Col, Collapse, Grid, Row } from 'react-bootstrap';
 import { Shortcuts } from 'react-shortcuts';
 
 import NumbersForm from './NumbersForm.jsx';
@@ -23,6 +23,13 @@ export default class Numbers extends React.Component {
 
   componentDidMount() {
     this.timerId = setInterval(this.timeLeft.bind(this), 50);
+    this.findSolution().then(
+      (sol) => {
+        this.setState({ solution: sol });
+      }).catch(
+      (error) => {
+        console.warn(error);
+      });
   }
 
   componentWillUnmount() {
@@ -32,6 +39,59 @@ export default class Numbers extends React.Component {
   timeLeft() {
     var left = this.state.totalTime - (new Date() - this.state.start) / 1000;
     this.setState({ timeLeft: left });
+  }
+
+  async findSolution() {
+    await setTimeout(() => {}, 5000);
+    var numbers = this.state.numbers.map((num) => {
+      return num.value;
+    });
+    var s;
+    for (var i = 0; i < 50; ++i) {
+      s = this.solution(this.state.target - i, numbers);
+      if (s === undefined && i > 0) {
+        s = this.solution(this.state.target + i, numbers);
+      }
+      if (s !== undefined) {
+        return s;
+      }
+    }
+  }
+
+  solution(target, numbers) {
+    if (target === 0) {
+      return [];
+    } else if (numbers.length === 0) {
+      return undefined;
+    }
+
+    for (var i = 0; i < numbers.length; i++) {
+      var num = numbers[i];
+      var others = numbers.slice(0, i).concat(numbers.slice(i + 1));
+      var shortest;
+      var s;
+      if (target - num >= 0) {
+        s = this.solution(target - num, others);
+        if (s !== undefined && (shortest === undefined || s.length < shortest.length)) {
+          shortest = s.concat({ a: target - num, b: num, op: '+', res: target });
+        }
+      }
+      if (target % num === 0) {
+        s = this.solution(target / num, others);
+        if (s !== undefined && (shortest === undefined || s.length < shortest.length)) {
+          shortest = s.concat({ a: target / num, b: num, op: '*', res: target });
+        }
+      }
+      s = this.solution(target + num, others);
+      if (s !== undefined && (shortest === undefined || s.length < shortest.length)) {
+        shortest = s.concat({ a: target + num, b: num, op: '-', res: target });
+      }
+      s = this.solution(target * num, others);
+      if (s !== undefined && (shortest === undefined || s.length < shortest.length)) {
+        shortest = s.concat({ a: target * num, b: num, op: '/', res: target });
+      }
+    }
+    return shortest;
   }
 
   cancelLast() {
@@ -81,19 +141,19 @@ export default class Numbers extends React.Component {
       return;
     }
     var op = activeOps[0].op;
-    var a = Math.min(...activeNumbers.map(num => num.value));
-    var b = Math.max(...activeNumbers.map(num => num.value));
+    var a = Math.max(...activeNumbers.map(num => num.value));
+    var b = Math.min(...activeNumbers.map(num => num.value));
     var newVal;
 
     if (op === '+') {
       newVal = a + b;
     } else if (op === '-') {
-      newVal = b - a;
+      newVal = a - b;
     } else if (op === '×') {
       newVal = a * b;
     } else if (op === '/') {
-      if (b % a  === 0) {
-        newVal = b / a;
+      if (a % b  === 0) {
+        newVal = a / b;
       }
     }
 
@@ -179,23 +239,40 @@ export default class Numbers extends React.Component {
       <Shortcuts name="NumbersForm" handler={this._handleShortcuts.bind(this)} targetNodeSelector="body">
         <Grid>
           <Row>
-            <Col xs={6} sm={4} md={3}>
-              <h2>Numbers</h2>
-              <h4>Target: {this.state.target}</h4>
+            <Col xs={12} sm={7}>
+              <Row>
+                <Col xs={5} sm={4} md={3}>
+                  <h2>Numbers</h2>
+                  <h4>Target: {this.state.target}</h4>
+                </Col>
+                <Col xs={7} sm={8} md={9}>
+                  <Time initial={this.state.totalTime} value={this.state.timeLeft} />
+                </Col>
+              </Row>
+              <div>
+                { this.state.success ?
+                  <h2>Congratulations! <a href=""><Button bsStyle="info">Play again</Button></a></h2>
+                  :
+                  <NumbersForm {...this.state} submitOperation={this.submitOperation.bind(this)} toggleOp={this.toggleOp.bind(this)} toggleNumber={this.toggleNumber.bind(this)} />
+                }
+              </div>
+              <div>
+                <NumbersHistory history={this.state.history} success={this.state.success} cancelLast={this.cancelLast.bind(this)} />
+              </div>
             </Col>
-            <Col xs={6} sm={8} md={9}>
-              <Time initial={this.state.totalTime} value={this.state.timeLeft} />
-            </Col>
-            <Col xs={12}>
-              { this.state.success ?
-                <h2>Congratulations! <a href=""><Button bsStyle="info">Play again</Button></a></h2>
-                :
-                <NumbersForm {...this.state} submitOperation={this.submitOperation.bind(this)} toggleOp={this.toggleOp.bind(this)} toggleNumber={this.toggleNumber.bind(this)} />
-              }
-            </Col>
-            <Col xs={12}>
-              <NumbersHistory history={this.state.history} success={this.state.success} cancelLast={this.cancelLast.bind(this)} />
-            </Col>
+            { this.state.solution && <Col xs={12} sm={5}>
+              <Button bsStyle="info" onClick={() => this.setState({ showSolution: !this.state.showSolution }) }>
+                Show solution
+              </Button>
+              <br />
+              <Collapse in={!!this.state.showSolution}>
+                <div>
+                  <br />
+                  Best solution: {this.state.solution[this.state.solution.length - 1].res}
+                  <NumbersHistory history={this.state.solution.slice(1)} success={true} />
+                </div>
+              </Collapse>
+            </Col>}
           </Row>
         </Grid>
       </Shortcuts>

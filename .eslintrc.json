@@ -23,7 +23,7 @@
     "indent": [2, 2, { "SwitchCase": 1, "VariableDeclarator": 1 }],
     "keyword-spacing": [2, { "after": true, "before": true }],
     "linebreak-style": [2, "unix"],
-    "no-console": ["error"],
+    "no-console": ["error", { "allow": ["warn", "error"] } ],
     "no-empty": 0,
     "no-trailing-spaces": 1,
     "object-curly-spacing": [2, "always"],
