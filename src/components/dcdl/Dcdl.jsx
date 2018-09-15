@@ -18,7 +18,7 @@ export default class Dcdl extends React.Component {
               <br />
               <br />
               Play with:{' '}
-              <a className="btn btn-primary" href="/dcdl/chiffres">
+              <a className="btn btn-primary" href="/dcdl/numbers">
                   Numbers
               </a>
             </Col>
