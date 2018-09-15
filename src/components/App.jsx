@@ -12,7 +12,8 @@ import Index from './Index.jsx';
 import IsItFive from './isitfive/IsItFive.jsx';
 import Maps from './maps/Maps.jsx';
 import Navigation from './Navigation.jsx';
-
+import Cv from './cv/Cv.jsx';
+import Procedural from './procedural/Procedural.jsx';
 
 const shortcutManager = new ShortcutManager(keymap);
 
@@ -30,7 +31,9 @@ export default class App extends React.Component {
         <Route path="/dice" component={DiceIndex}/>
         <Route path="/isitfive" component={IsItFive}/>
         <Route path="/dcdl" component={Dcdl}/>
-        <Route path="/dcdl/chiffres" component={Numbers}/>
+        <Route path="/dcdl/numbers" component={Numbers}/>
+        <Route path="/cv" component={Cv}/>
+        <Route path="/procedural" component={Procedural}/>
       </div>
     );
   }
