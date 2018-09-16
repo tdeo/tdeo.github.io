@@ -241,11 +241,11 @@ export default class Numbers extends React.Component {
           <Row>
             <Col xs={12} sm={7}>
               <Row>
-                <Col xs={5} sm={4} md={3}>
+                <Col xs={5}>
                   <h2>Numbers</h2>
                   <h4>Target: {this.state.target}</h4>
                 </Col>
-                <Col xs={7} sm={8} md={9}>
+                <Col xs={7}>
                   <Time initial={this.state.totalTime} value={this.state.timeLeft} />
                 </Col>
               </Row>
@@ -253,7 +253,9 @@ export default class Numbers extends React.Component {
                 { this.state.success ?
                   <h2>Congratulations! <a href=""><Button bsStyle="info">Play again</Button></a></h2>
                   :
-                  <NumbersForm {...this.state} submitOperation={this.submitOperation.bind(this)} toggleOp={this.toggleOp.bind(this)} toggleNumber={this.toggleNumber.bind(this)} />
+                  <h2>
+                    <NumbersForm {...this.state} submitOperation={this.submitOperation.bind(this)} toggleOp={this.toggleOp.bind(this)} toggleNumber={this.toggleNumber.bind(this)} />
+                  </h2>
                 }
               </div>
               <div>
@@ -261,14 +263,21 @@ export default class Numbers extends React.Component {
               </div>
             </Col>
             { this.state.solution && <Col xs={12} sm={5}>
-              <Button bsStyle="info" onClick={() => this.setState({ showSolution: !this.state.showSolution }) }>
-                Show solution
-              </Button>
-              <br />
+              <Row>
+                <Col xs={12}>
+                  <h2>&nbsp;</h2>
+                  <h4 className={this.state.showSolution ? '' : 'invisible'}>Best solution: {this.state.solution[this.state.solution.length - 1].res}</h4>
+                </Col>
+              </Row>
+              <div>
+                <h2>
+                  <Button bsStyle="info" onClick={() => this.setState({ showSolution: !this.state.showSolution }) }>
+                    Show solution
+                  </Button>
+                </h2>
+              </div>
               <Collapse in={!!this.state.showSolution}>
                 <div>
-                  <br />
-                  Best solution: {this.state.solution[this.state.solution.length - 1].res}
                   <NumbersHistory history={this.state.solution.slice(1)} success={true} />
                 </div>
               </Collapse>

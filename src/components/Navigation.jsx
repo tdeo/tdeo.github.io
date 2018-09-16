@@ -25,6 +25,11 @@ export default class Navigation extends React.Component {
                 Dice
               </NavItem>
             </LinkContainer>
+            <LinkContainer to="/experiments">
+              <NavItem>
+                Experiments
+              </NavItem>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

@@ -5,15 +5,19 @@ import { ShortcutManager } from 'react-shortcuts';
 
 import keymap from '../keymap.jsx';
 
+import Index from './Index.jsx';
+import Navigation from './Navigation.jsx';
+// Navbar
+import Maps from './maps/Maps.jsx';
+import DiceIndex from './dice/DiceIndex.jsx';
+import Experiments from './experiments/Experiments';
+// Experiments
 import Dcdl from './dcdl/Dcdl.jsx';
 import Numbers from './dcdl/Numbers.jsx';
-import DiceIndex from './dice/DiceIndex.jsx';
-import Index from './Index.jsx';
-import IsItFive from './isitfive/IsItFive.jsx';
-import Maps from './maps/Maps.jsx';
-import Navigation from './Navigation.jsx';
-import Cv from './cv/Cv.jsx';
 import Procedural from './procedural/Procedural.jsx';
+// Other pages
+import Cv from './cv/Cv.jsx';
+import IsItFive from './isitfive/IsItFive.jsx';
 
 const shortcutManager = new ShortcutManager(keymap);
 
@@ -29,6 +33,7 @@ export default class App extends React.Component {
         <Route exact path="/" component={Index}/>
         <Route path="/maps" component={Maps}/>
         <Route path="/dice" component={DiceIndex}/>
+        <Route path="/experiments" component={Experiments}/>
         <Route path="/isitfive" component={IsItFive}/>
         <Route path="/dcdl" component={Dcdl}/>
         <Route path="/dcdl/numbers" component={Numbers}/>
