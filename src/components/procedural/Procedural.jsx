@@ -24,7 +24,10 @@ export default class Procedural extends React.Component {
   }
 
   grid() {
-    var initial = this.randomPoint();
+    var initial = [
+      this.random(this.state.width / 3, 2 * this.state.width / 3),
+      this.random(this.state.height / 3, 2 * this.state.height / 3),
+    ];
     var shapes = [
       [[0, 0], [0, this.state.height], initial],
       [[0, this.state.height], [this.state.width, this.state.height], initial],
@@ -33,9 +36,7 @@ export default class Procedural extends React.Component {
     ];
     for (var j = 0; j < this.state.triangles; j++) {
       shapes = this.insertPoint(shapes);
-      shapes.sort((a, b) => {
-        return (this.area(b) - this.area(a));
-      });
+      shapes = this.split(shapes);
     }
     return shapes;
   }
@@ -49,6 +50,9 @@ export default class Procedural extends React.Component {
   }
 
   insertPoint(shapes) {
+    shapes.sort((a, b) => {
+      return (this.area(b) - this.area(a));
+    });
     var idx = 0;
     var shape = shapes[idx];
     shapes.splice(idx, 1);
@@ -63,6 +67,53 @@ export default class Procedural extends React.Component {
       [shape[0], shape[1], point],
       [shape[1], shape[2], point],
       [shape[2], shape[0], point],
+    );
+    return shapes;
+  }
+
+  length(a, b) {
+    return Math.sqrt(Math.pow(b[0] - a[0], 2) + Math.pow(b[1] - a[1], 2));
+  }
+
+  maxLength(shape) {
+    return Math.max(
+      this.length(shape[0], shape[1]),
+      Math.max(
+        this.length(shape[1], shape[2]),
+        this.length(shape[2], shape[0]),
+      ),
+    );
+  }
+
+  split(shapes) {
+    shapes.sort((a, b) => {
+      return this.maxLength(b) - this.maxLength(a);
+    });
+    var idx = 0;
+    var shape = shapes[idx];
+    shapes.splice(idx, 1);
+    var a, b, c;
+    if (this.length(shape[0], shape[1]) > this.maxLength(shape) - 1) {
+      a = shape[2];
+      b = shape[1];
+      c = shape[0];
+    } else if (this.length(shape[1], shape[2]) > this.maxLength(shape) - 1) {
+      a = shape[0];
+      b = shape[1];
+      c = shape[2];
+    } else {
+      a = shape[1];
+      b = shape[2];
+      c = shape[0];
+    }
+    var alpha = Math.random() * (1 - 3 * this.state.alpha) + 1.5 * this.state.alpha;
+    var d = [
+      alpha * b[0] + (1 - alpha) * c[0],
+      alpha * b[1] + (1 - alpha) * c[1]
+    ];
+    shapes.push(
+      [a, b, d],
+      [a, c, d],
     );
     return shapes;
   }
@@ -88,8 +139,7 @@ export default class Procedural extends React.Component {
     var l = Math.sqrt(Math.pow(b[0] - c[0], 2) + Math.pow(b[1] - c[1], 2));
     var alpha = Math.acos(
       ((b[0] - a[0]) * (c[0] - a[0]) + (b[1] - a[1]) * (c[1] - a[1])) / Math.abs(
-        Math.sqrt(Math.pow(b[0] - a[0], 2) + Math.pow(b[1] - a[1], 2)) *
-        Math.sqrt(Math.pow(c[0] - a[0], 2) + Math.pow(c[1] - a[1], 2))
+        this.length(a, b) * this.length(a, c)
       )
     );
     var density = Math.max(3, Math.min(l / 15, alpha * 9));
@@ -119,6 +169,7 @@ export default class Procedural extends React.Component {
   render() {
     return (
       <Grid>
+        <style>{"canvas { margin-bottom: 10px !important; }"}</style>
         <Row>
           <Col xs={12}>
             <h2>Procedural generator</h2>
