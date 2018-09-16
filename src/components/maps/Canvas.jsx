@@ -4,6 +4,7 @@ import { Layer, Stage } from 'react-konva';
 
 import './Canvas.css';
 import MapTile from './MapTile.jsx';
+import Scale from './Scale.jsx';
 
 export default class Canvas extends React.Component {
   static defaultProps = {
@@ -41,6 +42,7 @@ export default class Canvas extends React.Component {
             <MapTile key={image.key} {...image}/>
           )}
         </Layer>
+        <Scale {...this.props} />
       </Stage>
     );
   }
