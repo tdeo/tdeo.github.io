@@ -1,5 +1,3 @@
-// import React from 'react';
-
 const api_key = 'AIzaSyAzvgVkGFZNr19zI1nsYo0teQqcgBAIfoU';
 const image_size = 532;
 const image_size_cropped = 512;
@@ -69,15 +67,33 @@ export default class Utils {
     return Math.abs(lon1 - lon2) * Math.PI / 360 * R_EARTH * Math.cos(lat * Math.PI / 180);
   }
 
+  static baseZoom(props) {
+    var nw = this.toPixels(props.north, props.west);
+    var se = this.toPixels(props.south, props.east);
+    var n = nw[1];
+    var w = nw[0];
+    var s = se[1];
+    var e = se[0];
+
+    var area = (s - n) * (e - w);
+
+    return Math.round(Math.log2(tile_size * tile_size * 9 / area) / 2);
+  }
+
   static computeImages(props) {
     var images = [];
 
+    var zoom = props.zoom;
+    if (zoom === undefined) {
+      zoom = this.baseZoom(props);
+    }
+
     var nw = this.toPixels(props.north, props.west);
     var se = this.toPixels(props.south, props.east);
-    var n = nw[1] * Math.pow(2, props.zoom);
-    var w = nw[0] * Math.pow(2, props.zoom);
-    var s = se[1] * Math.pow(2, props.zoom);
-    var e = se[0] * Math.pow(2, props.zoom);
+    var n = nw[1] * Math.pow(2, zoom);
+    var w = nw[0] * Math.pow(2, zoom);
+    var s = se[1] * Math.pow(2, zoom);
+    var e = se[0] * Math.pow(2, zoom);
 
     var latPixels = n + g_scale * tile_size / 2;
     var row = 0;
@@ -85,8 +101,8 @@ export default class Utils {
       var longPixels = w + g_scale * tile_size / 2;
       var col = 0;
       while (longPixels <= e + g_scale * tile_size / 2) {
-        var latLong = this.toCoordinates([longPixels / Math.pow(2, props.zoom), latPixels / Math.pow(2, props.zoom)]);
-        images.push(this.imageProps(latLong[0], latLong[1], props.zoom, row, col));
+        var latLong = this.toCoordinates([longPixels / Math.pow(2, zoom), latPixels / Math.pow(2, zoom)]);
+        images.push(this.imageProps(latLong[0], latLong[1], zoom, row, col));
         longPixels += g_scale * tile_size;
         col += 1;
       }
@@ -102,6 +118,7 @@ export default class Utils {
       west: props.west,
       south: props.south,
       east: props.east,
+      zoom: zoom,
     };
   }
 }

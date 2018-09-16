@@ -4,18 +4,9 @@ import { Button, Col, ControlLabel, Form, FormControl, FormGroup, HelpBlock } fr
 
 import Utils from './Utils.jsx';
 
-const floatRe = RegExp('^\\s*\\d+(.\\d*)?\\s*$');
+const floatRe = RegExp('^\\s*\\-?\\d+(.\\d*)?\\s*$');
 
 export default class CoordinatesForm extends React.Component {
-  static defaultProps = {
-    south: 52.360052,
-    north: 52.382052,
-    west: 4.877190,
-    east: 4.916190,
-    zoom: 15,
-    valid: true,
-  };
-
   static propTypes = {
     south: PropTypes.number,
     north: PropTypes.number,
@@ -23,25 +14,24 @@ export default class CoordinatesForm extends React.Component {
     east: PropTypes.number,
     zoom: PropTypes.number,
     onSubmit: PropTypes.func,
+    changeState: PropTypes.func,
     valid: PropTypes.bool,
   };
 
   constructor(props) {
     super(props);
-    this.state = props;
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   getValidationState(ids) {
     var _this = this;
     if (ids.every(function(id) {
-      return _this.state[id] === '';
+      return _this.props[id] === '';
     })) {
       return null;
     }
     if (ids.find(function(id) {
-      return !floatRe.test(_this.state[id]);
+      return !floatRe.test(_this.props[id]);
     })) {
       return 'error';
     }
@@ -53,29 +43,30 @@ export default class CoordinatesForm extends React.Component {
     // so that the thing doesn't crash.
     // See https://stackoverflow.com/questions/6081483/maximum-size-of-a-canvas-element
     // This is going to enable / disable the submit button.
-    var images = Utils.computeImages(this.state);
+    var images = Utils.computeImages(this.props);
     if ((images.width > 16383) || (images.height > 16383) || (images.width * images.height > 8192 * 8192)) {
-      this.setState({ valid: false });
+      this.props.changeState({ valid: false });
     } else {
-      this.setState({ valid: true });
+      this.props.changeState({ valid: true });
     }
   }
 
   handleChange(event) {
-    this.setState(
-      { [event.target.id]: event.target.value },
-      () => this.checkValid()
+    var value = (event.target.id === 'zoom') ? parseInt(event.target.value, 10) : parseFloat(event.target.value);
+    this.props.changeState(
+      { [event.target.id]: value },
+      this.checkValid.bind(this),
     );
   }
 
   handleSubmit(event) {
-    this.props.onSubmit(this.state);
+    this.props.onSubmit(this.props);
     event.preventDefault();
   }
 
   render() {
     return (
-      <Form horizontal onSubmit={this.handleSubmit}>
+      <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
         <FormGroup validationState={this.getValidationState(['south', 'north'])}>
           <Col componentClass={ControlLabel} sm={3}>
             <ControlLabel>Latitude</ControlLabel>
@@ -84,7 +75,7 @@ export default class CoordinatesForm extends React.Component {
             <FormControl
               id="south"
               type="text"
-              value={this.state.south}
+              value={this.props.south}
               placeholder="South latitude"
               onChange={this.handleChange}
             />
@@ -93,7 +84,7 @@ export default class CoordinatesForm extends React.Component {
             <FormControl
               id="north"
               type="text"
-              value={this.state.north}
+              value={this.props.north}
               placeholder="North latitude"
               onChange={this.handleChange}
             />
@@ -108,7 +99,7 @@ export default class CoordinatesForm extends React.Component {
             <FormControl
               id="west"
               type="text"
-              value={this.state.west}
+              value={this.props.west}
               placeholder="West longitude"
               onChange={this.handleChange}
             />
@@ -117,7 +108,7 @@ export default class CoordinatesForm extends React.Component {
             <FormControl
               id="east"
               type="text"
-              value={this.state.east}
+              value={this.props.east}
               placeholder="East longitude"
               onChange={this.handleChange}
             />
@@ -134,20 +125,20 @@ export default class CoordinatesForm extends React.Component {
               type="number"
               min="1"
               max="21"
-              value={this.state.zoom}
+              value={this.props.zoom}
               placeholder="Detail level"
               onChange={this.handleChange}
             />
           </Col>
           <Col sm={3}>
             <Button bsStyle="primary" type="submit" style={{ width: '100%' }}
-              disabled={!this.state.valid}>
+              disabled={!this.props.valid}>
               Submit
             </Button>
           </Col>
         </FormGroup>
 
-        {this.state.valid || <FormGroup id="canvas-size-alert">
+        {this.props.valid || <FormGroup id="canvas-size-alert">
           <Col sm={7} smOffset={2}>
             <HelpBlock className="alert alert-danger">
               The image you&quot;re trying to generate is too big and is going to crash the browser, please lower detail level value.

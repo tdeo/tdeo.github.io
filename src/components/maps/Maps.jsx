@@ -3,15 +3,21 @@ import { Col, Grid, Row } from 'react-bootstrap';
 
 import Canvas from './Canvas.jsx';
 import CoordinatesForm from './CoordinatesForm.jsx';
+import PlaceForm from './PlaceForm.jsx';
 import Utils from './Utils.jsx';
 
 export default class Maps extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: []
+      south: 52.360052,
+      north: 52.382052,
+      west: 4.877190,
+      east: 4.916190,
+      zoom: 15,
+      images: [],
+      valid: true,
     };
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onSubmit(props) {
@@ -32,7 +38,12 @@ export default class Maps extends React.Component {
           <br />
           <Row>
             <Col sm={12}>
-              <CoordinatesForm onSubmit={this.onSubmit}/>
+              <PlaceForm onSubmit={this.onSubmit.bind(this)} />
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={12}>
+              <CoordinatesForm {...this.state} changeState={this.setState.bind(this)} onSubmit={this.onSubmit.bind(this)} />
             </Col>
           </Row>
           <Row>
