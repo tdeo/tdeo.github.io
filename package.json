@@ -23,7 +23,7 @@
     "axios": "^0.18.0",
     "javascript-blowfish": "agorlov/javascript-blowfish",
     "konva": "^2.2.1",
-    "query-string": "^6.1.0",
+    "query-string": "5",
     "react": "^16.4.2",
     "react-bootstrap": "^0.32.1",
     "react-bootstrap-typeahead": "^3.2.3",
