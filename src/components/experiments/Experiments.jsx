@@ -17,10 +17,17 @@ export default class Experiments extends React.Component {
         image: '/images/numbers.png',
       },
       {
+        title: 'Dices',
+        url: '/dice',
+        content: 'Dice simulator created for playing games, keeps track of the throws outcome and compares it'+
+          ' to the theoretical distribution.',
+        image: '/images/dice.png',
+      },
+      {
         title: 'Maps HD',
         url: '/maps',
         content: 'Creates a satellite map of a region by re-aggregating different satellite images together.',
-      }
+      },
     ];
 
     return (
