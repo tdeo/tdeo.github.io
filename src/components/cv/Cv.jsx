@@ -7,6 +7,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import Blowfish from 'javascript-blowfish';
 import queryString from 'query-string';
 
+import Competence from './Competence.jsx';
 import './Cv.css';
 
 export default class Cv extends React.Component {
@@ -49,32 +50,59 @@ export default class Cv extends React.Component {
       <div>
         <Grid>
           <Row>
-            <Col xs={12} sm={4}>
-              <img id="picture" alt="" src="/images/thierry.jpg" />
-              <h3 className="text-center">Thierry Deo</h3>
-              <h5 className="text-center">Ingénieur en développement logiciel</h5>
+            <Col xs={12} sm={4} className="left-panel">
+              <Row>
+                <Col xs={12}>
+                  <img id="picture" alt="" src="/images/thierry.jpg" />
+                  <h3 className="text-center">Thierry Deo</h3>
+                  <h5 className="text-center">Ingénieur en développement logiciel</h5>
+
+                  <hr />
+
+                  {this.validKey() && <h5>
+                    {this.address().map((line, i) => {
+                      return (
+                        <span key={i}>
+                          <FontAwesomeIcon className={(i === 0) ? '' : 'invisible'} icon={faHome} /> {line}
+                          <br />
+                        </span>
+                      );
+                    })}
+                  </h5>}
+                  {this.validKey() && <h5>
+                    <FontAwesomeIcon icon={faPhone} /> {this.phoneNumber()}
+                  </h5>}
+                  <h5>
+                    <FontAwesomeIcon icon={faAt} /> thierry.deo@gmail.com
+                  </h5>
+                  <h5>
+                    <FontAwesomeIcon icon={faGithub} /> https://github.com/tdeo
+                  </h5>
+                </Col>
+              </Row>
               <hr />
-              {this.validKey() && <h5>
-                {this.address().map((line, i) => {
-                  return (
-                    <span key={i}>
-                      <FontAwesomeIcon className={(i === 0) ? '' : 'invisible'} icon={faHome} /> {line}
-                      <br />
-                    </span>
-                  );
-                })}
-              </h5>}
-              {this.validKey() && <h5>
-                <FontAwesomeIcon icon={faPhone} /> {this.phoneNumber()}
-              </h5>}
-              <h5>
-                <FontAwesomeIcon icon={faAt} /> thierry.deo@gmail.com
-              </h5>
-              <h5>
-                <FontAwesomeIcon icon={faGithub} /> https://github.com/tdeo
-              </h5>
+              <Row>
+                <Col xs={12} className="text-justify">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                </Col>
+              </Row>
+              <hr />
+              <Row>
+                <Competence percent={100} desc={'Français<br /><small>Natif</small>'} />
+                <Competence percent={90} desc={'Anglais<br /><small>Professionnel</small>'} />
+                <Competence percent={66.666} desc={'Espagnol<br /><small>Bon</small>'} />
+              </Row>
+              <hr />
+              <Row>
+                <Competence percent={95} desc={'Ruby on Rails'} />
+                <Competence percent={90} desc={'MySQL'} />
+                <Competence percent={75} desc={'AWS'} />
+              </Row>
             </Col>
-            <Col xs={12} sm={8} className="main-panel">
+            <Col xs={0} />
+            <Col xs={12} sm={8} className="right-panel">
               <Row>
                 <Col xs={12}><h3>Expérience professionelle</h3></Col>
               </Row>

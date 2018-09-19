@@ -2,6 +2,10 @@ hr {
   border-color: rgb(32, 90, 32);
 }
 
+.visible-print {
+  visibility: hidden;
+}
+
 @media print {
   .hidden-sm {
     display: none !important;
@@ -48,18 +52,28 @@ hr {
   .col-sm-1 {
     width: 8.333333333333332%;
   }
+  .visible-print {
+    visibility: initial;
+  }
 }
 
-@media (min-width: 768px) {
-  .main-panel:before {
+@media (min-width: 768px), print {
+  .left-panel:after, .right-panel:before {
     border-left: 1px solid #999;
     bottom: 0;
     content: '';
     display: block;
     height: 100%;
     position: absolute;
-    left: 0;
     top: 0;
+  }
+
+  .left-panel:after {
+    right: 0px;
+  }
+
+  .right-panel:before {
+    left: -1px;
   }
 }
 
@@ -75,11 +89,11 @@ hr {
   font-variant: small-caps;
 }
 
-.main-panel {
+.right-panel {
   text-align: justify;
 }
 
-.main-panel h3 {
+.right-panel h3 {
   border-left: 2px outset rgb(32, 90, 32);
   border-right: 2px inset white;
   border-bottom: 2px inset rgb(32, 90, 32);
@@ -88,6 +102,6 @@ hr {
   color: rgb(32, 90, 32) !important;
 }
 
-.main-panel ul {
+.right-panel ul {
   padding-left: 20px;
 }

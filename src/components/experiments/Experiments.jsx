@@ -35,10 +35,12 @@ export default class Experiments extends React.Component {
                   </Panel.Heading>
                   <Panel.Body>
                     {page.content}
-                    {page.image &&
-                    <img src={page.image} width="100%" alt=""/>
-                    }
                   </Panel.Body>
+                  {page.image &&
+                    <Panel.Body>
+                      <img src={page.image} width="100%" alt=""/>
+                    </Panel.Body>
+                  }
                 </Panel>
               </Col>
             );
