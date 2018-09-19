@@ -11,17 +11,27 @@ export default class Experiments extends React.Component {
         image: '/images/triangular.png',
       },
       {
-        title: 'Make the number',
+        title: 'Ger the number',
         url: '/dcdl/numbers',
-        content: 'Copy of a french TV game, you need to get to a result given 6 numbers and the 4 elementary operations',
+        content: 'Copy of a french TV game, you need to get to a result given 6 initial numbers and the 4 elementary operations',
         image: '/images/numbers.png',
       },
+      {
+        title: 'Maps HD',
+        url: '/maps',
+        content: 'Creates a satellite map of a region by re-aggregating different satellite images together.',
+      }
     ];
 
     return (
       <Grid>
         <Row>
-          <Col sm={2} xsHidden />
+          <Col xs={12} sm={8} smOffset={2}>
+            <h5>
+              This is a collection of project / ideas / services that I put together on various occasions. They range from
+              a pure learning opportunity to making something useful for a friend.
+            </h5>
+          </Col>
           {pages.map((page, i) => {
             return (
               <Col xs={12} sm={4} key={i}>

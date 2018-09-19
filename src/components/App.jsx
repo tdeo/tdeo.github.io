@@ -5,7 +5,6 @@ import { ShortcutManager } from 'react-shortcuts';
 
 import keymap from '../keymap.jsx';
 
-import Index from './Index.jsx';
 import Navigation from './Navigation.jsx';
 // Navbar
 import Maps from './maps/Maps.jsx';
@@ -30,7 +29,7 @@ export default class App extends React.Component {
     return (
       <div>
         <Navigation />
-        <Route exact path="/" component={Index}/>
+        <Route exact path="/" component={Experiments}/>
         <Route path="/maps" component={Maps}/>
         <Route path="/dice" component={DiceIndex}/>
         <Route path="/experiments" component={Experiments}/>

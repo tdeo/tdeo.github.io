@@ -14,7 +14,7 @@ export default class Scale extends React.Component {
   };
 
   findScale() {
-    // Get the maximum scale below 500 pixels
+    // Get the maximum scale below 500 pixels or 20% of page
     var scales = [
       ['50m', 0.05],
       ['100m', 0.1],
@@ -31,7 +31,8 @@ export default class Scale extends React.Component {
       ['500km', 500],
     ];
     var i = 0;
-    while ((i < scales.length - 1) && (Utils.distance(this.props.south, this.props.west, this.props.east) * 500 / this.props.width > scales[i][1])) {
+    var target_width = Math.max(500, 0.2 * this.prop.width);
+    while ((i < scales.length - 1) && (Utils.distance(this.props.south, this.props.west, this.props.east) * target_width / this.props.width > scales[i][1])) {
       i += 1;
     }
     return {

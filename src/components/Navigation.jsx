@@ -15,19 +15,14 @@ export default class Navigation extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <LinkContainer to="/maps">
-              <NavItem>
-                Maps HD
-              </NavItem>
-            </LinkContainer>
-            <LinkContainer to="/dice">
-              <NavItem>
-                Dice
-              </NavItem>
-            </LinkContainer>
             <LinkContainer to="/experiments">
               <NavItem>
                 Experiments
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to="/cv">
+              <NavItem>
+                CV
               </NavItem>
             </LinkContainer>
           </Nav>
