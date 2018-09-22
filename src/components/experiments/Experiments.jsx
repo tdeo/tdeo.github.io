@@ -11,7 +11,7 @@ export default class Experiments extends React.Component {
         image: '/images/triangular.png',
       },
       {
-        title: 'Ger the number',
+        title: 'Get the number',
         url: '/dcdl/numbers',
         content: 'Copy of a french TV game, you need to get to a result given 6 initial numbers and the 4 elementary operations',
         image: '/images/numbers.png',
@@ -19,7 +19,7 @@ export default class Experiments extends React.Component {
       {
         title: 'Dices',
         url: '/dice',
-        content: 'Dice simulator created for playing games, keeps track of the throws outcome and compares it'+
+        content: 'Dice simulator created for playing games, keeps track of the throws outcome and compares it' +
           ' to the theoretical distribution.',
         image: '/images/dice.png',
       },
