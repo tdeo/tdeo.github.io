@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <script src="FileSave.min.js"></script>
+  <script src="canvas-toBlob.js"></script>
+  <script src="Blob.js"></script>
+  <form action="" style='display: inline-block; vertical-align: top; padding: 10px' onsubmit="return false;">
+    <table >
+      <tr>
+        <td>North latitude:</td>
+        <td><input type="text" autocomplete="off" id="north" value="52.382052"></td>
+      </tr>
+      <tr>
+        <td>South latitude:</td>
+        <td><input type="text" autocomplete="off" id="south" value="52.360052"></td>
+      </tr>
+      <tr>
+        <td>West longitude:</td>
+        <td><input type="text" autocomplete="off" id="west" value="4.877190"></td>
+      </tr>
+      <tr>
+        <td>East longitude:</td>
+        <td><input type="text" autocomplete="off" id="east" value="4.916190"></td>
+      </tr>
+      <tr>
+        <td>Zoom level:</td>
+        <td><input type="number" autocomplete="off" id="zoom" min="0" max="21" value="15"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="submit" id="generate" value="Generate"></td>
+      </tr>
+    </table>
+  </form>
+  <form action="" style='display: inline-block; vertical-align: top; padding: 10px' onsubmit="return false;">
+   <table >
+      <tr style="vertical-align: top">
+        <td>Place:</td>
+        <td style="vertical-align: top">
+          <input type="text" autocomplete="off" id="search_text" value="Amsterdam"><br />
+          <input type="submit" id="search" value="Search">
+        </td>
+        <td id="suggestions"></td>
+      </tr>
+    </table>
+  </form>
+  <br />
+  <button id="download" style='margin: 0 10px 10px 0;'>Download this image</button>(If the downloaded file can not be opened, try lowering the "zoom" value.)
+  <br />
+
+  <canvas id="canvas" style="max-width: 100%"></canvas>
+
+  <script src="maps.js"></script>
+</body>
+</html>
