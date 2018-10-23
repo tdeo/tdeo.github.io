@@ -45,6 +45,10 @@ export default class Cv extends React.Component {
     return res;
   }
 
+  componentDidMount() {
+    document.title = 'CV - Thierry Deo';
+  }
+
   render() {
     return (
       <div>
@@ -56,62 +60,85 @@ export default class Cv extends React.Component {
                   <img id="picture" alt="" src="/images/thierry.jpg" />
                   <h3 className="text-center">Thierry Deo</h3>
                   <h5 className="text-center">Ingénieur en développement logiciel</h5>
-
-                  <hr />
-
-                  {this.validKey() && <h5>
-                    {this.address().map((line, i) => {
-                      return (
-                        <span key={i}>
-                          <FontAwesomeIcon className={(i === 0) ? '' : 'invisible'} icon={faHome} /> {line}
-                          <br />
-                        </span>
-                      );
-                    })}
-                  </h5>}
-                  {this.validKey() && <h5>
-                    <FontAwesomeIcon icon={faPhone} /> {this.phoneNumber()}
-                  </h5>}
-                  <h5>
-                    <FontAwesomeIcon icon={faAt} /> thierry.deo@gmail.com
-                  </h5>
-                  <h5>
-                    <FontAwesomeIcon icon={faGithub} /> https://github.com/tdeo
-                  </h5>
                 </Col>
               </Row>
+
               <hr />
+
+              <Row>
+                <Col xs={12} id="contact">
+                  <small>
+                    {this.validKey() && <p>
+                      {this.address().map((line, i) => {
+                        return (
+                          <span key={i}>
+                            <FontAwesomeIcon className={(i === 0) ? '' : 'invisible'} icon={faHome} /> {line}
+                            <br />
+                          </span>
+                        );
+                      })}
+                    </p>}
+                    {this.validKey() && <p>
+                      <FontAwesomeIcon icon={faPhone} /> {this.phoneNumber()}
+                    </p>}
+                    <p>
+                      <FontAwesomeIcon icon={faAt} /> thierry.deo@gmail.com
+                    </p>
+                    <p>
+                      <FontAwesomeIcon icon={faGithub} /> https://github.com/tdeo
+                    </p>
+                  </small>
+                </Col>
+              </Row>
+
+              <hr />
+
               <Row>
                 <Col xs={12} className="text-justify">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                  <p>
+                    Après avoir passé 4 ans à développer un projet pour l&apos;hôtellerie au sein
+                    d&apos;une start-up puis après son rachat, les problématiques m&apos;ayant passionné
+                    sont celles de conception de nouvelles fonctionnalités, de scaling et
+                    d&apos;orchestration de l&apos;infrastructure.
+                  </p>
+                  <p>
+                    Je recherche aujourd&apos;hui un projet technique, qui me permette également
+                    de participer activement à la conception et le développement du produit.
+                  </p>
                 </Col>
               </Row>
+
               <hr />
+
               <Row>
                 <Competence percent={100} desc={'Français<br /><small>Natif</small>'} />
                 <Competence percent={90} desc={'Anglais<br /><small>Professionnel</small>'} />
                 <Competence percent={66.666} desc={'Espagnol<br /><small>Bon</small>'} />
               </Row>
+
               <hr />
+
               <Row>
-                <Competence percent={95} desc={'Ruby on Rails'} />
-                <Competence percent={90} desc={'MySQL'} />
-                <Competence percent={75} desc={'AWS'} />
+                <Competence percent={90} desc={'Ruby on Rails'} />
+                <Competence percent={80} desc={'MySQL'} />
+                <Competence percent={70} desc={'AWS'} />
               </Row>
             </Col>
             <Col xs={0} />
+
+
             <Col xs={12} sm={8} className="right-panel">
+
+              {
+                // EXPERIENCE PROFESSIONNELLE
+              }
+
               <Row>
                 <Col xs={12}><h3>Expérience professionelle</h3></Col>
-              </Row>
-              <Row>
+
                 <Col xs={12} sm={8}><h4 className='small-caps'>Booking.com</h4></Col>
                 <Col sm={4} xsHidden><h5 className='text-right'> Juill.&nbsp;2015&nbsp;-&nbsp;Août&nbsp;2018</h5></Col>
                 <Col xs={12} smHidden mdHidden lgHidden><h5> Juill.&nbsp;2015&nbsp;-&nbsp;Août&nbsp;2018</h5></Col>
-              </Row>
-              <Row>
                 <Col xs={12}>
                   Transfert suite au rachat de PriceMatch, Développeur Senior et Team Lead.
                   <ul>
@@ -129,13 +156,10 @@ export default class Cv extends React.Component {
                     </li>
                   </ul>
                 </Col>
-              </Row>
-              <Row>
+
                 <Col xs={12} sm={8}><h4 className='small-caps'>PriceMatch <small> - start-up</small></h4></Col>
                 <Col sm={4} xsHidden><h5 className='text-right'> Juill.&nbsp;2014&nbsp;-&nbsp;Juill.&nbsp;2015</h5></Col>
                 <Col xs={12} smHidden mdHidden lgHidden><h5> Juill.&nbsp;2014&nbsp;-&nbsp;Juill.&nbsp;2015</h5></Col>
-              </Row>
-              <Row>
                 <Col xs={12}>
                   Développeur au sein d&apos;une équipe de 6.
                   <ul>
@@ -153,31 +177,54 @@ export default class Cv extends React.Component {
                   </ul>
                 </Col>
               </Row>
+
+              {
+                // FORMATION
+              }
+
               <Row>
                 <Col xs={12}><h3>Formation</h3></Col>
-              </Row>
-              <Row>
+
                 <Col xs={12} sm={8}><h4 className='small-caps'>Télécom ParisTech <small> - Diplôme d&apos;ingénieur</small></h4></Col>
                 <Col sm={4} xsHidden><h5 className='text-right'> 2013&nbsp;-&nbsp;2014</h5></Col>
                 <Col xs={12} smHidden mdHidden lgHidden><h5> 2013&nbsp;-&nbsp;2014</h5></Col>
-              </Row>
-              <Row>
                 <Col xs={12}>
                   Parcours <i>Ingénierie du logiciel</i>.<br />
                   Réalisation d&apos;un projet en Python sur la simulation de l&apos;émergence d&apos;un langage de communication
                   par des algorithmes génétiques.
                 </Col>
-              </Row>
-              <Row>
+
                 <Col xs={12} sm={8}><h4 className='small-caps'>École polytechnique <small> - Diplôme d&apos;ingénieur</small></h4></Col>
                 <Col sm={4} xsHidden><h5 className='text-right'> 2010&nbsp;-&nbsp;2013</h5></Col>
                 <Col xs={12} smHidden mdHidden lgHidden><h5> 2010&nbsp;-&nbsp;2013</h5></Col>
-              </Row>
-              <Row>
                 <Col xs={12}>
                   Parcours <i>Optimisation</i> en mathématiques appliquées et informatique.<br />
                   Stage militaire de 9 mois à bord de la frégate <i>Cassard</i>&nbsp;:
                   préparation opérationelle de l&apos;équipage avant départ en mission.
+                </Col>
+              </Row>
+
+              {
+                // CENTRES D'INTERET
+              }
+
+              <Row>
+                <Col xs={12}><h3>Centres d&apos;intérêt</h3></Col>
+
+                <Col xs={12}>
+                  <dl className="dl-horizontal">
+                    <dt>Sport</dt>
+                    <dd>Pratique du squash et badminton en loisir.</dd>
+
+                    <dt>Cuisine</dt>
+                    <dd>Moments de créativité et convivialité.</dd>
+
+                    <dt>Informatique</dt>
+                    <dd>
+                      Passionné par l&apos;algorithmie et les nouvelles technologies. Participation à des compétitions : ACM ICPC en 2014 et en ligne.
+                      Nombreux défis et exercices en ligne (Project Euler, Hackerrank, Advent of Code).
+                    </dd>
+                  </dl>
                 </Col>
               </Row>
             </Col>

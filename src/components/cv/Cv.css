@@ -7,6 +7,11 @@ hr {
 }
 
 @media print {
+  body {
+    font-size: 12px;
+    margin-top: 60px;
+  }
+
   .hidden-sm {
     display: none !important;
   }
@@ -59,7 +64,7 @@ hr {
 
 @media (min-width: 768px), print {
   .left-panel:after, .right-panel:before {
-    border-left: 1px solid #999;
+    border-left: 1px solid rgb(32, 90, 32);
     bottom: 0;
     content: '';
     display: block;
@@ -75,14 +80,31 @@ hr {
   .right-panel:before {
     left: -1px;
   }
+
+  .dl-horizontal dt {
+    float: left;
+    width: 100px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+  }
+
+  .dl-horizontal dd {
+    margin-left: 120px;
+  }
 }
 
 #picture {
   border-radius: 100%;
-  width: 100%;
+  width: 70%;
   max-width: 200px;
   margin: 0 auto;
   display: block;
+}
+
+
+#contact p {
+  margin-bottom: 3px;
 }
 
 .small-caps {
