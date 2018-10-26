@@ -1,6 +1,8 @@
-canvas, .konvajs-content {
-  width: initial !important;
-  height: initial !important;
-  max-width: 100%;
-  margin-bottom: 20px;
+.maps {
+  canvas, .konvajs-content {
+    width: initial !important;
+    height: initial !important;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
 }

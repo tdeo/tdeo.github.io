@@ -26,7 +26,7 @@ export default class Maps extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="maps">
         <Grid>
           <Row>
             <Col sm={12}>
