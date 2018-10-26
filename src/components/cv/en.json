@@ -1,0 +1,89 @@
+{
+  "name": "Thierry Deo",
+  "title": "Software engineer",
+  "picture": "",
+  "email": "thierry.deo@gmail.com",
+  "github": "https://github.com/tdeo",
+  "pitch": [
+    "After 4 years developing a product in a start-up and after its acquisition, the challenges that I loved were new feature design and implementation to continuously improve the product, as well as scaling and orchestrating the underlying infrastructure.",
+    "I'm now looking for a project on which I would be involved in technical challenges, and also be contributing to the product vision and development."
+  ],
+  "languages": [
+    { "val": 100, "desc": "French<br /><small>Native</small>" },
+    { "val": 90, "desc": "English<br /><small>Professional</small>" },
+    { "val": 66.66, "desc": "Spanish<br /><small>Conversational</small>" }
+  ],
+  "skills": [
+    { "val": 90, "desc": "Ruby on Rails" },
+    { "val": 80, "desc": "MySQL" },
+    { "val": 70, "desc": "AWS" }
+  ],
+  "pro_exp": {
+    "title": "Professional experience",
+    "items": [
+      {
+        "company": "Booking.com",
+        "date": "July&nbsp;2015&nbsp;-&nbsp;August&nbsp;2018",
+        "text": [
+          "Relocation after the acquisition of PriceMatch, Senior Developer and Team Lead."
+        ],
+        "bullets": [
+          "Integration of the product with the company's databases, scaling the code and infrastructure from 1000 to 200&nbsp;000 customers.",
+          "Infrastructure migration to in-house datacenters: MySQL and NoSQL databases, deployments migrated to <i>Docker</i> and <i>OpenShift</i>",
+          "Creation of numerous tools for our development environment: database synchronizations, <i>Docker</i>-based development workflows, set-up and maintainance of our continuous integration and continuous deployment pipelines."
+        ]
+      },
+      {
+        "company": "PriceMatch <small> - start-up</small>",
+        "date": "July&nbsp;2014&nbsp;-&nbsp;July&nbsp;2015",
+        "text": [
+          "Developer in a team of 6."
+        ],
+        "bullets": [
+          "Implementation of the yield management platform for the hotel industry: back-end with <i>Ruby on Rails</i>, conception of database structures and new features.",
+          "Infrastructure configuration with <i>AWS</i>, automatization with <i>Chef</i>.",
+          "Ad-hoc development on other projects: marketing website updates, implementation of the algorithms with Python, new front-end features development with <i>Backbone.js</i> and <i>Marionette.js</i>."
+        ]
+      }
+    ]
+  },
+  "education": {
+    "title": "Education",
+    "items": [
+      {
+        "school": "Télécom ParisTech <small> - Master of engineering</small>",
+        "date": "2013&nbsp;-&nbsp;2014",
+        "text": [
+          "<i>Software engineering</i> program.",
+          "Python project throughout the semester: simulating the emergence of a communication language through genetic algorithms"
+        ]
+      },
+      {
+        "school": "École polytechnique <small> - Master of engineering</small>",
+        "date": "2010&nbsp;-&nbsp;2013",
+        "text": [
+          "<i>Optimization</i> program in computer science and applied mathematics.",
+          "4-month research internship on vehicle routing problems, coding a new computational engine in C++.",
+          "9-month military internship in the French navy: preparing the crew for operations before 6 weeks asea."
+        ]
+      }
+    ]
+  },
+  "interests": {
+    "title": "Interests",
+    "items": [
+      {
+        "name": "Sports",
+        "desc": "Scuba diving, recreational practice of squash and badminton."
+      },
+      {
+        "name": "Cooking",
+        "desc": "For its conviviality, as well as being a good time to get creative."
+      },
+      {
+        "name": "Coding",
+        "desc": "I'm passionate about algorithmics, new technologies, maths, and general scientific knowledge. I participated in many online competitions as well as ACM ICPC 2014. I love solving challenges online such as Project Euler, Advent of Code or Hackerrank."
+      }
+    ]
+  }
+}

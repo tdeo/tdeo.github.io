@@ -1,6 +1,7 @@
 {
   "name": "Thierry Deo",
   "title": "Ingénieur en développement logiciel",
+  "picture": "/images/thierry.jpg",
   "email": "thierry.deo@gmail.com",
   "github": "https://github.com/tdeo",
   "pitch": [
@@ -62,6 +63,7 @@
         "date": "2010&nbsp;-&nbsp;2013",
         "text": [
           "Parcours <i>Optimisation</i> en mathématiques appliquées et informatique.",
+          "Stage de recherche de 4 mois sur des problèmes de tournées de véhicules. Recherche théorique et implémentation d'un nouveau moteur de calcul en C++.",
           "Stage militaire de 9 mois à bord de la frégate <i>Cassard</i> : préparation opérationelle de l'équipage avant départ en mission."
         ]
       }
@@ -72,7 +74,7 @@
     "items": [
       {
         "name": "Sport",
-        "desc": "Pratique du squash et badminton en loisir."
+        "desc": "Plongeur niveau 2, pratique du squash et badminton en loisir."
       },
       {
         "name": "Cuisine",

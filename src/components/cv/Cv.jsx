@@ -7,9 +7,13 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import Blowfish from 'javascript-blowfish';
 import queryString from 'query-string';
 
-import dataFr from './fr.json';
 import Competence from './Competence.jsx';
 import './Cv.css';
+
+const translations = {
+  'fr': require('./fr.json'),
+  'en': require('./en.json'),
+};
 
 export default class Cv extends React.Component {
   static propTypes = {
@@ -23,10 +27,10 @@ export default class Cv extends React.Component {
     var values = queryString.parse(this.props.location.search);
     this.key = (values.key === undefined) ? '' : values.key;
     this.lang = values.lang;
-    if (this.lang !== 'fr') {
+    if (translations[this.lang] === undefined) {
       this.lang = 'fr';
     }
-    this.data = dataFr;
+    this.data = translations[this.lang];
   }
 
   validKey() {
@@ -61,7 +65,7 @@ export default class Cv extends React.Component {
             <Col xs={12} sm={4} className="left-panel">
               <Row>
                 <Col xs={12}>
-                  <img id="picture" alt="" src="/images/thierry.jpg" />
+                  <img id="picture" alt="" src="{this.data.picture}" />
                   <h3 className="text-center">{this.data.name}</h3>
                   <h5 className="text-center">{this.data.title}</h5>
                 </Col>
@@ -143,7 +147,7 @@ export default class Cv extends React.Component {
                       <Col xs={12}>
                         {item.text.map((text, i) => {
                           return (
-                            <p style={{ marginBottom: 0 }} key={i} dangerouslySetInnerHTML={{ __html: text }} />
+                            <p key={i} dangerouslySetInnerHTML={{ __html: text }} />
                           );
                         })}
                         <ul>
@@ -171,7 +175,7 @@ export default class Cv extends React.Component {
                       <Col xs={12}>
                         {item.text.map((text, i) => {
                           return (
-                            <p style={{ marginBottom: 0 }} key={i} dangerouslySetInnerHTML={{ __html: text }} />
+                            <p key={i} dangerouslySetInnerHTML={{ __html: text }} />
                           );
                         })}
                       </Col>
