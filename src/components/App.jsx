@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ShortcutManager } from 'react-shortcuts';
+import * as Sentry from '@sentry/browser';
 
 import keymap from '../keymap.jsx';
 
@@ -20,25 +21,46 @@ import IsItFive from './isitfive/IsItFive.jsx';
 
 const shortcutManager = new ShortcutManager(keymap);
 
+Sentry.init({
+  dsn: 'https://9cfddc0ec998438095a6f884a1600e51@sentry.io/1309901'
+});
+
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: null };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    this.setState({ error });
+    Sentry.withScope(scope => {
+      Object.keys(errorInfo).forEach(key => {
+        scope.setExtra(key, errorInfo[key]);
+      });
+      Sentry.captureException(error);
+    });
+  }
+
   getChildContext() {
     return { shortcuts: shortcutManager };
   }
 
   render() {
     return (
-      <div>
-        <Navigation />
-        <Route exact path="/" component={Experiments}/>
-        <Route path="/maps" component={Maps}/>
-        <Route path="/dice" component={DiceIndex}/>
-        <Route path="/experiments" component={Experiments}/>
-        <Route path="/isitfive" component={IsItFive}/>
-        <Route path="/dcdl" component={Dcdl}/>
-        <Route path="/dcdl/numbers" component={Numbers}/>
-        <Route path="/cv" component={Cv}/>
-        <Route path="/procedural" component={Procedural}/>
-      </div>
+      <Router>
+        <div>
+          <Navigation />
+          <Route exact path="/" component={Experiments}/>
+          <Route path="/maps" component={Maps}/>
+          <Route path="/dice" component={DiceIndex}/>
+          <Route path="/experiments" component={Experiments}/>
+          <Route path="/isitfive" component={IsItFive}/>
+          <Route path="/dcdl" component={Dcdl}/>
+          <Route path="/dcdl/numbers" component={Numbers}/>
+          <Route path="/cv" component={Cv}/>
+          <Route path="/procedural" component={Procedural}/>
+        </div>
+      </Router>
     );
   }
 }
