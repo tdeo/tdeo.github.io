@@ -9,7 +9,6 @@ hr {
 @media print {
   body {
     font-size: 12px;
-    margin-top: 60px;
   }
 
   .hidden-sm {

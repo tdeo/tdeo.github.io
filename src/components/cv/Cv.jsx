@@ -7,6 +7,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import Blowfish from 'javascript-blowfish';
 import queryString from 'query-string';
 
+import dataFr from './fr.json';
 import Competence from './Competence.jsx';
 import './Cv.css';
 
@@ -17,21 +18,24 @@ export default class Cv extends React.Component {
     })
   };
 
-  key() {
-    const values = queryString.parse(this.props.location.search);
-    if (values.key === undefined) {
-      return '';
+  constructor(props) {
+    super(props);
+    var values = queryString.parse(this.props.location.search);
+    this.key = (values.key === undefined) ? '' : values.key;
+    this.lang = values.lang;
+    if (this.lang !== 'fr') {
+      this.lang = 'fr';
     }
-    return values.key;
+    this.data = dataFr;
   }
 
   validKey() {
-    var bf = new Blowfish(this.key());
+    var bf = new Blowfish(this.key);
     return (bf.decrypt(atob('ug1IZGf/ZRM=')).replace(/\0/g, '') === 'valid');
   }
 
   address() {
-    var bf = new Blowfish(this.key());
+    var bf = new Blowfish(this.key);
     var res = [
       bf.decrypt(atob('hW++eFDKMmFj3Qpyr9OtSnaIdEVL+Wlivs+uTmIEJg8=')).replace(/\0/g, ''),
       bf.decrypt(atob('QhWS8cl5kBBC1EsymLe6HA==')).replace(/\0/g, ''),
@@ -40,7 +44,7 @@ export default class Cv extends React.Component {
   }
 
   phoneNumber() {
-    var bf = new Blowfish(this.key());
+    var bf = new Blowfish(this.key);
     var res = bf.decrypt(atob('JENaEBg9eE/VmFDwpQ8qtB5Kicq9cNIo')).replace(/\0/g, '');
     return res;
   }
@@ -58,8 +62,8 @@ export default class Cv extends React.Component {
               <Row>
                 <Col xs={12}>
                   <img id="picture" alt="" src="/images/thierry.jpg" />
-                  <h3 className="text-center">Thierry Deo</h3>
-                  <h5 className="text-center">Ingénieur en développement logiciel</h5>
+                  <h3 className="text-center">{this.data.name}</h3>
+                  <h5 className="text-center">{this.data.title}</h5>
                 </Col>
               </Row>
 
@@ -82,10 +86,10 @@ export default class Cv extends React.Component {
                       <FontAwesomeIcon icon={faPhone} /> {this.phoneNumber()}
                     </p>}
                     <p>
-                      <FontAwesomeIcon icon={faAt} /> thierry.deo@gmail.com
+                      <FontAwesomeIcon icon={faAt} /> {this.data.email}
                     </p>
                     <p>
-                      <FontAwesomeIcon icon={faGithub} /> https://github.com/tdeo
+                      <FontAwesomeIcon icon={faGithub} /> {this.data.github}
                     </p>
                   </small>
                 </Col>
@@ -95,135 +99,99 @@ export default class Cv extends React.Component {
 
               <Row>
                 <Col xs={12} className="text-justify">
-                  <p>
-                    Après avoir passé 4 ans à développer un projet pour l&apos;hôtellerie au sein
-                    d&apos;une start-up puis après son rachat, les problématiques m&apos;ayant passionné
-                    sont celles de conception de nouvelles fonctionnalités, de scaling et
-                    d&apos;orchestration de l&apos;infrastructure.
-                  </p>
-                  <p>
-                    Je recherche aujourd&apos;hui un projet technique, qui me permette également
-                    de participer activement à la conception et le développement du produit.
-                  </p>
+                  {this.data.pitch.map((s, i) => {
+                    return (
+                      <p key={i}>{s}</p>
+                    );
+                  })}
                 </Col>
               </Row>
 
               <hr />
 
               <Row>
-                <Competence percent={100} desc={'Français<br /><small>Natif</small>'} />
-                <Competence percent={90} desc={'Anglais<br /><small>Professionnel</small>'} />
-                <Competence percent={66.666} desc={'Espagnol<br /><small>Bon</small>'} />
+                {this.data.languages.map((item, i) => {
+                  return (
+                    <Competence key={i} percent={item.val} desc={item.desc} />
+                  );
+                })}
               </Row>
 
               <hr />
 
               <Row>
-                <Competence percent={90} desc={'Ruby on Rails'} />
-                <Competence percent={80} desc={'MySQL'} />
-                <Competence percent={70} desc={'AWS'} />
+                {this.data.skills.map((item, i) => {
+                  return (
+                    <Competence key={i} percent={item.val} desc={item.desc} />
+                  );
+                })}
               </Row>
             </Col>
             <Col xs={0} />
 
 
             <Col xs={12} sm={8} className="right-panel">
-
-              {
-                // EXPERIENCE PROFESSIONNELLE
-              }
-
               <Row>
-                <Col xs={12}><h3>Expérience professionelle</h3></Col>
+                <Col xs={12}><h3>{this.data.pro_exp.title}</h3></Col>
 
-                <Col xs={12} sm={8}><h4 className='small-caps'>Booking.com</h4></Col>
-                <Col sm={4} xsHidden><h5 className='text-right'> Juill.&nbsp;2015&nbsp;-&nbsp;Août&nbsp;2018</h5></Col>
-                <Col xs={12} smHidden mdHidden lgHidden><h5> Juill.&nbsp;2015&nbsp;-&nbsp;Août&nbsp;2018</h5></Col>
-                <Col xs={12}>
-                  Transfert suite au rachat de PriceMatch, Développeur Senior et Team Lead.
-                  <ul>
-                    <li>
-                      Intégration du produit avec les structures de donnés existantes, scaling du code et de l&apos;infrastructure de 1000 à 200&nbsp;000 clients.
-                    </li>
-                    <li>
-                      Migration de l&apos;infrastructure: bases de données MySQL et NoSQL,
-                      déploiements en utilisant <i>Docker</i> et <i>OpenShift</i>.
-                    </li>
-                    <li>
-                      Mise en place de nombreux outils pour l&apos;environnement de développement: réplication de
-                      bases de données, utilisation de <i>Docker</i>, automatisation du pipeline de test et
-                      déploiement.
-                    </li>
-                  </ul>
-                </Col>
-
-                <Col xs={12} sm={8}><h4 className='small-caps'>PriceMatch <small> - start-up</small></h4></Col>
-                <Col sm={4} xsHidden><h5 className='text-right'> Juill.&nbsp;2014&nbsp;-&nbsp;Juill.&nbsp;2015</h5></Col>
-                <Col xs={12} smHidden mdHidden lgHidden><h5> Juill.&nbsp;2014&nbsp;-&nbsp;Juill.&nbsp;2015</h5></Col>
-                <Col xs={12}>
-                  Développeur au sein d&apos;une équipe de 6.
-                  <ul>
-                    <li>
-                      Développement du produit de yield management pour l&apos;hôtellerie: back-end en <i>Ruby on Rails</i>,
-                      conception des bases de données et de nouvelles fonctionnalités.
-                    </li>
-                    <li>
-                      Orchestration des serveurs et de l&apos;infrastructure avec <i>AWS</i>, automatisation grâce à <i>Chef</i>.
-                    </li>
-                    <li>
-                      Développement ad hoc sur d&apos;autres projets: maintenance de notre site marketing, écriture de nos
-                      algorithmes de yield management, nouvelles fonctionnalités front-end (<i>Backbone.js</i> et <i>Marionette.js</i>)
-                    </li>
-                  </ul>
-                </Col>
+                {this.data.pro_exp.items.map((item, i) => {
+                  return (
+                    <div key={i}>
+                      <Col xs={12} sm={8}><h4 className='small-caps' dangerouslySetInnerHTML={{ __html: item.company }} /></Col>
+                      <Col sm={4} xsHidden><h5 className='text-right' dangerouslySetInnerHTML={{ __html: item.date }} /></Col>
+                      <Col xs={12} smHidden mdHidden lgHidden><h5 dangerouslySetInnerHTML={{ __html: item.date }} /></Col>
+                      <Col xs={12}>
+                        {item.text.map((text, i) => {
+                          return (
+                            <p style={{ marginBottom: 0 }} key={i} dangerouslySetInnerHTML={{ __html: text }} />
+                          );
+                        })}
+                        <ul>
+                          {item.bullets.map((bullet, i) => {
+                            return (
+                              <li key={i} dangerouslySetInnerHTML={{ __html: bullet }} />
+                            );
+                          })}
+                        </ul>
+                      </Col>
+                    </div>
+                  );
+                })}
               </Row>
 
-              {
-                // FORMATION
-              }
-
               <Row>
-                <Col xs={12}><h3>Formation</h3></Col>
+                <Col xs={12}><h3>{this.data.education.title}</h3></Col>
 
-                <Col xs={12} sm={8}><h4 className='small-caps'>Télécom ParisTech <small> - Diplôme d&apos;ingénieur</small></h4></Col>
-                <Col sm={4} xsHidden><h5 className='text-right'> 2013&nbsp;-&nbsp;2014</h5></Col>
-                <Col xs={12} smHidden mdHidden lgHidden><h5> 2013&nbsp;-&nbsp;2014</h5></Col>
-                <Col xs={12}>
-                  Parcours <i>Ingénierie du logiciel</i>.<br />
-                  Réalisation d&apos;un projet en Python sur la simulation de l&apos;émergence d&apos;un langage de communication
-                  par des algorithmes génétiques.
-                </Col>
-
-                <Col xs={12} sm={8}><h4 className='small-caps'>École polytechnique <small> - Diplôme d&apos;ingénieur</small></h4></Col>
-                <Col sm={4} xsHidden><h5 className='text-right'> 2010&nbsp;-&nbsp;2013</h5></Col>
-                <Col xs={12} smHidden mdHidden lgHidden><h5> 2010&nbsp;-&nbsp;2013</h5></Col>
-                <Col xs={12}>
-                  Parcours <i>Optimisation</i> en mathématiques appliquées et informatique.<br />
-                  Stage militaire de 9 mois à bord de la frégate <i>Cassard</i>&nbsp;:
-                  préparation opérationelle de l&apos;équipage avant départ en mission.
-                </Col>
+                {this.data.education.items.map((item, i) => {
+                  return (
+                    <div key={i}>
+                      <Col xs={12} sm={8}><h4 className='small-caps' dangerouslySetInnerHTML={{ __html: item.school }} /></Col>
+                      <Col sm={4} xsHidden><h5 className='text-right' dangerouslySetInnerHTML={{ __html: item.date }} /></Col>
+                      <Col xs={12} smHidden mdHidden lgHidden><h5 dangerouslySetInnerHTML={{ __html: item.date }} /></Col>
+                      <Col xs={12}>
+                        {item.text.map((text, i) => {
+                          return (
+                            <p style={{ marginBottom: 0 }} key={i} dangerouslySetInnerHTML={{ __html: text }} />
+                          );
+                        })}
+                      </Col>
+                    </div>
+                  );
+                })}
               </Row>
 
-              {
-                // CENTRES D'INTERET
-              }
-
               <Row>
-                <Col xs={12}><h3>Centres d&apos;intérêt</h3></Col>
-
+                <Col xs={12}><h3>{this.data.interests.title}</h3></Col>
                 <Col xs={12}>
                   <dl className="dl-horizontal">
-                    <dt>Sport</dt>
-                    <dd>Pratique du squash et badminton en loisir.</dd>
-
-                    <dt>Cuisine</dt>
-                    <dd>Moments de créativité et convivialité.</dd>
-
-                    <dt>Informatique</dt>
-                    <dd>
-                      Passionné par l&apos;algorithmie et les nouvelles technologies. Participation à des compétitions : ACM ICPC en 2014 et en ligne.
-                      Nombreux défis et exercices en ligne (Project Euler, Hackerrank, Advent of Code).
-                    </dd>
+                    {this.data.interests.items.map((item, i) => {
+                      return (
+                        <React.Fragment key={i}>
+                          <dt>{item.name}</dt>
+                          <dd>{item.desc}</dd>
+                        </React.Fragment>
+                      );
+                    })}
                   </dl>
                 </Col>
               </Row>

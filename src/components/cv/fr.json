@@ -1,0 +1,87 @@
+{
+  "name": "Thierry Deo",
+  "title": "Ingénieur en développement logiciel",
+  "email": "thierry.deo@gmail.com",
+  "github": "https://github.com/tdeo",
+  "pitch": [
+    "Après avoir passé 4 ans à développer un projet pour l'hôtellerie au sein d'une start-up puis après son rachat, les problématiques m'ayant passionné sont celles de conception de nouvelles fonctionnalités, de scaling et d'orchestration de l'infrastructure.",
+    "Je recherche aujourd'hui un projet technique, qui me permette également de participer activement à la conception et le développement du produit."
+  ],
+  "languages": [
+    { "val": 100, "desc": "Français<br /><small>Natif</small>" },
+    { "val": 90, "desc": "Anglais<br /><small>Professionnel</small>" },
+    { "val": 66.66, "desc": "Espagnol<br /><small>Bon</small>" }
+  ],
+  "skills": [
+    { "val": 90, "desc": "Ruby on Rails" },
+    { "val": 80, "desc": "MySQL" },
+    { "val": 70, "desc": "AWS" }
+  ],
+  "pro_exp": {
+    "title": "Expérience professionnelle",
+    "items": [
+      {
+        "company": "Booking.com",
+        "date": "Juill.&nbsp;2015&nbsp;-&nbsp;Août&nbsp;2018",
+        "text": [
+          "Transfert suite au rachat de PriceMatch, Développeur Senior et Team Lead."
+        ],
+        "bullets": [
+          "Intégration du produit avec les structures de donnés existantes, scaling du code et de l'infrastructure de 1000 à 200&nbsp;000 clients.",
+          "Migration de l'infrastructure: bases de données MySQL et NoSQL, déploiements en utilisant <i>Docker</i> et <i>OpenShift</i>.",
+          "Mise en place de nombreux outils pour l'environnement de développement: réplication de bases de données, utilisation de <i>Docker</i>, automatisation du pipeline de test et déploiement."
+        ]
+      },
+      {
+        "company": "PriceMatch <small> - start-up</small>",
+        "date": "Juill.&nbsp;2014&nbsp;-&nbsp;Juill.&nbsp;2015",
+        "text": [
+          "Développeur au sein d'une équipe de 6."
+        ],
+        "bullets": [
+          "Développement du produit de yield management pour l'hôtellerie: back-end en <i>Ruby on Rails</i>, conception des bases de données et de nouvelles fonctionnalités.",
+          "Orchestration des serveurs et de l'infrastructure avec <i>AWS</i>, automatisation grâce à <i>Chef</i>.",
+          "Développement ad hoc sur d'autres projets: maintenance de notre site marketing, écriture de nos algorithmes de yield management, nouvelles fonctionnalités front-end (<i>Backbone.js</i> et <i>Marionette.js</i>)"
+        ]
+      }
+    ]
+  },
+  "education": {
+    "title": "Formation",
+    "items": [
+      {
+        "school": "Télécom ParisTech <small> - Diplôme d'ingénieur</small>",
+        "date": "2013&nbsp;-&nbsp;2014",
+        "text": [
+          "Parcours <i>Ingénierie du logiciel</i>.",
+          "Réalisation d'un projet en Python sur la simulation de l'émergence d'un langage de communication par des algorithmes génétiques."
+        ]
+      },
+      {
+        "school": "École polytechnique <small> - Diplôme d'ingénieur</small>",
+        "date": "2010&nbsp;-&nbsp;2013",
+        "text": [
+          "Parcours <i>Optimisation</i> en mathématiques appliquées et informatique.",
+          "Stage militaire de 9 mois à bord de la frégate <i>Cassard</i> : préparation opérationelle de l'équipage avant départ en mission."
+        ]
+      }
+    ]
+  },
+  "interests": {
+    "title": "Centres d'intérêt",
+    "items": [
+      {
+        "name": "Sport",
+        "desc": "Pratique du squash et badminton en loisir."
+      },
+      {
+        "name": "Cuisine",
+        "desc": "Moments de créativité et convivialité."
+      },
+      {
+        "name": "Informatique",
+        "desc": "Passionné par l'algorithmie et les nouvelles technologies. Participation à des compétitions : ACM ICPC en 2014 et en ligne. Nombreux défis et exercices en ligne (Project Euler, Hackerrank, Advent of Code)."
+      }
+    ]
+  }
+}
