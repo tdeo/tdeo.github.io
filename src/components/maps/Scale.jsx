@@ -31,7 +31,7 @@ export default class Scale extends React.Component {
       ['500km', 500],
     ];
     var i = 0;
-    var target_width = Math.max(500, 0.2 * this.prop.width);
+    var target_width = Math.max(500, 0.2 * this.props.width);
     while ((i < scales.length - 1) && (Utils.distance(this.props.south, this.props.west, this.props.east) * target_width / this.props.width > scales[i][1])) {
       i += 1;
     }
