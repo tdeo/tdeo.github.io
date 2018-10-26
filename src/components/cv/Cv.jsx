@@ -65,7 +65,7 @@ export default class Cv extends React.Component {
             <Col xs={12} sm={4} className="left-panel">
               <Row>
                 <Col xs={12}>
-                  <img id="picture" alt="" src="{this.data.picture}" />
+                  <img id="picture" alt="" src={this.data.picture} />
                   <h3 className="text-center">{this.data.name}</h3>
                   <h5 className="text-center">{this.data.title}</h5>
                 </Col>
