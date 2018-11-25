@@ -13,7 +13,7 @@ export default class Competence extends React.Component {
     var angle = Math.round((360 * this.props.percent / 100) - 90);
 
     return (
-      <Col xs={4} className="text-center">
+      <Col xs={4} className="text-center" style={{ paddingRight: 0, paddingLeft: 0 }}>
         <Stage style={{ margin: 'auto', width: 'fit-content' }} width={40} height={40}>
           <Layer>
             <Ring innerRadius={10} outerRadius={15} x={20} y={20} fill="#ccc" />
