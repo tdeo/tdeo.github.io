@@ -2,12 +2,14 @@ import React from 'react';
 import { Col, Grid, Row } from 'react-bootstrap';
 import { Layer, Stage, Group, Line } from 'react-konva';
 
+import './Procedural.css';
+
 export default class Procedural extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       width: Math.floor(window.innerWidth * 0.8),
-      height: Math.floor(window.innerHeight * 0.8),
+      height: Math.floor(window.innerHeight * 0.7),
       points: 40,
       alpha: 0.17,
       triangles: 6,
@@ -168,33 +170,42 @@ export default class Procedural extends React.Component {
 
   render() {
     return (
-      <Grid>
-        <style>{'canvas { margin-bottom: 10px !important; }'}</style>
-        <Row>
-          <Col xs={12}>
-            <h2>Triangular art</h2>
-            <span>
-              Inspired from an artwork engraved into wood, gave me the idea to generate
-              geometric figures and play with HTML canvas.
-            </span>
-            <Stage
-              width={this.state.width}
-              height={this.state.height}>
-              <Layer>
-                {this.state.grid.map((shape, i) => {
-                  return (
-                    <Group key={i}>
-                      {this.strings(shape)}
-                      <Line points={shape.flat()} closed stroke="black" strokeWidth={2} />
-                    </Group>
-                  );
-                })}
-                <Line x={0} y={0} closed points={[0,0,0,this.state.height,this.state.width,this.state.height,this.state.width,0]} stroke="black" strokeWidth={8} />
-              </Layer>
-            </Stage>
-          </Col>
-        </Row>
-      </Grid>
+      <div>
+        <Grid>
+          <style>{'canvas { margin-bottom: 10px !important; }'}</style>
+          <Row>
+            <Col xs={12}>
+              <h2>Triangular art</h2>
+              <span>
+                Inspired from an artwork engraved into wood, gave me the idea to generate
+                geometric figures and play with HTML canvas.
+              </span>
+            </Col>
+          </Row>
+        </Grid>
+        <Grid fluid={true}>
+          <Row>
+            <Col xs={12}>
+              <Stage
+                style={{ width: '100%' }}
+                width={this.state.width}
+                height={this.state.height}>
+                <Layer>
+                  {this.state.grid.map((shape, i) => {
+                    return (
+                      <Group key={i}>
+                        {this.strings(shape)}
+                        <Line points={shape.flat()} closed stroke="black" strokeWidth={2} />
+                      </Group>
+                    );
+                  })}
+                  <Line x={0} y={0} closed points={[0,0,0,this.state.height,this.state.width,this.state.height,this.state.width,0]} stroke="black" strokeWidth={8} />
+                </Layer>
+              </Stage>
+            </Col>
+          </Row>
+        </Grid>
+      </div>
     );
   }
 }
