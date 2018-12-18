@@ -59,9 +59,21 @@ hr {
   .visible-print {
     visibility: initial;
   }
+
+  #root {
+    padding-bottom: 0;
+  }
+}
+
+place {
+  font-size: large;
 }
 
 @media (min-width: 768px), print {
+  .place_and_time {
+    text-align: right;
+  }
+
   .left-panel:after, .right-panel:before {
     border-left: 1px solid rgb(32, 90, 32);
     bottom: 0;

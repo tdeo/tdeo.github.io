@@ -137,55 +137,64 @@ export default class Cv extends React.Component {
             <Col xs={12} sm={8} className="right-panel">
               <Row>
                 <Col xs={12}><h3>{this.data.pro_exp.title}</h3></Col>
+              </Row>
 
-                {this.data.pro_exp.items.map((item, i) => {
-                  return (
-                    <div key={i}>
-                      <Col xs={12} sm={8}><h4 className='small-caps' dangerouslySetInnerHTML={{ __html: item.company }} /></Col>
-                      <Col sm={4} xsHidden><h5 className='text-right' dangerouslySetInnerHTML={{ __html: item.date }} /></Col>
-                      <Col xs={12} smHidden mdHidden lgHidden><h5 dangerouslySetInnerHTML={{ __html: item.date }} /></Col>
-                      <Col xs={12}>
-                        {item.text.map((text, i) => {
+              {this.data.pro_exp.items.map((item, i) => {
+                return (
+                  <Row key={i}>
+                    <Col xs={12} sm={5}>
+                      <h4 className='small-caps' dangerouslySetInnerHTML={{ __html: item.company }} />
+                    </Col>
+                    <Col sm={7} xs={12}>
+                      <h5 className='place_and_time' dangerouslySetInnerHTML={{ __html: '<place class="small-caps">' + item.place + '</place>&nbsp;-&nbsp;' + item.date }} />
+                    </Col>
+                    <Col xs={12}>
+                      {item.text.map((text, i) => {
+                        return (
+                          <p key={i} dangerouslySetInnerHTML={{ __html: text }} />
+                        );
+                      })}
+                      <ul>
+                        {item.bullets.map((bullet, i) => {
                           return (
-                            <p key={i} dangerouslySetInnerHTML={{ __html: text }} />
+                            <li key={i} dangerouslySetInnerHTML={{ __html: bullet }} />
                           );
                         })}
-                        <ul>
-                          {item.bullets.map((bullet, i) => {
-                            return (
-                              <li key={i} dangerouslySetInnerHTML={{ __html: bullet }} />
-                            );
-                          })}
-                        </ul>
-                      </Col>
-                    </div>
-                  );
-                })}
-              </Row>
+                      </ul>
+                    </Col>
+                  </Row>
+                );
+              })}
 
               <Row>
                 <Col xs={12}><h3>{this.data.education.title}</h3></Col>
-
-                {this.data.education.items.map((item, i) => {
-                  return (
-                    <div key={i}>
-                      <Col xs={12} sm={8}><h4 className='small-caps' dangerouslySetInnerHTML={{ __html: item.school }} /></Col>
-                      <Col sm={4} xsHidden><h5 className='text-right' dangerouslySetInnerHTML={{ __html: item.date }} /></Col>
-                      <Col xs={12} smHidden mdHidden lgHidden><h5 dangerouslySetInnerHTML={{ __html: item.date }} /></Col>
-                      <Col xs={12}>
-                        {item.text.map((text, i) => {
-                          return (
-                            <p key={i} dangerouslySetInnerHTML={{ __html: text }} />
-                          );
-                        })}
-                      </Col>
-                    </div>
-                  );
-                })}
               </Row>
+
+              {this.data.education.items.map((item, i) => {
+                return (
+                  <div key={i}>
+                    <Col xs={12} sm={9}>
+                      <h4 className='small-caps' dangerouslySetInnerHTML={{ __html: item.school }} />
+                    </Col>
+                    <Col sm={3} xs={12}>
+                      <h5 className='place_and_time' dangerouslySetInnerHTML={{ __html: item.date }} />
+                    </Col>
+                    <Col xs={12}>
+                      {item.text.map((text, i) => {
+                        return (
+                          <p key={i} dangerouslySetInnerHTML={{ __html: text }} />
+                        );
+                      })}
+                    </Col>
+                  </div>
+                );
+              })}
 
               <Row>
                 <Col xs={12}><h3>{this.data.interests.title}</h3></Col>
+              </Row>
+
+              <Row>
                 <Col xs={12}>
                   <dl className="dl-horizontal">
                     {this.data.interests.items.map((item, i) => {

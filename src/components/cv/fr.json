@@ -23,6 +23,7 @@
     "items": [
       {
         "company": "Booking.com",
+        "place": "Amsterdam",
         "date": "Juill.&nbsp;2015&nbsp;-&nbsp;Août&nbsp;2018",
         "text": [
           "Transfert suite au rachat de PriceMatch, Développeur Senior et Team Lead."
@@ -35,6 +36,7 @@
       },
       {
         "company": "PriceMatch <small> - start-up</small>",
+        "place": "Paris",
         "date": "Juill.&nbsp;2014&nbsp;-&nbsp;Juill.&nbsp;2015",
         "text": [
           "Développeur au sein d'une équipe de 6."

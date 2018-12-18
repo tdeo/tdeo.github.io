@@ -23,6 +23,7 @@
     "items": [
       {
         "company": "Booking.com",
+        "place": "Amsterdam",
         "date": "July&nbsp;2015&nbsp;-&nbsp;August&nbsp;2018",
         "text": [
           "Relocation after the acquisition of PriceMatch, Senior Developer and Team Lead."
@@ -35,6 +36,7 @@
       },
       {
         "company": "PriceMatch <small> - start-up</small>",
+        "place": "Paris",
         "date": "July&nbsp;2014&nbsp;-&nbsp;July&nbsp;2015",
         "text": [
           "Developer in a team of 6."
