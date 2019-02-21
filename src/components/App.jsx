@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ShortcutManager } from 'react-shortcuts';
 import * as Sentry from '@sentry/browser';
 
@@ -18,6 +18,8 @@ import Procedural from './procedural/Procedural.jsx';
 // Other pages
 import Cv from './cv/Cv.jsx';
 import IsItFive from './isitfive/IsItFive.jsx';
+// Not found
+import NotFound from './NotFound.jsx';
 
 const shortcutManager = new ShortcutManager(keymap);
 
@@ -50,15 +52,18 @@ export default class App extends React.Component {
       <Router>
         <div>
           <Navigation />
-          <Route exact path="/" component={Experiments}/>
-          <Route path="/maps" component={Maps}/>
-          <Route path="/dice" component={DiceIndex}/>
-          <Route path="/experiments" component={Experiments}/>
-          <Route path="/isitfive" component={IsItFive}/>
-          <Route path="/dcdl" component={Dcdl}/>
-          <Route path="/dcdl/numbers" component={Numbers}/>
-          <Route path="/cv" component={Cv}/>
-          <Route path="/procedural" component={Procedural}/>
+          <Switch>
+            <Route exact path="/" component={Experiments} />
+            <Route path="/maps" component={Maps} />
+            <Route path="/dice" component={DiceIndex} />
+            <Route path="/experiments" component={Experiments} />
+            <Route path="/isitfive" component={IsItFive} />
+            <Route path="/dcdl/numbers" component={Numbers} />
+            <Route path="/dcdl" component={Dcdl} />
+            <Route path="/cv" component={Cv} />
+            <Route path="/procedural" component={Procedural} />
+            <Route component={NotFound} />
+          </Switch>
         </div>
       </Router>
     );
