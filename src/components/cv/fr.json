@@ -25,7 +25,9 @@
         "company": "Reecall",
         "place": "Lyon",
         "date": "Janvier 2019",
-        "text": [],
+        "text": [
+          "Développeur Sénior et Architecte Logiciel"
+        ],
         "bullets": []
       },
       {
@@ -33,7 +35,7 @@
         "place": "Amsterdam",
         "date": "Juill.&nbsp;2015&nbsp;-&nbsp;Août&nbsp;2018",
         "text": [
-          "Transfert suite au rachat de PriceMatch, Développeur Senior et Team Lead."
+          "Transfert suite au rachat de PriceMatch, Développeur Sénior et Team Lead."
         ],
         "bullets": [
           "Intégration du produit avec les structures de donnés existantes, scaling du code et de l'infrastructure de 1000 à 200&nbsp;000 clients.",
