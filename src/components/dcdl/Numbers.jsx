@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Col, Collapse, Grid, Row } from 'react-bootstrap';
 import { Shortcuts } from 'react-shortcuts';
 
+import Dcdl from './Dcdl.jsx';
 import NumbersForm from './NumbersForm.jsx';
 import NumbersHistory from './NumbersHistory.jsx';
 import Time from './Time.jsx';
@@ -237,6 +238,7 @@ export default class Numbers extends React.Component {
   render() {
     return (
       <Shortcuts name="NumbersForm" handler={this._handleShortcuts.bind(this)} targetNodeSelector="body">
+        <Dcdl />
         <Grid>
           <Row>
             <Col xs={12} sm={7}>

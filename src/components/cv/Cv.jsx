@@ -41,7 +41,7 @@ export default class Cv extends React.Component {
   address() {
     var bf = new Blowfish(this.key);
     var res = [
-      bf.decrypt(atob('hW++eFDKMmFj3Qpyr9OtSnaIdEVL+Wlivs+uTmIEJg8=')).replace(/\0/g, ''),
+      bf.decrypt(atob('9UONn1uavsEpD6xp20Kw+g==')).replace(/\0/g, ''),
       bf.decrypt(atob('QhWS8cl5kBBC1EsymLe6HA==')).replace(/\0/g, ''),
     ];
     return res;
