@@ -13,7 +13,7 @@
       L 22 86
       A 11,13 0 0,0 22,56
 
-    " stroke="white" stroke-width="4" fill="none"/>
-  <circle cx="45" cy="40" r="4" fill="white"/>
-  <circle cx="45" cy="82" r="4" fill="white"/>
+    " stroke="white" stroke-width="6" fill="none"/>
+  <circle cx="45" cy="40" r="5" fill="white"/>
+  <circle cx="45" cy="84" r="5" fill="white"/>
 </svg>
