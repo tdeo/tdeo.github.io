@@ -17,10 +17,10 @@ export default class NumbersHistory extends React.Component {
   render() {
     return (
       <div>
-        {this.props.history.map((operation, i) => {
+        {this.props.history.map((op, i) => {
           return (
             <pre key={i}>
-              {operation.a} {operation.op} {operation.b} = {operation.res}{'  '}
+              {Math.max(op.i, op.j)} {op.op} {Math.min(op.i, op.j)} = {op.res}{'  '}
               { (i === 0 && !this.props.success) &&
                 <Button bsStyle="danger" onClick={this.props.cancelLast}>
                   Cancel

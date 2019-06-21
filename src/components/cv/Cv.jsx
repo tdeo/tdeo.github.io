@@ -39,12 +39,13 @@ export default class Cv extends React.Component {
 
   address() {
     var bf = new Blowfish(this.key);
-    console.log(btoa(bf.encrypt("69002 Lyon")))
     var res = [
       bf.decrypt(atob('9UONn1uavsEpD6xp20Kw+g==')).replace(/\0/g, ''),
       bf.decrypt(atob('QhWS8cl5kBBC1EsymLe6HA==')).replace(/\0/g, ''),
     ];
-    if (this.lang !== 'fr') { res.push('France'); }
+    if (this.lang !== 'fr') {
+      res.push('France');
+    }
     return res;
   }
 

@@ -11,7 +11,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "predeploy": "yarn lint && yarn build",
+    "predeploy": "npm run lint && npm run build",
     "deploy": "gh-pages -d build -b master",
     "favicon": "convert -background none -density 600 public/favicon.svg -resize 256x256 public/favicon.ico",
     "lint": "eslint . --ext .json --ext .js --ext .jsx --fix"

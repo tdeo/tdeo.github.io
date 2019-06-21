@@ -24,13 +24,17 @@ export default class Numbers extends React.Component {
 
   componentDidMount() {
     this.timerId = setInterval(this.timeLeft.bind(this), 50);
-    this.findSolution().then(
-      (sol) => {
-        this.setState({ solution: sol });
-      }).catch(
-      (error) => {
-        console.warn(error);
-      });
+    fetch('https://dcdl.herokuapp.com/solve', {
+      method: 'POST',
+      body: JSON.stringify({
+        target: this.state.target,
+        numbers: this.state.numbers.map(n => n.value),
+      })
+    }).then(r => r.json()).then(sol => {
+      this.setState({ solution: sol });
+    }).catch(err => {
+      console.warn(err);
+    });
   }
 
   componentWillUnmount() {
@@ -40,59 +44,6 @@ export default class Numbers extends React.Component {
   timeLeft() {
     var left = this.state.totalTime - (new Date() - this.state.start) / 1000;
     this.setState({ timeLeft: left });
-  }
-
-  async findSolution() {
-    await setTimeout(() => {}, 5000);
-    var numbers = this.state.numbers.map((num) => {
-      return num.value;
-    });
-    var s;
-    for (var i = 0; i < 50; ++i) {
-      s = this.solution(this.state.target - i, numbers);
-      if (s === undefined && i > 0) {
-        s = this.solution(this.state.target + i, numbers);
-      }
-      if (s !== undefined) {
-        return s;
-      }
-    }
-  }
-
-  solution(target, numbers) {
-    if (target === 0) {
-      return [];
-    } else if (numbers.length === 0) {
-      return undefined;
-    }
-
-    for (var i = 0; i < numbers.length; i++) {
-      var num = numbers[i];
-      var others = numbers.slice(0, i).concat(numbers.slice(i + 1));
-      var shortest;
-      var s;
-      if (target - num >= 0) {
-        s = this.solution(target - num, others);
-        if (s !== undefined && (shortest === undefined || s.length < shortest.length)) {
-          shortest = s.concat({ a: target - num, b: num, op: '+', res: target });
-        }
-      }
-      if (target % num === 0) {
-        s = this.solution(target / num, others);
-        if (s !== undefined && (shortest === undefined || s.length < shortest.length)) {
-          shortest = s.concat({ a: target / num, b: num, op: '*', res: target });
-        }
-      }
-      s = this.solution(target + num, others);
-      if (s !== undefined && (shortest === undefined || s.length < shortest.length)) {
-        shortest = s.concat({ a: target + num, b: num, op: '-', res: target });
-      }
-      s = this.solution(target * num, others);
-      if (s !== undefined && (shortest === undefined || s.length < shortest.length)) {
-        shortest = s.concat({ a: target * num, b: num, op: '/', res: target });
-      }
-    }
-    return shortest;
   }
 
   cancelLast() {
@@ -106,8 +57,8 @@ export default class Numbers extends React.Component {
       return (n.value === last.res);
     });
     numbers.splice(i, 1);
-    numbers.push({ value: last.a, active: false });
-    numbers.push({ value: last.b, active: false });
+    numbers.push({ value: last.i, active: false });
+    numbers.push({ value: last.j, active: false });
     this.setState({ numbers: this.sortNumbers(numbers), history: history });
   }
 
@@ -171,8 +122,8 @@ export default class Numbers extends React.Component {
     newNumbers.push({ value: newVal, active: false });
     var history = this.state.history;
     history.unshift({
-      a: a,
-      b: b,
+      i: a,
+      j: b,
       op: op,
       res: newVal,
     });
@@ -280,7 +231,7 @@ export default class Numbers extends React.Component {
               </div>
               <Collapse in={!!this.state.showSolution}>
                 <div>
-                  <NumbersHistory history={this.state.solution.slice(1)} success={true} />
+                  <NumbersHistory history={this.state.solution} success={true} />
                 </div>
               </Collapse>
             </Col>}
