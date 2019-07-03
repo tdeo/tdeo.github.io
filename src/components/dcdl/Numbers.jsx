@@ -187,6 +187,7 @@ export default class Numbers extends React.Component {
   }
 
   render() {
+    const { solution, success, showSolution } = this.state;
     return (
       <Shortcuts name="NumbersForm" handler={this._handleShortcuts.bind(this)} targetNodeSelector="body">
         <Dcdl />
@@ -203,7 +204,7 @@ export default class Numbers extends React.Component {
                 </Col>
               </Row>
               <div>
-                { this.state.success ?
+                { success ?
                   <h2>Congratulations! <a href=""><Button bsStyle="info">Play again</Button></a></h2>
                   :
                   <h2>
@@ -212,26 +213,23 @@ export default class Numbers extends React.Component {
                 }
               </div>
               <div>
-                <NumbersHistory history={this.state.history} success={this.state.success} cancelLast={this.cancelLast.bind(this)} />
+                <NumbersHistory history={this.state.history} success={success} cancelLast={this.cancelLast.bind(this)} />
               </div>
             </Col>
-            { this.state.solution && <Col xs={12} sm={5}>
-              <Row>
-                <Col xs={12}>
-                  <h2>&nbsp;</h2>
-                  <h4 className={this.state.showSolution ? '' : 'invisible'}>Best solution: {this.state.solution[this.state.solution.length - 1].res}</h4>
-                </Col>
-              </Row>
+            { solution && <Col xs={12} sm={5}>
               <div>
-                <h2>
-                  <Button bsStyle="info" onClick={() => this.setState({ showSolution: !this.state.showSolution }) }>
+                <h4>
+                  <Button bsStyle="info"
+                    onClick={() => this.setState({ showSolution: !showSolution }) }
+                    style={{ marginRight: 20 }}>
                     Show solution
                   </Button>
-                </h2>
+                  {this.state.timeLeft < 20 && `Best possible: ${solution[solution.length - 1].res}`}
+                </h4>
               </div>
-              <Collapse in={!!this.state.showSolution}>
+              <Collapse in={!!showSolution}>
                 <div>
-                  <NumbersHistory history={this.state.solution} success={true} />
+                  <NumbersHistory history={solution} success={true} />
                 </div>
               </Collapse>
             </Col>}
