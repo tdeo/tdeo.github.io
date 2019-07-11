@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Col, Grid, Row, Table } from 'react-bootstrap';
 
 import DiceForm from './DiceForm.jsx';
@@ -8,7 +7,7 @@ import RollHistory from './RollHistory.jsx';
 import RollStats from './RollStats.jsx';
 
 export default class DiceIndex extends React.Component {
-  static defaultProps = {
+  state = {
     dices: [{
       sides: 6,
       rolls: [],
@@ -16,45 +15,38 @@ export default class DiceIndex extends React.Component {
     sides: 6,
   };
 
-  static propTypes = {
-    sides: PropTypes.number,
-    dices: PropTypes.arrayOf(PropTypes.shape({
-      sides: PropTypes.number,
-      rolls: PropTypes.arrayOf(PropTypes.number),
-    })),
-  };
-
   constructor(props) {
     super(props);
-    this.state = props;
     this.addDice = this.addDice.bind(this);
     this.deleteDice = this.deleteDice.bind(this);
     this.roll = this.roll.bind(this);
   }
 
   resetRolls() {
-    this.props.dices.forEach((dice) => {
+    let dices = this.state.dices;
+    for (let dice of dices) {
       dice.rolls = [];
-    });
+    }
+    this.setState({ dices: dices });
   }
 
   roll() {
-    this.props.dices.forEach((dice) => {
+    for (let dice of this.state.dices) {
       dice.rolls.unshift(1 + Math.floor(Math.random() * dice.sides));
-    });
-    this.setState(this.props.dices);
+    }
+    this.setState({ dices: this.state.dices });
   }
 
-  addDice(props) {
-    this.props.dices.push({ sides: parseInt(props.sides, 10) });
+  addDice(sides) {
+    this.state.dices.push({ sides: sides });
     this.resetRolls();
-    this.setState({ dices: this.props.dices });
+    this.setState({ dices: this.state.dices });
   }
 
   deleteDice(idx) {
-    this.props.dices.splice(idx, 1);
+    this.state.dices.splice(idx, 1);
     this.resetRolls();
-    this.setState({ dices: this.props.dices });
+    this.setState({ dices: this.state.dices });
   }
 
   render() {

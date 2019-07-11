@@ -60,16 +60,40 @@ hr {
     visibility: initial;
   }
 
-  #root {
-    padding-bottom: 0;
+  html, body, #root {
+    height: 100%;
+    padding: 0;
+  }
+
+  #cv {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    padding-left: 4px;
+  }
+
+  #cv:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+
+  .right-panel h3 {
+    margin-top: 0;
   }
 }
 
-place {
+.place {
   font-size: large;
 }
 
 @media (min-width: 768px), print {
+  .row.narrow {
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+
   .place_and_time {
     text-align: right;
   }

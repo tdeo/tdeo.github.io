@@ -5,25 +5,31 @@ import { Button, ButtonToolbar, Form, FormControl } from 'react-bootstrap';
 import Dice from './Dice.jsx';
 
 export default class DiceForm extends React.Component {
+  state = {
+    sides: 6
+  }
+
   static propTypes = {
     deleteDice: PropTypes.func,
     addDice: PropTypes.func,
+    dices: PropTypes.arrayOf(PropTypes.shape({
+      sides: PropTypes.number,
+    })),
   }
 
   constructor(props) {
     super(props);
-    this.state = props;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.deleteDice = this.deleteDice.bind(this);
   }
 
   handleChange(event) {
-    this.setState({ sides: event.target.value });
+    this.setState({ sides: parseInt(event.target.value, 10) });
   }
 
   handleSubmit(event) {
-    this.props.addDice(this.state);
+    this.props.addDice(this.state.sides);
     event.preventDefault();
   }
 
@@ -37,7 +43,7 @@ export default class DiceForm extends React.Component {
         <div>
           Current dices (click to remove):
           <ButtonToolbar>
-            {this.state.dices.map((dice, i) => {
+            {this.props.dices.map((dice, i) => {
               return (
                 <Dice key={i} onClick={this.deleteDice} value={i}
                   val={dice.sides} />

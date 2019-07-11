@@ -8,9 +8,19 @@ import NumbersHistory from './NumbersHistory.jsx';
 import Time from './Time.jsx';
 
 export default class Numbers extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  state = {
+    numbers: this.sortNumbers(this.randomNumbers()),
+    target: this.randomTarget(),
+    success: false,
+    ops: this.defaultOps(),
+    history: [],
+    start: new Date(),
+    timeLeft: 40,
+    totalTime: 40,
+  }
+
+  init() {
+    let state = {
       numbers: this.sortNumbers(this.randomNumbers()),
       target: this.randomTarget(),
       success: false,
@@ -20,21 +30,26 @@ export default class Numbers extends React.Component {
       timeLeft: 40,
       totalTime: 40,
     };
-  }
+    this.setState({ state });
 
-  componentDidMount() {
+    clearInterval(this.timerId);
     this.timerId = setInterval(this.timeLeft.bind(this), 50);
+
     fetch('https://dcdl.herokuapp.com/solve', {
       method: 'POST',
       body: JSON.stringify({
-        target: this.state.target,
-        numbers: this.state.numbers.map(n => n.value),
+        target: state.target,
+        numbers: state.numbers.map(n => n.value),
       })
     }).then(r => r.json()).then(sol => {
       this.setState({ solution: sol });
     }).catch(err => {
       console.warn(err);
     });
+  }
+
+  componentDidMount() {
+    this.init();
   }
 
   componentWillUnmount() {
@@ -193,19 +208,22 @@ export default class Numbers extends React.Component {
         <Dcdl />
         <Grid>
           <Row>
-            <Col xs={12} sm={7}>
+            <Col xs={12} sm={6}>
               <Row>
                 <Col xs={5}>
+                  <br />
+                  <Button bsStyle="primary" onClick={this.init.bind(this)}>Play again</Button>
                   <h2>Numbers</h2>
                   <h4>Target: {this.state.target}</h4>
                 </Col>
                 <Col xs={7}>
+                  <br /><br />
                   <Time initial={this.state.totalTime} value={this.state.timeLeft} />
                 </Col>
               </Row>
               <div>
                 { success ?
-                  <h2>Congratulations! <a href=""><Button bsStyle="info">Play again</Button></a></h2>
+                  <h2>Congratulations! <Button bsStyle="info" onClick={this.init.bind(this)}>Play again</Button></h2>
                   :
                   <h2>
                     <NumbersForm {...this.state} submitOperation={this.submitOperation.bind(this)} toggleOp={this.toggleOp.bind(this)} toggleNumber={this.toggleNumber.bind(this)} />
@@ -216,7 +234,7 @@ export default class Numbers extends React.Component {
                 <NumbersHistory history={this.state.history} success={success} cancelLast={this.cancelLast.bind(this)} />
               </div>
             </Col>
-            { solution && <Col xs={12} sm={5}>
+            { solution && <Col xs={12} sm={6}>
               <div>
                 <h4>
                   <Button bsStyle="info"

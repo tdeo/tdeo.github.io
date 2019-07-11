@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Grid, Row } from 'react-bootstrap';
+import { Button, Col, Grid, Row } from 'react-bootstrap';
 import { Layer, Stage, Group, Line } from 'react-konva';
 
 import './Procedural.css';
@@ -176,10 +176,17 @@ export default class Procedural extends React.Component {
           <Row>
             <Col xs={12}>
               <h2>Triangular art</h2>
-              <span>
-                Inspired from an artwork engraved into wood, gave me the idea to generate
-                geometric figures and play with HTML canvas.
-              </span>
+              <Row>
+                <Col xs={8}>
+                  <span>
+                    Inspired from an artwork engraved into wood, gave me the idea to generate
+                    geometric figures and play with HTML canvas.
+                  </span>
+                </Col>
+                <Col xs={4}>
+                  <Button bsStyle="primary" onClick={() => this.setState({ grid: this.grid() })}>Again !</Button>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Grid>

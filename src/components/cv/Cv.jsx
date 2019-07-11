@@ -9,8 +9,8 @@ import queryString from 'query-string';
 
 import Competence from './Competence.jsx';
 import './Cv.css';
-import * as textFr from './fr.json';
-import * as textEn from './en.json';
+import textFr from './fr.json';
+import textEn from './en.json';
 
 const translations = { fr: textFr, en: textEn };
 
@@ -61,11 +61,11 @@ export default class Cv extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="cv">
         <Grid>
           <Row>
             <Col xs={12} sm={4} className="left-panel">
-              <Row>
+              <Row className="narrow">
                 <Col xs={12}>
                   <img id="picture" alt="" src={this.data.picture} />
                   <h3 className="text-center">{this.data.name}</h3>
@@ -75,7 +75,7 @@ export default class Cv extends React.Component {
 
               <hr />
 
-              <Row>
+              <Row className="narrow">
                 <Col xs={12} id="contact">
                   <small>
                     {this.validKey() && <p>
@@ -103,19 +103,15 @@ export default class Cv extends React.Component {
 
               <hr />
 
-              <Row>
+              <Row className="narrow">
                 <Col xs={12} className="text-justify">
-                  {this.data.pitch.map((s, i) => {
-                    return (
-                      <p key={i}>{s}</p>
-                    );
-                  })}
+                  {this.data.pitch.map((s, i) => <p key={i}>{s}</p>)}
                 </Col>
               </Row>
 
               <hr />
 
-              <Row>
+              <Row className="narrow">
                 {this.data.languages.map((item, i) => {
                   return (
                     <Competence key={i} percent={item.val} desc={item.desc} />
@@ -125,7 +121,7 @@ export default class Cv extends React.Component {
 
               <hr />
 
-              <Row>
+              <Row className="narrow">
                 {this.data.skills.map((item, i) => {
                   return (
                     <Competence key={i} percent={item.val} desc={item.desc} />
@@ -133,8 +129,8 @@ export default class Cv extends React.Component {
                 })}
               </Row>
             </Col>
-            <Col xs={0} />
 
+            <Col xs={0} />
 
             <Col xs={12} sm={8} className="right-panel">
               <Row>
@@ -143,7 +139,7 @@ export default class Cv extends React.Component {
 
               {this.data.pro_exp.items.map((item, i) => {
                 return (
-                  <Row key={i}>
+                  <Row className="narrow" key={i}>
                     <Col xs={12} sm={5}>
                       <h4 className='small-caps' dangerouslySetInnerHTML={{ __html: item.company }} />
                     </Col>
@@ -174,7 +170,7 @@ export default class Cv extends React.Component {
 
               {this.data.education.items.map((item, i) => {
                 return (
-                  <div key={i}>
+                  <Row className="narrow" key={i}>
                     <Col xs={12} sm={9}>
                       <h4 className='small-caps' dangerouslySetInnerHTML={{ __html: item.school }} />
                     </Col>
@@ -188,7 +184,7 @@ export default class Cv extends React.Component {
                         );
                       })}
                     </Col>
-                  </div>
+                  </Row>
                 );
               })}
 
@@ -196,7 +192,7 @@ export default class Cv extends React.Component {
                 <Col xs={12}><h3>{this.data.interests.title}</h3></Col>
               </Row>
 
-              <Row>
+              <Row className="narrow">
                 <Col xs={12}>
                   <dl className="dl-horizontal">
                     {this.data.interests.items.map((item, i) => {

@@ -16,11 +16,6 @@ export default class NumbersForm extends React.Component {
     toggleOp: PropTypes.func,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = props;
-  }
-
   render() {
     return (
       <div>

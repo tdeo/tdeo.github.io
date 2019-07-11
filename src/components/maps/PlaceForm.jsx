@@ -62,6 +62,7 @@ export default class PlaceForm extends React.Component {
           <Col sm={6}>
             <AsyncTypeahead
               {...this.state}
+              id="locationSearch"
               minLength={3}
               delay={200}
               filterBy={() => {

@@ -32,6 +32,9 @@
     "space-infix-ops": 2
   },
   "settings": {
+    "react": {
+      "version": "detect"
+    },
     "import/resolver": {
       "node": {
         "extensions": [

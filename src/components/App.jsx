@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { ShortcutManager } from 'react-shortcuts';
 import * as Sentry from '@sentry/browser';
 
 import keymap from '../keymap.jsx';
+import './App.css';
 
 import Navigation from './Navigation.jsx';
 // Navbar
@@ -23,9 +24,11 @@ import NotFound from './NotFound.jsx';
 
 const shortcutManager = new ShortcutManager(keymap);
 
-Sentry.init({
-  dsn: 'https://9cfddc0ec998438095a6f884a1600e51@sentry.io/1309901'
-});
+if (window.location.hostname !== 'localhost') {
+  Sentry.init({
+    dsn: 'https://9cfddc0ec998438095a6f884a1600e51@sentry.io/1309901'
+  });
+}
 
 export default class App extends React.Component {
   constructor(props) {

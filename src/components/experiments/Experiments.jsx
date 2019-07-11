@@ -1,7 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Col, Grid, Row, Panel } from 'react-bootstrap';
 
 export default class Experiments extends React.Component {
+  static propTypes = {
+    history: PropTypes.shape({
+      push: PropTypes.func,
+    }),
+  }
+
   render() {
     const pages = [
       {
@@ -42,9 +49,9 @@ export default class Experiments extends React.Component {
           {pages.map((page, i) => {
             return (
               <Col xs={12} sm={4} key={i}>
-                <Panel onClick={() => {
-                  window.location.href = page.url;
-                }} bsStyle="info">
+                <Panel bsStyle="info" onClick={() => {
+                  this.props.history.push(page.url);
+                }}>
                   <Panel.Heading>
                     <Panel.Title componentClass="h3">
                       {page.title}

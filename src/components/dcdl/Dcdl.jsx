@@ -16,11 +16,6 @@ export default class Dcdl extends React.Component {
               ) in which two candidates play against each other to solve either word or numbers challenges.
               This is a single-player game simulator for it.
               <br />
-              <br />
-              Play with:{' '}
-              <a className="btn btn-primary" href="/dcdl/numbers">
-                  Numbers
-              </a>
             </Col>
           </Row>
         </Grid>
