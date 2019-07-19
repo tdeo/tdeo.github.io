@@ -19,6 +19,10 @@ export default class Time extends React.Component {
     var i = (1 - ratio) * 360;
     i = Math.max(0, Math.min(360, i));
 
+    if (!this.props.value) {
+      return null;
+    }
+
     return (
       <div style={{
         borderRadius: '100%',

@@ -55,7 +55,7 @@ export default class DiceIndex extends React.Component {
         <Row>
           <Col sm={12}>
             <h1>Dice</h1>
-            Dice simulator, will contains statistics to check for bias.
+            Dice simulator, contains statistics to check for bias.
           </Col>
         </Row>
         <br />

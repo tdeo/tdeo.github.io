@@ -28,11 +28,11 @@ export default class Roll extends React.Component {
   }
 
   roll() {
-    this.setState({ blocked: true });
+    // this.setState({ blocked: true });
     this.props.roll();
-    setTimeout(() => {
-      this.setState({ blocked: false });
-    }, 300);
+    // setTimeout(() => {
+    //   this.setState({ blocked: false });
+    // }, 1);
   }
 
   render() {

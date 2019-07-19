@@ -21,17 +21,6 @@ export default class Cv extends React.Component {
     })
   };
 
-  constructor(props) {
-    super(props);
-    var values = queryString.parse(this.props.location.search);
-    this.key = (values.key === undefined) ? '' : values.key;
-    this.lang = values.lang;
-    if (translations[this.lang] === undefined) {
-      this.lang = 'fr';
-    }
-    this.data = translations[this.lang];
-  }
-
   validKey() {
     var bf = new Blowfish(this.key);
     return (bf.decrypt(atob('ug1IZGf/ZRM=')).replace(/\0/g, '') === 'valid');
@@ -60,6 +49,14 @@ export default class Cv extends React.Component {
   }
 
   render() {
+    var values = queryString.parse(this.props.location.search);
+    this.key = (values.key === undefined) ? '' : values.key;
+    this.lang = values.lang;
+    if (translations[this.lang] === undefined) {
+      this.lang = 'fr';
+    }
+    this.data = translations[this.lang];
+
     return (
       <div id="cv">
         <Grid>

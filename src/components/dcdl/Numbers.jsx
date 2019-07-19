@@ -8,29 +8,20 @@ import NumbersHistory from './NumbersHistory.jsx';
 import Time from './Time.jsx';
 
 export default class Numbers extends React.Component {
-  state = {
-    numbers: this.sortNumbers(this.randomNumbers()),
-    target: this.randomTarget(),
-    success: false,
-    ops: this.defaultOps(),
-    history: [],
-    start: new Date(),
-    timeLeft: 40,
-    totalTime: 40,
-  }
-
   init() {
     let state = {
       numbers: this.sortNumbers(this.randomNumbers()),
       target: this.randomTarget(),
       success: false,
       ops: this.defaultOps(),
+      solution: [],
+      showSolution: false,
       history: [],
       start: new Date(),
       timeLeft: 40,
       totalTime: 40,
     };
-    this.setState({ state });
+    this.setState(state);
 
     clearInterval(this.timerId);
     this.timerId = setInterval(this.timeLeft.bind(this), 50);
@@ -91,13 +82,10 @@ export default class Numbers extends React.Component {
 
   toggleNumber(event) {
     var idx = parseInt(event.target.value, 10);
-    var numbers = [];
-    this.state.numbers.forEach((number, i) => {
-      numbers.push({
-        value: number.value,
-        active: i === idx ? !number.active : number.active,
-      });
-    });
+    let numbers = this.state.numbers.map(e => Object.assign({}, e));
+    if (numbers[idx]) {
+      numbers[idx].active = !numbers[idx].active;
+    }
     this.setState({ numbers: numbers }, this.submitOperation);
   }
 
@@ -128,12 +116,7 @@ export default class Numbers extends React.Component {
       return;
     }
 
-    var newNumbers = [];
-    this.state.numbers.forEach((num) => {
-      if (!num.active) {
-        newNumbers.push(num);
-      }
-    });
+    var newNumbers = this.state.numbers.filter(e => !e.active).map(e => Object.assign({}, e));
     newNumbers.push({ value: newVal, active: false });
     var history = this.state.history;
     history.unshift({
@@ -163,9 +146,7 @@ export default class Numbers extends React.Component {
   }
 
   sortNumbers(nums) {
-    return nums.sort((a, b) => {
-      return a.value - b.value;
-    });
+    return nums.sort((a, b) => a.value - b.value);
   }
 
   randomTarget() {
@@ -173,22 +154,14 @@ export default class Numbers extends React.Component {
   }
 
   randomNumbers() {
-    var a = [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,25,50,75,100];
-    var indexes = [];
-    do {
-      var r = Math.floor(a.length * Math.random());
-      if (!indexes.includes(r)) {
-        indexes.push(r);
-      }
-    } while (indexes.length < 6);
-    var numbers = [];
-    indexes.forEach(function(idx) {
-      numbers.push({
-        value: a[idx],
-        active: false,
-      });
-    });
-    return numbers;
+    let a = [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,25,50,75,100];
+    for (let i = a.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      let x = a[i];
+      a[i] = a[j];
+      a[j] = x;
+    }
+    return a.slice(0, 6).map(e => ({ value: e, active: false }));
   }
 
   _handleShortcuts(action) {
@@ -202,6 +175,9 @@ export default class Numbers extends React.Component {
   }
 
   render() {
+    if (!this.state) {
+      return null;
+    }
     const { solution, success, showSolution } = this.state;
     return (
       <Shortcuts name="NumbersForm" handler={this._handleShortcuts.bind(this)} targetNodeSelector="body">
@@ -226,7 +202,7 @@ export default class Numbers extends React.Component {
                   <h2>Congratulations! <Button bsStyle="info" onClick={this.init.bind(this)}>Play again</Button></h2>
                   :
                   <h2>
-                    <NumbersForm {...this.state} submitOperation={this.submitOperation.bind(this)} toggleOp={this.toggleOp.bind(this)} toggleNumber={this.toggleNumber.bind(this)} />
+                    <NumbersForm {...this.state} toggleOp={this.toggleOp.bind(this)} toggleNumber={this.toggleNumber.bind(this)} />
                   </h2>
                 }
               </div>
