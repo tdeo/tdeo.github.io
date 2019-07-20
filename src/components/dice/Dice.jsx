@@ -6,6 +6,7 @@ import './Dice.css';
 
 export default class Dice extends React.Component {
   static propTypes = {
+    color: PropTypes.string,
     val: PropTypes.node,
     value: PropTypes.node,
     onClick: PropTypes.func,
@@ -13,8 +14,8 @@ export default class Dice extends React.Component {
 
   render() {
     return (
-      <Button className="dice" onClick={this.props.onClick} value={this.props.value}>
-        {this.props.val}
+      <Button className="dice" onClick={this.props.onClick} value={this.props.value} style={{ backgroundColor: this.props.color }}>
+        {this.props.val}{' '}
       </Button>
     );
   }

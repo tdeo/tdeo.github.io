@@ -42,7 +42,7 @@ export default class Roll extends React.Component {
           {this.state.dices.map((dice, i) => {
             return (
               <td key={`${dice.sides},${i}`}>
-                <Dice val={dice.rolls.length > 0 ? dice.rolls[0] : '?'} />
+                <Dice val={dice.rolls.length > 0 ? dice.rolls[0] : '?'} color={dice.color} />
               </td>
             );
           })}

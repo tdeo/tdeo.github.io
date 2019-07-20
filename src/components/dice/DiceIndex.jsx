@@ -15,13 +15,6 @@ export default class DiceIndex extends React.Component {
     sides: 6,
   };
 
-  constructor(props) {
-    super(props);
-    this.addDice = this.addDice.bind(this);
-    this.deleteDice = this.deleteDice.bind(this);
-    this.roll = this.roll.bind(this);
-  }
-
   resetRolls() {
     let dices = this.state.dices;
     for (let dice of dices) {
@@ -30,20 +23,20 @@ export default class DiceIndex extends React.Component {
     this.setState({ dices: dices });
   }
 
-  roll() {
+  roll = () => {
     for (let dice of this.state.dices) {
       dice.rolls.unshift(1 + Math.floor(Math.random() * dice.sides));
     }
     this.setState({ dices: this.state.dices });
   }
 
-  addDice(sides) {
-    this.state.dices.push({ sides: sides });
+  addDice = (sides, color) => {
+    this.state.dices.push({ sides, color });
     this.resetRolls();
     this.setState({ dices: this.state.dices });
   }
 
-  deleteDice(idx) {
+  deleteDice = (idx) => {
     this.state.dices.splice(idx, 1);
     this.resetRolls();
     this.setState({ dices: this.state.dices });

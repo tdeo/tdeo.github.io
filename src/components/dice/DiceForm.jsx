@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, ButtonToolbar, Form, FormControl } from 'react-bootstrap';
+import { Button, ButtonToolbar, Form, FormControl, Popover, OverlayTrigger } from 'react-bootstrap';
+import { ChromePicker } from 'react-color';
 
 import Dice from './Dice.jsx';
 
 export default class DiceForm extends React.Component {
   state = {
-    sides: 6
+    sides: 6,
+    color: '#f2f2f2',
   }
 
   static propTypes = {
@@ -25,11 +27,11 @@ export default class DiceForm extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({ sides: parseInt(event.target.value, 10) });
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   handleSubmit(event) {
-    this.props.addDice(this.state.sides);
+    this.props.addDice(this.state.sides, this.state.color);
     event.preventDefault();
   }
 
@@ -46,7 +48,7 @@ export default class DiceForm extends React.Component {
             {this.props.dices.map((dice, i) => {
               return (
                 <Dice key={i} onClick={this.deleteDice} value={i}
-                  val={dice.sides} />
+                  val={dice.sides} color={dice.color} />
               );
             })}
           </ButtonToolbar>
@@ -54,7 +56,7 @@ export default class DiceForm extends React.Component {
 
         <div>
           <Form inline onSubmit={this.handleSubmit}>
-            Add one dice with{' '}
+            Add a dice with{' '}
             <FormControl
               style={{ maxWidth: '60px', display: 'inline-block' }}
               id="sides"
@@ -63,7 +65,15 @@ export default class DiceForm extends React.Component {
               max="99"
               value={this.state.sides}
               onChange={this.handleChange}/>{' '}
-            sides:{' '}
+            sides and color{' '}
+            <OverlayTrigger trigger="click" placement="bottom" overlay={
+              <Popover id="color-picker-popover">
+                <ChromePicker color={this.state.color} onChange={(color) => this.setState({ color: color.hex })} />
+              </Popover>
+            }>
+              <Dice val="?" color={this.state.color}/>
+            </OverlayTrigger>
+            {' '}:{' '}
             <Button bsStyle="primary" type="submit">Add</Button>
           </Form>
         </div>

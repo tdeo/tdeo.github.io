@@ -1,20 +1,23 @@
 import React from 'react';
-import { Button, Col, Grid, Row } from 'react-bootstrap';
+import { Button, Col, Grid, Row, FormControl, Form, ControlLabel } from 'react-bootstrap';
 import { Layer, Stage, Group, Line } from 'react-konva';
 
 import './Procedural.css';
 
 export default class Procedural extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      width: Math.floor(window.innerWidth * 0.8),
-      height: Math.floor(window.innerHeight * 0.7),
-      points: 40,
-      alpha: 0.17,
-      triangles: 6,
-    };
-    this.state.grid = this.grid();
+  state = {
+    width: Math.floor(window.innerWidth * 0.8),
+    height: Math.floor(window.innerHeight * 0.7),
+    points: 40,
+    alpha: 0.17,
+    splits: 6,
+    borderWidth: 8,
+    innerBorderWidth: 2,
+    stringsWidth: 1,
+  };
+
+  componentDidMount() {
+    this.setState({ grid: this.grid() });
   }
 
   random(a, b) { // int between a and b inclusive
@@ -36,11 +39,14 @@ export default class Procedural extends React.Component {
       [[this.state.width, this.state.height], [this.state.width, 0], initial],
       [[this.state.width, 0], [0, 0], initial],
     ];
-    for (var j = 0; j < this.state.triangles; j++) {
+    for (var j = 0; j < this.state.splits; j++) {
       shapes = this.insertPoint(shapes);
       shapes = this.split(shapes);
     }
-    return shapes;
+    return shapes.map(s => ({
+      strings: this.strings(s),
+      border: s,
+    }));
   }
 
   area(shape) {
@@ -129,15 +135,9 @@ export default class Procedural extends React.Component {
 
   strings(shape) {
     var i = Math.floor(3 * Math.random());
-    var a = shape[i];
-    var b, c;
-    if (i === 0) {
-      b = shape[1];
-      c = shape[2];
-    } else {
-      b = shape[0];
-      c = shape[3 - i];
-    }
+    let a = shape[i],
+      b = shape[(i + 1) % 3],
+      c = shape[(i + 2) % 3];
     var l = Math.sqrt(Math.pow(b[0] - c[0], 2) + Math.pow(b[1] - c[1], 2));
     var alpha = Math.acos(
       ((b[0] - a[0]) * (c[0] - a[0]) + (b[1] - a[1]) * (c[1] - a[1])) / Math.abs(
@@ -154,21 +154,32 @@ export default class Procedural extends React.Component {
           Math.round(((i + 1) * b[0] + (count - i) * c[0]) / (count + 1)),
           Math.round(((i + 1) * b[1] + (count - i) * c[1]) / (count + 1)),
         ];
-        return (
-          <Line x={0} y={0} points={[a[0], a[1], d[0], d[1]]} key={i}
-            strokeLinearGradientColorStops={[
-              0, '#555', 0.1, '#555', 0.5, color, 0.9, '#555', 1, '#555'
-            ]}
-            strokeLinearGradientStartPoint={{ x: a[0], y: a[1] }}
-            strokeLinearGradientEndPoint={{ x: d[0], y: d[1] }}
-            strokeWidth={1}
-          />
-        );
+        return {
+          points: [a, d].flat(),
+          strokeLinearGradientColorStops: [0, '#555', 0.1, '#555', 0.5, color, 0.9, '#555', 1, '#555'],
+          strokeLinearGradientStartPoint: { x: a[0], y: a[1] },
+          strokeLinearGradientEndPoint: { x: d[0], y: d[1] },
+          strokeWidth: 1,
+        };
       })
     );
   }
 
+  handleChange = (e) => {
+    this.setState({ [e.target.id]: e.target.value });
+  }
+
+  changeAndCompute = (e) => {
+    this.setState(
+      { [e.target.id]: e.target.value },
+      () => this.setState({ grid: this.grid() }),
+    );
+  }
+
   render() {
+    if (!this.state.grid) {
+      return null;
+    }
     return (
       <div>
         <Grid>
@@ -187,6 +198,40 @@ export default class Procedural extends React.Component {
                   <Button bsStyle="primary" onClick={() => this.setState({ grid: this.grid() })}>Again !</Button>
                 </Col>
               </Row>
+              <Row>
+                <Form horizontal>
+                  <Col componentClass={ControlLabel} sm={3} md={2}>
+                    <ControlLabel>Width</ControlLabel>
+                    <FormControl id="width" onChange={this.changeAndCompute}
+                      type="number" min="1" max="10000" value={this.state.width} />
+                  </Col>
+                  <Col componentClass={ControlLabel} sm={3} md={2}>
+                    <ControlLabel>Height</ControlLabel>
+                    <FormControl id="height" onChange={this.changeAndCompute}
+                      type="number" min="1" max="10000" value={this.state.height} />
+                  </Col>
+                  <Col componentClass={ControlLabel} sm={3} md={2}>
+                    <ControlLabel>Border width</ControlLabel>
+                    <FormControl id="borderWidth" onChange={this.handleChange}
+                      type="number" min="1" max="99" value={this.state.borderWidth} />
+                  </Col>
+                  <Col componentClass={ControlLabel} sm={3} md={2}>
+                    <ControlLabel>Triangles border width</ControlLabel>
+                    <FormControl id="innerBorderWidth" onChange={this.handleChange}
+                      type="number" min="1" max="99" value={this.state.innerBorderWidth} />
+                  </Col>
+                  <Col componentClass={ControlLabel} sm={3} md={2}>
+                    <ControlLabel>Colored strings width</ControlLabel>
+                    <FormControl id="stringsWidth" onChange={this.handleChange}
+                      type="number" min="1" max="99" value={this.state.stringsWidth} />
+                  </Col>
+                  <Col componentClass={ControlLabel} sm={3} md={2}>
+                    <ControlLabel>Triangle divisions</ControlLabel>
+                    <FormControl id="splits" onChange={this.changeAndCompute}
+                      type="number" min="1" max="99" value={this.state.splits} />
+                  </Col>
+                </Form>
+              </Row>
             </Col>
           </Row>
         </Grid>
@@ -201,12 +246,12 @@ export default class Procedural extends React.Component {
                   {this.state.grid.map((shape, i) => {
                     return (
                       <Group key={i}>
-                        {this.strings(shape)}
-                        <Line points={shape.flat()} closed stroke="black" strokeWidth={2} />
+                        {shape.strings.map((string, i) => <Line {...string} key={i} strokeWidth={this.state.stringsWidth} />)}
+                        <Line points={shape.border.flat()} closed stroke="black" strokeWidth={this.state.innerBorderWidth} />
                       </Group>
                     );
                   })}
-                  <Line x={0} y={0} closed points={[0,0,0,this.state.height,this.state.width,this.state.height,this.state.width,0]} stroke="black" strokeWidth={8} />
+                  <Line x={0} y={0} closed points={[0,0,0,this.state.height,this.state.width,this.state.height,this.state.width,0]} stroke="black" strokeWidth={this.state.borderWidth} />
                 </Layer>
               </Stage>
             </Col>
