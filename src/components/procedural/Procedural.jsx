@@ -11,6 +11,7 @@ export default class Procedural extends React.Component {
     points: 40,
     alpha: 0.17,
     splits: 6,
+    stringDensity: 100,
     borderWidth: 8,
     innerBorderWidth: 2,
     stringsWidth: 1,
@@ -145,7 +146,7 @@ export default class Procedural extends React.Component {
       )
     );
     var density = Math.max(3, Math.min(l / 15, alpha * 9));
-    var count = Math.floor(density * (3 + Math.random()));
+    var count = Math.floor(density * (this.state.stringDensity / 100.0) * (3 + Math.random()));
     var color = this.randomColor();
 
     return (
@@ -224,6 +225,11 @@ export default class Procedural extends React.Component {
                     <ControlLabel>Colored strings width</ControlLabel>
                     <FormControl id="stringsWidth" onChange={this.handleChange}
                       type="number" min="1" max="99" value={this.state.stringsWidth} />
+                  </Col>
+                  <Col componentClass={ControlLabel} sm={3} md={2}>
+                    <ControlLabel>String density</ControlLabel>
+                    <FormControl id="stringDensity" onChange={this.changeAndCompute}
+                      type="number" min="1" max="99" value={this.state.stringDensity} />
                   </Col>
                   <Col componentClass={ControlLabel} sm={3} md={2}>
                     <ControlLabel>Triangle divisions</ControlLabel>
