@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100px" height="100px" viewbox="0 0 100 100">
-  <g transform="translate(19, 0)">
-    <polygon points="0,0 0,100 62,100 62,15, 47,0" fill="rgb(32, 90, 32)" stroke="none"/>
-    <polygon points="62,15 47,0 47,15" stroke="rgba(255,255,255,0.4)" stroke-width="1" fill="rgba(255,255,255,0.2)" />
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="297px" height="297px" viewbox="0 0 297 297">
+  <g transform="translate(48.5, 0)">
+    <polygon
+      points="0,0 0,297 210,297 210,35 175,0"
+      fill="rgb(32, 90, 32)"
+      stroke="none"/>
+    <polygon
+      points="210,35 175,0 175,35"
+      stroke="none"
+      fill="rgba(255,255,255,0.2)" />
+    <path
+      d="M173,0 v37 h37"
+      fill="none"
+      stroke-width="4"
+      stroke="rgba(255,255,255,0.4)" />
 
-    <path d="
-      M 13 14
-        L 37 14
-        L 25 14
-        L 25 44
-
-      M 22 56
-        L 15 56
-        L 15 86
-        L 22 86
-        A 11,13 0 0,0 22,56
-
-      " stroke="white" stroke-width="6" fill="none"/>
-
-    <circle cx="45" cy="40" r="5" fill="white" stroke="none"/>
-    <circle cx="45" cy="84" r="5" fill="white" stroke="none"/>
+    <!-- Letter T -->
+    <path
+      d="M50,40 h80"
+      stroke="white" stroke-width="15" fill="none" />
+    <path
+      d="M90,40 v90"
+      stroke="white" stroke-width="15" fill="none" />
+    <path
+      d="M50,40 h80 h-40 v90"
+      stroke="white" stroke-width="15" fill="none" />
+    <!-- Dot -->
+    <circle r="10" cx="150" cy="120" fill="white" stroke="none" />
+    <!-- Letter D -->
+    <path
+      d="M90,170 h-30 v90 h30 c50,0 50,-90 0,-90"
+      stroke="white" stroke-width="15" fill="none" />
+    <!-- Dot -->
+    <circle r="10" cx="150" cy="250" fill="white" stroke="none" />
   </g>
 </svg>
