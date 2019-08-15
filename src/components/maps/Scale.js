@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Layer, Rect, Line, Text } from 'react-konva';
 
-import Utils from './Utils.jsx';
+import Utils from './Utils';
 
 export default class Scale extends React.Component {
   static propTypes = {

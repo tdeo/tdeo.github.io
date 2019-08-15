@@ -7,7 +7,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import Blowfish from 'javascript-blowfish';
 import queryString from 'query-string';
 
-import Competence from './Competence.jsx';
+import Competence from './Competence';
 import './Cv.css';
 import textFr from './fr.json';
 import textEn from './en.json';

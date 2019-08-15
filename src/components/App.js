@@ -4,23 +4,23 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { ShortcutManager } from 'react-shortcuts';
 import * as Sentry from '@sentry/browser';
 
-import keymap from '../keymap.jsx';
+import keymap from '../keymap';
 import './App.css';
 
-import Navigation from './Navigation.jsx';
+import Navigation from './Navigation';
 // Navbar
-import Maps from './maps/Maps.jsx';
-import DiceIndex from './dice/DiceIndex.jsx';
-import Experiments from './experiments/Experiments';
+import Maps from './maps';
+import DiceIndex from './dice';
+import Experiments from './Experiments';
 // Experiments
-import Dcdl from './dcdl/Dcdl.jsx';
-import Numbers from './dcdl/Numbers.jsx';
-import Procedural from './procedural/Procedural.jsx';
+import Dcdl from './dcdl';
+import Numbers from './dcdl/Numbers';
+import Procedural from './procedural';
 // Other pages
-import Cv from './cv/Cv.jsx';
-import IsItFive from './isitfive/IsItFive.jsx';
+import Cv from './cv';
+import IsItFive from './IsItFive';
 // Not found
-import NotFound from './NotFound.jsx';
+import NotFound from './NotFound';
 
 const shortcutManager = new ShortcutManager(keymap);
 

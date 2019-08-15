@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, ButtonToolbar, Form, FormControl, Popover, OverlayTrigger } from 'react-bootstrap';
 import { ChromePicker } from 'react-color';
 
-import Dice from './Dice.jsx';
+import Dice from './Dice';
 
 export default class DiceForm extends React.Component {
   state = {

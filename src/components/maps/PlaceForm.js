@@ -4,7 +4,7 @@ import { Col, ControlLabel, Form, FormGroup } from 'react-bootstrap';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
-import PlaceResult from './PlaceResult.jsx';
+import PlaceResult from './PlaceResult';
 
 export default class PlaceForm extends React.Component {
   static propTypes = {

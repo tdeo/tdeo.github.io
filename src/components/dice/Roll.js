@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 
-import Dice from './Dice.jsx';
+import Dice from './Dice';
 
 export default class Roll extends React.Component {
   static propTypes = {

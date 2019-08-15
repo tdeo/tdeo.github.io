@@ -2,10 +2,11 @@ import React from 'react';
 import { Button, Col, Collapse, Grid, Row } from 'react-bootstrap';
 import { Shortcuts } from 'react-shortcuts';
 
-import Dcdl from './Dcdl.jsx';
-import NumbersForm from './NumbersForm.jsx';
-import NumbersHistory from './NumbersHistory.jsx';
-import Time from './Time.jsx';
+import NumbersForm from './NumbersForm';
+import NumbersHistory from './NumbersHistory';
+import Time from './Time';
+
+import Dcdl from './';
 
 export default class Numbers extends React.Component {
   init() {

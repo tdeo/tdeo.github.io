@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Col, ControlLabel, Form, FormControl, FormGroup, HelpBlock } from 'react-bootstrap';
 
-import Utils from './Utils.jsx';
+import Utils from './Utils';
 
 const floatRe = RegExp('^\\s*\\-?\\d+(.\\d*)?\\s*$');
 

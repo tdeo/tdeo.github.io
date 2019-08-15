@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Layer, Stage } from 'react-konva';
 
 import './Canvas.css';
-import MapTile from './MapTile.jsx';
-import Scale from './Scale.jsx';
+import MapTile from './MapTile';
+import Scale from './Scale';
 
 export default class Canvas extends React.Component {
   static defaultProps = {

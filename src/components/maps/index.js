@@ -1,10 +1,10 @@
 import React from 'react';
 import { Col, Grid, Row } from 'react-bootstrap';
 
-import Canvas from './Canvas.jsx';
-import CoordinatesForm from './CoordinatesForm.jsx';
-import PlaceForm from './PlaceForm.jsx';
-import Utils from './Utils.jsx';
+import Canvas from './Canvas';
+import CoordinatesForm from './CoordinatesForm';
+import PlaceForm from './PlaceForm';
+import Utils from './Utils';
 
 export default class Maps extends React.Component {
   constructor(props) {

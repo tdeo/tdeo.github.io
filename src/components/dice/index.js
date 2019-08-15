@@ -1,10 +1,10 @@
 import React from 'react';
 import { Col, Grid, Row, Table } from 'react-bootstrap';
 
-import DiceForm from './DiceForm.jsx';
-import Roll from './Roll.jsx';
-import RollHistory from './RollHistory.jsx';
-import RollStats from './RollStats.jsx';
+import DiceForm from './DiceForm';
+import Roll from './Roll';
+import RollHistory from './RollHistory';
+import RollStats from './RollStats';
 
 export default class DiceIndex extends React.Component {
   state = {
