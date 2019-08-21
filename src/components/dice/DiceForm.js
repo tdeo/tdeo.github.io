@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, ButtonToolbar, Form, FormControl, Popover, OverlayTrigger } from 'react-bootstrap';
-import { ChromePicker } from 'react-color';
+import { SwatchesPicker } from 'react-color';
 
 import Dice from './Dice';
 
@@ -68,7 +68,7 @@ export default class DiceForm extends React.Component {
             sides and color{' '}
             <OverlayTrigger trigger="click" placement="bottom" overlay={
               <Popover id="color-picker-popover">
-                <ChromePicker color={this.state.color} onChange={(color) => this.setState({ color: color.hex })} />
+                <SwatchesPicker width="100%" color={this.state.color} onChange={(color) => this.setState({ color: color.hex })} />
               </Popover>
             }>
               <Dice val="?" color={this.state.color}/>
