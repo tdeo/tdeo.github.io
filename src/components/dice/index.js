@@ -17,15 +17,16 @@ export default class DiceIndex extends React.Component {
 
   resetRolls() {
     let dices = this.state.dices;
-    for (let dice of dices) {
-      dice.rolls = [];
+    for (let i = 0; i < dices.length; i++) {
+      dices[i].rolls = [];
     }
     this.setState({ dices: dices });
   }
 
   roll = () => {
-    for (let dice of this.state.dices) {
-      dice.rolls.unshift(1 + Math.floor(Math.random() * dice.sides));
+    let dices = this.state.dices;
+    for (let i = 0; i < dices.length; i++) {
+      dices[i].rolls.unshift(1 + Math.floor(Math.random() * dices[i].sides));
     }
     this.setState({ dices: this.state.dices });
   }
