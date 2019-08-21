@@ -13,5 +13,4 @@ jobs:
     - name: Run a multi-line script
       run: |
         npm install
-        npm run build
-        gh-pages -d build -b master
+        npm run deploy
