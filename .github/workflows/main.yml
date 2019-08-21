@@ -19,4 +19,8 @@ jobs:
     - name: Build assets
       run: yarn build
     - name: Deploy to github pages
-      run: yarn exec gh-pages -- -d build -b master --user "Thierry Deo <thierry.deo@gmail.com"
+      run: |
+        yarn exec gh-pages -- \
+          -r https://tdeo@{{ secrets.GH_PAT }}/tdeo/tdeo.github.io.git
+          -d build \
+          -b master
