@@ -21,6 +21,6 @@ jobs:
     - name: Deploy to github pages
       run: |
         yarn exec gh-pages -- \
-          -r https://tdeo@{{ secrets.GH_PAT }}/tdeo/tdeo.github.io.git \
+          -r https://tdeo:${{ secrets.GH_PAT }}@github.com/tdeo/tdeo.github.io.git \
           -d build \
           -b master
