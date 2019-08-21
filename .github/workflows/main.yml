@@ -14,11 +14,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '10.x'
-    - name: Run a multi-line script
-      run: |
-        yarn install
-        yarn build
+    - name: Install dependencies
+      run: yarn install
+    - name: Build assets
+      run: yarn build
     - name: Deploy to github pages
-      uses: maxheld83/ghpages@v0.2.1
-      with:
-        BUILD_DIR: build/
+      run: yarn exec gh-pages -- -d build -b master --user "Thierry Deo <thierry.deo@gmail.com"
