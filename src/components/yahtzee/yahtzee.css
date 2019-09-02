@@ -1,0 +1,35 @@
+th.right, td.right {
+  text-align: right;
+}
+
+.dice {
+  box-shadow: inset 0px 0px 6px 1px rgba(0, 0, 0, 0.2), inset -1px -1px 3px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border: 1px solid #aaa;
+  font-weight: bold;
+  background-color: #f44336 !important;
+  color: white;
+}
+
+.dice-blocked {
+  background-color: #e57373 !important;
+  color: black;
+}
+
+.dice[disabled] {
+  background-color: #ccc !important;
+  color: #444 !important;
+}
+
+.row {
+  margin-top: -10px;
+}
+[class^='col'], [class*=' col'] {
+  margin-top: 10px;
+}
+.navbar-collapse.collapse {
+  margin-top: 0;
+}
+.set-score {
+  padding: 0 10px;
+}

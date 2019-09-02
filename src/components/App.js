@@ -19,6 +19,7 @@ import Procedural from './procedural';
 // Other pages
 import Cv from './cv';
 import IsItFive from './IsItFive';
+import Yahtzee from './yahtzee';
 // Not found
 import NotFound from './NotFound';
 
@@ -65,6 +66,7 @@ export default class App extends React.Component {
             <Route path="/dcdl" component={Dcdl} />
             <Route path="/cv" component={Cv} />
             <Route path="/procedural" component={Procedural} />
+            <Route path="/yahtzee" component={Yahtzee} />
             <Route component={NotFound} />
           </Switch>
         </div>
