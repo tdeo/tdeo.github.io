@@ -15,6 +15,12 @@ export default class Roll extends React.Component {
 
     let cur = this.props.players.find(e => e.id === currentPlayer);
 
+    if (!currentPlayer) {
+      return <Grid><Row><Col xs={12}>
+        La partie est finie ou on attend encore des joueurs.
+      </Col></Row></Grid>;
+    }
+
     return <Grid>
       <Row>
         {(currentPlayer !== me) && <Col xs={12}>

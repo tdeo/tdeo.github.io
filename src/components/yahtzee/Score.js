@@ -36,7 +36,10 @@ export default class Score extends React.Component {
     }
     h = Object.values(h);
 
-    if (cat === 'chance') {
+
+    if (cat === 'pYahtzee') {
+      return h.includes(5) ? 100 : 0;
+    } else if (cat === 'chance') {
       return roll.reduce((acc, i) => acc + i, 0);
     } else if (cat === 'yahtzee') {
       return h.includes(5) ? 50 : 0;
@@ -63,7 +66,38 @@ export default class Score extends React.Component {
   cell = (i, cat) => {
     let player = this.props.players[i];
     const { currentPlayer, me, wsClient } = this.props;
-    if (!player.score[cat] && (player.id === me) && (currentPlayer === me)) {
+
+    const played = Object.keys(player.score).length;
+
+    if ((player.score[cat] === undefined) &&
+        (player.id === me) &&
+        (currentPlayer === me) &&
+        played < 13) {
+      return <td key={i}>
+        <Button className="set-score" onClick={() => wsClient.send(
+          JSON.stringify({
+            type: 'score',
+            cat: cat,
+            score: this.scoreFor(cat),
+          }))}>
+          {this.scoreFor(cat)}
+        </Button>
+      </td>;
+    } else {
+      return <td key={i}>{player.score[cat]}</td>;
+    }
+  }
+
+  lastCell = (i, cat = 'pYahtzee') => {
+    let player = this.props.players[i];
+    const { currentPlayer, me, wsClient } = this.props;
+
+    const played = Object.keys(player.score).length;
+
+    if ((player.score[cat] === undefined) &&
+        (player.id === me) &&
+        (currentPlayer === me) &&
+        played === 13) {
       return <td key={i}>
         <Button className="set-score" onClick={() => wsClient.send(
           JSON.stringify({
@@ -158,7 +192,7 @@ export default class Score extends React.Component {
       <tbody>
         <tr>
           <td className="right">Prime Yahtzee - <b>100</b></td>
-          {players.map((p, i) => <td key={i}>{p.score['pYahtzee']}</td>)}
+          {players.map((p, i) => this.lastCell(i, 'pYahtzee'))}
         </tr>
       </tbody>
 
