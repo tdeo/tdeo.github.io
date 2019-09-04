@@ -15,7 +15,7 @@ export default class Score extends React.Component {
   }
 
   downTotal = (player) => {
-    return ['brelan', 'carre', 'full', 'psuite', 'gsuite', 'yahtzee', 'chance'].reduce((acc, i) => acc + (player.score[i] || 0), 0);
+    return ['brelan', 'carre', 'full', 'pSuite', 'gSuite', 'yahtzee', 'chance'].reduce((acc, i) => acc + (player.score[i] || 0), 0);
   }
 
   grandTotal = (player) => {
