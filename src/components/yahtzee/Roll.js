@@ -11,17 +11,43 @@ export default class Roll extends React.Component {
   }
 
   render() {
-    const { currentRoll, currentPlayer, me, wsClient } = this.props;
+    const { currentRoll, currentPlayer, me, wsClient, players } = this.props;
 
-    let cur = this.props.players.find(e => e.id === currentPlayer);
+    let cur = players.find(e => e.id === currentPlayer);
+
+    if (players.every(p => Object.keys(p.score).length >= 14)) {
+      return <Grid>
+        <Row>
+          <Col xs={12}>
+            La partie est finie !
+          </Col>
+        </Row>
+      </Grid>;
+    }
+
+    console.log(currentPlayer)
 
     if (!currentPlayer) {
-      return <Grid><Row><Col xs={12}>
-        La partie est finie ou on attend encore des joueurs.
-      </Col></Row></Grid>;
+      return <Grid>
+        <Row>
+          <Col xs={12}>
+            Joueurs connectés : {players.filter(p => p.id).map(p => p.name).join(', ')}
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            On attend encore des joueurs pour commencer.
+          </Col>
+        </Row>
+      </Grid>;
     }
 
     return <Grid>
+      <Row>
+        <Col xs={12}>
+          Joueurs connectés : {players.filter(p => p.id).map(p => p.name).join(', ')}
+        </Col>
+      </Row>
       <Row>
         {(currentPlayer !== me) && <Col xs={12}>
           {cur.name} est en train de jouer :
