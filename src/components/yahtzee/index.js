@@ -8,15 +8,20 @@ import Score from './Score';
 
 import './yahtzee.css';
 
+const WS_URL = (window.location.hostname === 'localhost')
+  ? 'ws://localhost:8000'
+  : 'wss://yahtzeee.herokuapp.com';
+
 export default class Yahtzee extends React.Component {
   state = {};
 
   componentDidMount() {
-    this.wsClient = new W3CWebSocket('wss://yahtzeee.herokuapp.com');
+    this.wsClient = new W3CWebSocket(WS_URL);
 
     this.wsClient.onerror = console.warn;
 
     this.wsClient.onmessage = (message) => {
+      console.log(JSON.parse(message.data))
       this.setState(JSON.parse(message.data));
     };
     this.wsClient.onclose = () => {

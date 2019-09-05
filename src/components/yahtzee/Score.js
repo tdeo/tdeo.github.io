@@ -27,6 +27,8 @@ export default class Score extends React.Component {
     if (!roll) {
       return;
     }
+
+    roll = roll.map(r => r.value);
     let h = {};
     for (let i = 0; i < roll.length; i++) {
       if (!h[roll[i]]) {

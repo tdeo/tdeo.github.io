@@ -63,7 +63,7 @@ export default class Roll extends React.Component {
                   [j]: !this.state.blocked[j],
                 }
               })}>
-              {r}
+              {r.value}
             </Button>)}
           </ButtonToolbar>
         </Col>)}
