@@ -25,8 +25,6 @@ export default class Roll extends React.Component {
       </Grid>;
     }
 
-    console.log(currentPlayer)
-
     if (!currentPlayer) {
       return <Grid>
         <Row>

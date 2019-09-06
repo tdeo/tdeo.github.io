@@ -29,6 +29,6 @@ jobs:
         EMAIL: thierry.deo@gmail.com
       run: |
         yarn exec gh-pages -- \
-          -r https://tdeo:${{ secrets.GH_PAT }}@github.com/tdeo/tdeo.github.io \
+          -r https://tdeo:${{ secrets.GITHUB_PERSONNAL_ACCESS_TOKEN }}@github.com/tdeo/tdeo.github.io \
           -d build \
           -b master
