@@ -4,9 +4,11 @@ import { Grid, ButtonToolbar, Button, Row, Col } from 'react-bootstrap';
 export default class Roll extends React.Component {
   state = { blocked: {} };
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentRoll.length === 0) {
-      this.setState({ blocked: {} });
+  static getDerivedStateFromProps(props) {
+    if (props.currentRoll.length === 0) {
+      return { blocked: {} };
+    } else {
+      return null;
     }
   }
 
@@ -40,6 +42,11 @@ export default class Roll extends React.Component {
       </Grid>;
     }
 
+    if (this.rollCount !== currentRoll.length) {
+      this.prevBlock = Object.assign({}, this.state.blocked);
+      this.rollCount = currentRoll.length;
+    }
+
     return <Grid>
       <Row>
         <Col xs={12}>
@@ -53,7 +60,9 @@ export default class Roll extends React.Component {
         {currentRoll.map((rolls, i) => <Col key={i} xs={12}>
           <ButtonToolbar>
             {rolls.map((r, j) => <Button key={j}
-              className={this.state.blocked[j] ? 'dice dice-blocked' : 'dice'}
+              className={'dice ' +
+                (this.prevBlock[j] ? '' : 'dice-roll ') +
+                (this.state.blocked[j] ? 'dice-blocked' : '')}
               disabled={i !== currentRoll.length - 1}
               onClick={() => this.setState({
                 blocked: {

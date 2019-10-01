@@ -11,6 +11,25 @@ th.right, td.right {
   color: white;
 }
 
+@keyframes dice-roll {
+  from {
+    color: transparent;
+    transform: rotate(-3600deg);
+  }
+  70% {
+    color: transparent;
+    transform: rotate(0deg);
+  }
+  to {
+    color: initial;
+    transform: rotate(360deg);
+  }
+}
+
+.dice-roll {
+  animation: dice-roll 0.9s ease-out;
+}
+
 .dice-blocked {
   background-color: #e57373 !important;
   color: black;

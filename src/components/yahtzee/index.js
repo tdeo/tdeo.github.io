@@ -34,7 +34,7 @@ export default class Yahtzee extends React.Component {
   }
 
   render() {
-    if (!this.state.me) {
+    if (!this.state.me || this.state.players.length === 0) {
       return <Grid>
         <Connect wsClient={this.wsClient} {...this.state}/>
       </Grid>;

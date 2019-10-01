@@ -35,6 +35,11 @@ export default class Experiments extends React.Component {
         url: '/maps',
         content: 'Creates a satellite map of a region by re-aggregating different satellite images together.',
       },
+      {
+        title: 'Yahtzee',
+        url: '/yahtzee',
+        content: 'Yahtzee game, with websockets',
+      },
     ];
 
     return (

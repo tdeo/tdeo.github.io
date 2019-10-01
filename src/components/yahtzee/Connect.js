@@ -39,9 +39,13 @@ export default class Connect extends React.Component {
             <Bs.FormControl type="text" placeholder="Toto"
               value={this.state.name} onChange={this.changeName} />
             <Bs.InputGroup.Button>
-              <Bs.Button type="submit" onClick={() => wsClient.send(
-                JSON.stringify({ type: 'newPlayer', name: this.state.name })
-              )}>Rejoindre</Bs.Button>
+              <Bs.Button type="submit" onClick={(e) => {
+                e.preventDefault();
+                wsClient.send(
+                  JSON.stringify({ type: 'newPlayer', name: this.state.name })
+                );
+                return false;
+              }}>Rejoindre</Bs.Button>
             </Bs.InputGroup.Button>
           </Bs.InputGroup>
         </Bs.Form>
