@@ -61,7 +61,8 @@ export default class Roll extends React.Component {
           <ButtonToolbar>
             {rolls.map((r, j) => <Button key={j}
               className={'dice ' +
-                (this.prevBlock[j] ? '' : 'dice-roll ') +
+                (!this.prevBlock[j] &&
+                 (i === this.rollCount - 1) ? 'dice-roll ' : '') +
                 (this.state.blocked[j] ? 'dice-blocked' : '')}
               disabled={i !== currentRoll.length - 1}
               onClick={() => this.setState({
