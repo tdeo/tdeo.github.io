@@ -21,7 +21,6 @@ export default class Yahtzee extends React.Component {
     this.wsClient.onerror = console.warn;
 
     this.wsClient.onmessage = (message) => {
-      console.log(message.data);
       this.setState(JSON.parse(message.data));
     };
     this.wsClient.onclose = () => {
