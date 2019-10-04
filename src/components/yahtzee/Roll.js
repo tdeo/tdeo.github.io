@@ -63,9 +63,10 @@ export default class Roll extends React.Component {
               className={'dice ' +
                 (!this.prevBlock[j] &&
                  (i === this.rollCount - 1) ? 'dice-roll ' : '') +
-                (this.state.blocked[j] ? 'dice-blocked' : '')}
+                (r.blocked || (this.state.blocked[j] && (i === this.rollCount - 1))
+                  ? 'dice-blocked' : '')}
               disabled={i !== currentRoll.length - 1}
-              onClick={() => this.setState({
+              onClick={() => (currentPlayer === me) && this.setState({
                 blocked: {
                   ...this.state.blocked,
                   [j]: !this.state.blocked[j],

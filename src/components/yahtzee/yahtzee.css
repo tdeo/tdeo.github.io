@@ -9,6 +9,7 @@ th.right, td.right {
   font-weight: bold;
   background-color: #f44336 !important;
   color: white;
+  position: relative;
 }
 
 @keyframes dice-roll {
@@ -33,6 +34,18 @@ th.right, td.right {
 .dice-blocked {
   background-color: #e57373 !important;
   color: black;
+}
+
+.dice-blocked::after {
+  content: "";
+  display: block;
+  background-size: contain;
+  background-image: url(/images/lock.svg);
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  width: 15px;
+  height: 15px;
 }
 
 .dice[disabled] {
