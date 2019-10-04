@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="400px" height="400px" viewbox="0 0 400 400">
+  <g>
+    <path
+      d="M70,360 h260 v-170 h-260 z
+         M120,170 L120,100 C 120,20 280,20 280,100 L280,170"
+      fill="none"
+      stroke-width="80"
+      stroke="#000" />
+
+    <path
+      d="M175,350 L225,350 L215,260 L185,260 z"
+      stroke="none"
+      fill="black"/>
+    <circle cx="200" cy="240" r="35"
+      stroke="none"
+      fill="black" />
+  </g>
+</svg>
