@@ -25,7 +25,7 @@ export default class Connect extends React.Component {
         Je suis :
         <Bs.ButtonToolbar>
           {players.map((p, i) => <Bs.Button key={i}
-            disabled={p.id}
+            disabled={!!p.id}
             onClick={() => wsClient.send(
               JSON.stringify({ type: 'player', idx: i })
             )}>

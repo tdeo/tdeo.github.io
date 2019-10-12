@@ -53,6 +53,35 @@ th.right, td.right {
   color: #444 !important;
 }
 
+.last-turn {
+  font-weight: 800;
+}
+
+.tooltip-trigger {
+  display: inline-block;
+  text-align: center;
+  float: right;
+  margin-top: 4px;
+  font-size: 10px;
+  width: 12px;
+  height: 12px;
+  font-weight: 800;
+  background-color: #333;
+  color: white;
+  border-radius: 50%;
+}
+
+.roll-tooltip.tooltip.in {
+  opacity: 1;
+}
+
+.roll-tooltip .tooltip-inner {
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #bbb;
+  box-shadow: 0 0 2px #ccc;
+}
+
 .row {
   margin-top: -10px;
 }

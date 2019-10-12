@@ -1,9 +1,11 @@
 import React from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, OverlayTrigger, Tooltip, ButtonGroup } from 'react-bootstrap';
 
 export default class Score extends React.Component {
   numbersTotal = (player) => {
-    return [1,2,3,4,5,6].reduce((acc, i) => (acc + (player.score[i] || 0)), 0);
+    return [1,2,3,4,5,6].reduce((acc, i) => (
+      acc + ((player.score[i] || {}).score || 0)),
+    0);
   }
 
   numbersBonus = (player) => {
@@ -15,7 +17,7 @@ export default class Score extends React.Component {
   }
 
   downTotal = (player) => {
-    return ['brelan', 'carre', 'full', 'pSuite', 'gSuite', 'yahtzee', 'chance'].reduce((acc, i) => acc + (player.score[i] || 0), 0);
+    return ['brelan', 'carre', 'full', 'pSuite', 'gSuite', 'yahtzee', 'chance'].reduce((acc, i) => acc + ((player.score[i] || {}).score || 0), 0);
   }
 
   grandTotal = (player) => {
@@ -80,13 +82,33 @@ export default class Score extends React.Component {
           JSON.stringify({
             type: 'score',
             cat: cat,
-            score: this.scoreFor(cat),
+            score: this.scoreFor(cat) || 0,
           }))}>
-          {this.scoreFor(cat)}
+          {this.scoreFor(cat) || '-'}
         </Button>
       </td>;
+    } else if (!player.score[cat]) {
+      return <td />;
     } else {
-      return <td key={i}>{player.score[cat]}</td>;
+      return <td key={i} className={player.lastTurn === cat ? 'last-turn' : ''}>
+        {(player.score[cat] || {}).score}
+        &nbsp;
+        <OverlayTrigger
+          placement="left"
+          overlay={<Tooltip className="roll-tooltip">
+              {player.score[cat].rolls.map((rolls, i) =>
+                <ButtonGroup style={{ margin: 5 }}>
+                {rolls.map((r, j) => <Button key={j}
+                  className={'dice ' + (
+                      r.blocked ? 'dice-blocked' : '')}
+                  disabled>
+                  {r.value}
+                </Button>)}
+            </ButtonGroup>)}
+          </Tooltip>}>
+          <span className="tooltip-trigger">i</span>
+        </OverlayTrigger>
+      </td>;
     }
   }
 
