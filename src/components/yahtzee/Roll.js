@@ -77,9 +77,11 @@ export default class Roll extends React.Component {
           </ButtonToolbar>
         </Col>)}
         <Col xs={12}>
-          {(currentRoll.length < 3) && (currentPlayer === me) && <Button onClick={() => wsClient.send(
-            JSON.stringify({ type: 'roll', blocked: this.state.blocked })
-          )}>Lancer</Button>}
+          {(currentRoll.length < 3) && (currentPlayer === me) && <Button
+            onClick={() => wsClient.send(
+              JSON.stringify({ type: 'roll', blocked: this.state.blocked })
+            )}
+            style={{ marginButton: 20 }}>Lancer</Button>}
         </Col>
       </Row>
     </Grid>;

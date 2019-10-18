@@ -88,7 +88,7 @@ export default class Score extends React.Component {
         </Button>
       </td>;
     } else if (!player.score[cat]) {
-      return <td />;
+      return <td key={i} />;
     } else {
       return <td key={i} className={player.lastTurn === cat ? 'last-turn' : ''}>
         {(player.score[cat] || {}).score}
@@ -96,15 +96,15 @@ export default class Score extends React.Component {
         <OverlayTrigger
           placement="left"
           overlay={<Tooltip className="roll-tooltip">
-              {player.score[cat].rolls.map((rolls, i) =>
-                <ButtonGroup style={{ margin: 5 }}>
+            {player.score[cat].rolls.map((rolls, i) =>
+              <ButtonGroup style={{ margin: 5 }} key={i}>
                 {rolls.map((r, j) => <Button key={j}
                   className={'dice ' + (
-                      r.blocked ? 'dice-blocked' : '')}
+                    r.blocked ? 'dice-blocked' : '')}
                   disabled>
                   {r.value}
                 </Button>)}
-            </ButtonGroup>)}
+              </ButtonGroup>)}
           </Tooltip>}>
           <span className="tooltip-trigger">i</span>
         </OverlayTrigger>

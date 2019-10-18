@@ -2,6 +2,7 @@ import React from 'react';
 import { Col, Grid, Row } from 'react-bootstrap';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 
+import Chat from './Chat';
 import Connect from './Connect';
 import Roll from './Roll';
 import Score from './Score';
@@ -42,11 +43,15 @@ export default class Yahtzee extends React.Component {
 
     return <Grid>
       <Row>
-        <Col sm={12} md={6}>
+        <Col xs={12} sm={6} smPush={6} md={3} mdPush={3}>
+          <Chat wsClient={this.wsClient} {...this.state} />
+        </Col>
+
+        <Col xs={12} sm={6} smPull={6} md={3} mdPull={3}>
           <Roll wsClient={this.wsClient} {...this.state} />
         </Col>
 
-        <Col sm={12} md={6}>
+        <Col xs={12} md={6}>
           <Score wsClient={this.wsClient} {...this.state} />
         </Col>
       </Row>
