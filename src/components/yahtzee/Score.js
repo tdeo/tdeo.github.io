@@ -21,7 +21,7 @@ export default class Score extends React.Component {
   }
 
   grandTotal = (player) => {
-    return this.downTotal(player) + this.numbersGrandTotal(player) + (player.score['pYahtzee'] || 0);
+    return this.downTotal(player) + this.numbersGrandTotal(player) + ((player.score['pYahtzee'] || {}).score || 0);
   }
 
   scoreFor = (cat) => {
@@ -127,13 +127,13 @@ export default class Score extends React.Component {
           JSON.stringify({
             type: 'score',
             cat: cat,
-            score: this.scoreFor(cat),
+            score: this.scoreFor(cat) || 0,
           }))}>
-          {this.scoreFor(cat)}
+          {this.scoreFor(cat) || '-'}
         </Button>
       </td>;
     } else {
-      return <td key={i}>{player.score[cat]}</td>;
+      return <td key={i}>{(player.score[cat] || {}).score}</td>;
     }
   }
 

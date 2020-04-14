@@ -93,4 +93,5 @@ th.right, td.right {
 }
 .set-score {
   padding: 0 10px;
+  margin: -2px 0;
 }
