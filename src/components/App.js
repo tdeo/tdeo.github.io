@@ -23,6 +23,8 @@ import Yahtzee from './yahtzee';
 // Not found
 import NotFound from './NotFound';
 
+import TheGame from './TheGame';
+
 const shortcutManager = new ShortcutManager(keymap);
 
 if (window.location.hostname !== 'localhost') {
@@ -67,6 +69,7 @@ export default class App extends React.Component {
             <Route path="/cv" component={Cv} />
             <Route path="/procedural" component={Procedural} />
             <Route path="/yahtzee" component={Yahtzee} />
+            <Route path="/thegame" component={TheGame} />
             <Route component={NotFound} />
           </Switch>
         </div>

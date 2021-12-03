@@ -5,8 +5,8 @@
   "email": "thierry.deo@gmail.com",
   "github": "https://github.com/tdeo",
   "pitch": [
-    "Après avoir passé 4 ans à développer un projet pour l'hôtellerie au sein d'une start-up puis après son rachat, les problématiques m'ayant passionné sont celles de conception de nouvelles fonctionnalités, de scaling et d'orchestration de l'infrastructure.",
-    "Je recherche aujourd'hui un projet technique, qui me permette également de participer activement à la conception et le développement du produit."
+    "Développeur full-stack expérimenté sur Ruby-on-Rails, Node.JS et React, je suis passionné de trouver des solutions pour les utilisateurs et créer les réponses techniques à leurs problèmes.",
+    "J'aime concevoir et construire des systèmes informatiques complexes et accompagner une équipe de développeurs dans les choix techniques."
   ],
   "languages": [
     { "val": 100, "desc": "Français<br /><small>Natif</small>" },
@@ -22,13 +22,30 @@
     "title": "Expérience professionnelle",
     "items": [
       {
+        "company": "Rev",
+        "place": "Remote",
+        "date": "Depuis Janvier 2020",
+        "text": [
+          "Co-Founder et Lead Développeur"
+        ],
+        "bullets": [
+          "Gestion de l'équipe des développeurs",
+          "Création du logiciel comptable"
+        ]
+      },
+      {
         "company": "Reecall",
         "place": "Lyon",
-        "date": "Janvier 2019",
+        "date": "Jan.&nbsp;2019&nbsp;-&nbsp;Jan.&nbsp;2020",
         "text": [
           "Développeur Sénior et Architecte Logiciel"
         ],
-        "bullets": []
+        "bullets": [
+          "Mise en place de l'architecture micro-services Node.JS sur AWS et Microsoft Azure",
+          "Mise en place de la base MongoDB et d'une API Node.JS",
+          "Développement de micro-services Node.JS",
+          "Développement du back-office interne en React avec la librairie <i>react-admin</i>"
+        ]
       },
       {
         "company": "Booking.com",
@@ -38,7 +55,7 @@
           "Transfert suite au rachat de PriceMatch, Développeur Sénior et Team Lead."
         ],
         "bullets": [
-          "Intégration du produit avec les structures de donnés existantes, scaling du code et de l'infrastructure de 1000 à 200&nbsp;000 clients.",
+          "Intégration du produit avec les structures de données existantes, scaling du code et de l'infrastructure de 1000 à 200&nbsp;000 clients.",
           "Migration de l'infrastructure: bases de données MySQL et NoSQL, déploiements en utilisant <i>Docker</i> et <i>OpenShift</i>.",
           "Mise en place de nombreux outils pour l'environnement de développement: réplication de bases de données, utilisation de <i>Docker</i>, automatisation du pipeline de test et déploiement."
         ]
@@ -93,7 +110,7 @@
       },
       {
         "name": "Informatique",
-        "desc": "Passionné par l'algorithmie et les nouvelles technologies. Participation à des compétitions : ACM ICPC en 2014 et en ligne. Nombreux défis et exercices en ligne (Project Euler, Hackerrank, Advent of Code)."
+        "desc": "Passionné par l'algorithmie et les nouvelles technologies. Participation à des compétitions : ACM ICPC en 2014 et en ligne. Nombreux défis et exercices en ligne (Project Euler, Hackerrank, Advent of Code, BattleDev, Codingame)."
       }
     ]
   }

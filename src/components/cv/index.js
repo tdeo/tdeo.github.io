@@ -130,13 +130,13 @@ export default class Cv extends React.Component {
             <Col xs={0} />
 
             <Col xs={12} sm={8} className="right-panel">
-              <Row>
+              <Row style={{ pageBreakAfter: 'avoid' }}>
                 <Col xs={12}><h3>{this.data.pro_exp.title}</h3></Col>
               </Row>
 
               {this.data.pro_exp.items.map((item, i) => {
                 return (
-                  <Row className="narrow" key={i}>
+                  <Row className="narrow" key={i}  style={{ pageBreakInside: 'never' }}>
                     <Col xs={12} sm={5}>
                       <h4 className='small-caps' dangerouslySetInnerHTML={{ __html: item.company }} />
                     </Col>
@@ -161,13 +161,13 @@ export default class Cv extends React.Component {
                 );
               })}
 
-              <Row>
+              <Row style={{ pageBreakAfter: 'avoid', pageBreakBefore: 'always' }}>
                 <Col xs={12}><h3>{this.data.education.title}</h3></Col>
               </Row>
 
               {this.data.education.items.map((item, i) => {
                 return (
-                  <Row className="narrow" key={i}>
+                  <Row className="narrow" key={i}  style={{ pageBreakInside: 'never' }}>
                     <Col xs={12} sm={9}>
                       <h4 className='small-caps' dangerouslySetInnerHTML={{ __html: item.school }} />
                     </Col>
